@@ -1,5 +1,18 @@
-[gd_scene load_steps=0 format=3 uid="uid://dkohklnivksp5"]
+[gd_scene load_steps=4 format=3 uid="uid://dkohklnivksp5"]
+
+[ext_resource type="Texture2D" uid="uid://dyml5dmaek3nv" path="res://sea.png" id="1_wtcfe"]
+[ext_resource type="Texture2D" uid="uid://ubwe0l72dydc" path="res://fish_orange.png" id="2_epypp"]
+[ext_resource type="Script" uid="uid://0i18t5l028py" path="res://fish.gd" id="3_0hol4"]
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Fish" type="Node2D" parent="."]
+[node name="Sea" type="Sprite2D" parent="."]
+position = Vector2(574.75, 327.25)
+scale = Vector2(1.16366, 1.17979)
+texture = ExtResource("1_wtcfe")
+
+[node name="Fish" type="Sprite2D" parent="."]
+position = Vector2(420, 257)
+scale = Vector2(3.71875, 3.39062)
+texture = ExtResource("2_epypp")
+script = ExtResource("3_0hol4")
