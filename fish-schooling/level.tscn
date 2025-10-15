@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://cl6nsns3dq8r"]
+
+[ext_resource type="Texture2D" uid="uid://dyml5dmaek3nv" path="res://sea.png" id="1_u52ul"]
+[ext_resource type="PackedScene" uid="uid://dj1ehn1h6ktl5" path="res://fish.tscn" id="2_vonw3"]
+[ext_resource type="Script" uid="uid://brb4bty6ogdyn" path="res://Fish.cs" id="3_oi3di"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sea" type="Sprite2D" parent="."]
+position = Vector2(580.75, 325.25)
+scale = Vector2(1.17167, 1.1941)
+texture = ExtResource("1_u52ul")
+
+[node name="Fish" parent="." instance=ExtResource("2_vonw3")]
+script = ExtResource("3_oi3di")

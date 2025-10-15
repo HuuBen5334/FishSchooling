@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dj1ehn1h6ktl5"]
+
+[ext_resource type="Texture2D" uid="uid://ubwe0l72dydc" path="res://fish_orange.png" id="1_xu20i"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(66, 38)
+scale = Vector2(3.1875, 2.0625)
+texture = ExtResource("1_xu20i")
