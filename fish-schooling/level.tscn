@@ -4,7 +4,11 @@
 [ext_resource type="Script" uid="uid://cdlgecvk112lb" path="res://Flock.cs" id="2_t7iv1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vonw3"]
-bg_color = Color(1, 1, 1, 0.505882)
+bg_color = Color(1, 1, 1, 0.890196)
+corner_radius_top_left = 13
+corner_radius_top_right = 13
+corner_radius_bottom_right = 13
+corner_radius_bottom_left = 13
 
 [node name="LevelNode" type="Node2D"]
 
@@ -25,18 +29,26 @@ offset_bottom = 40.0
 [node name="Panel" type="Panel" parent="Control (HUD)"]
 layout_mode = 2
 offset_top = 14.0
-offset_right = 141.0
-offset_bottom = 210.0
+offset_right = 204.0
+offset_bottom = 267.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_vonw3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control (HUD)/Panel"]
 layout_mode = 0
-offset_top = -12.0
-offset_right = 124.0
-offset_bottom = 87.0
+offset_left = 13.0
+offset_top = 11.0
+offset_right = 99.0
+offset_bottom = 220.0
 
 [node name="fish_choice_dropdown" type="OptionButton" parent="Control (HUD)/Panel/VBoxContainer"]
 layout_mode = 2
+item_count = 3
+popup/item_0/text = "Nemo"
+popup/item_0/id = 0
+popup/item_1/text = "Shark"
+popup/item_1/id = 1
+popup/item_2/text = "Starfish"
+popup/item_2/id = 2
 
 [node name="fish_amount_spinbox" type="SpinBox" parent="Control (HUD)/Panel/VBoxContainer"]
 layout_mode = 2
@@ -45,4 +57,9 @@ value = 1.0
 rounded = true
 
 [node name="fish_spawn_button" type="Button" parent="Control (HUD)/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
+tooltip_text = "Spawn Fish"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "Spawn Fish"
