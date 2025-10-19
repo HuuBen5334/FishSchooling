@@ -12,3 +12,23 @@ texture = ExtResource("1_bexhn")
 
 [node name="Flock" type="Node2D" parent="."]
 script = ExtResource("2_t7iv1")
+
+[node name="Control (HUD)" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control (HUD)"]
+layout_mode = 0
+offset_right = 121.0
+offset_bottom = 100.0
+
+[node name="fish_choice_dropdown" type="OptionButton" parent="Control (HUD)/VBoxContainer"]
+layout_mode = 2
+
+[node name="fish_amount_spinbox" type="SpinBox" parent="Control (HUD)/VBoxContainer"]
+layout_mode = 2
+
+[node name="fish_spawn_button" type="Button" parent="Control (HUD)/VBoxContainer"]
+layout_mode = 2
