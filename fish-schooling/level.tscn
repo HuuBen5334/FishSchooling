@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://cnc13cas6p04r"]
+[gd_scene load_steps=4 format=3 uid="uid://cnc13cas6p04r"]
 
 [ext_resource type="Texture2D" uid="uid://dyml5dmaek3nv" path="res://sea.png" id="1_bexhn"]
 [ext_resource type="Script" uid="uid://cdlgecvk112lb" path="res://Flock.cs" id="2_t7iv1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vonw3"]
+bg_color = Color(1, 1, 1, 0.505882)
 
 [node name="LevelNode" type="Node2D"]
 
@@ -19,16 +22,27 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control (HUD)"]
+[node name="Panel" type="Panel" parent="Control (HUD)"]
+layout_mode = 2
+offset_top = 14.0
+offset_right = 141.0
+offset_bottom = 210.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vonw3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control (HUD)/Panel"]
 layout_mode = 0
-offset_right = 121.0
-offset_bottom = 100.0
+offset_top = -12.0
+offset_right = 124.0
+offset_bottom = 87.0
 
-[node name="fish_choice_dropdown" type="OptionButton" parent="Control (HUD)/VBoxContainer"]
+[node name="fish_choice_dropdown" type="OptionButton" parent="Control (HUD)/Panel/VBoxContainer"]
 layout_mode = 2
 
-[node name="fish_amount_spinbox" type="SpinBox" parent="Control (HUD)/VBoxContainer"]
+[node name="fish_amount_spinbox" type="SpinBox" parent="Control (HUD)/Panel/VBoxContainer"]
 layout_mode = 2
+min_value = 1.0
+value = 1.0
+rounded = true
 
-[node name="fish_spawn_button" type="Button" parent="Control (HUD)/VBoxContainer"]
+[node name="fish_spawn_button" type="Button" parent="Control (HUD)/Panel/VBoxContainer"]
 layout_mode = 2
