@@ -26,21 +26,22 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Panel" type="Panel" parent="Control (HUD)"]
+[node name="Panel (Spawner)" type="Panel" parent="Control (HUD)"]
 layout_mode = 2
-offset_top = 14.0
-offset_right = 204.0
-offset_bottom = 267.0
+offset_left = 930.0
+offset_top = 347.0
+offset_right = 1170.0
+offset_bottom = 661.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_vonw3")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control (HUD)/Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control (HUD)/Panel (Spawner)"]
 layout_mode = 0
-offset_left = 13.0
-offset_top = 11.0
-offset_right = 99.0
-offset_bottom = 220.0
+offset_left = 29.0
+offset_top = 16.0
+offset_right = 197.0
+offset_bottom = 190.0
 
-[node name="fish_choice_dropdown" type="OptionButton" parent="Control (HUD)/Panel/VBoxContainer"]
+[node name="fish_choice_dropdown" type="OptionButton" parent="Control (HUD)/Panel (Spawner)/VBoxContainer"]
 layout_mode = 2
 item_count = 3
 popup/item_0/text = "Nemo"
@@ -50,16 +51,30 @@ popup/item_1/id = 1
 popup/item_2/text = "Starfish"
 popup/item_2/id = 2
 
-[node name="fish_amount_spinbox" type="SpinBox" parent="Control (HUD)/Panel/VBoxContainer"]
+[node name="fish_amount_spinbox" type="SpinBox" parent="Control (HUD)/Panel (Spawner)/VBoxContainer"]
 layout_mode = 2
 min_value = 1.0
 value = 1.0
 rounded = true
+alignment = 1
 
-[node name="fish_spawn_button" type="Button" parent="Control (HUD)/Panel/VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
+[node name="fish_spawn_button" type="Button" parent="Control (HUD)/Panel (Spawner)/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Spawn Fish"
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 12
 text = "Spawn Fish"
+
+[node name="Panel (Census)" type="Panel" parent="Control (HUD)"]
+offset_left = 17.0
+offset_top = 516.0
+offset_right = 257.0
+offset_bottom = 645.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vonw3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control (HUD)/Panel (Census)"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 11.0
+offset_right = 99.0
+offset_bottom = 220.0
