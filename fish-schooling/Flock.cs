@@ -34,29 +34,40 @@ public partial class Flock : Node2D
     {
         var fish = new Fish();
 
+        //assign animated node2d to fish object
+        PackedScene fishScene = GD.Load<PackedScene>("res://gold_fish.tscn");
+        Node2D fishInstance = fishScene.Instantiate<Node2D>();
+
+        var sprite = fishInstance.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        sprite.Play("default");
+
+        AddChild(fishInstance);
+
+
         //Create visual as a Sprite2D using an imported PNG
-        var fishNode = new Node2D();
-        var sprite = new Sprite2D();
-        // Attempt to load a fish texture; fall back to any available sprite
-        Texture2D tex = GD.Load<Texture2D>("res://sprites/pixil-frame-0_3.png");
-        if (tex == null)
-        {
-            tex = GD.Load<Texture2D>("res://sprites/pixil-frame-0_3.png");
-        }
-        if (tex == null)
-        {
-            tex = GD.Load<Texture2D>("res://sprites/pixil-frame-0_3.png");
-        }
-        if (tex != null)
-        {
-            sprite.Texture = tex;
-            // Make sure the sprite's center is at the fish's origin so rotation works as expected
-            sprite.Centered = true;
-            // Optionally scale down if the sprite is large
-            sprite.Scale = new Vector2(0.01f, 0.01f);
-        }
-        fishNode.AddChild(sprite);
-        AddChild(fishNode);
+        // var fishNode = new Node2D();
+        // var sprite = new Sprite2D();
+        // // Attempt to load a fish texture; fall back to any available sprite
+        // Texture2D tex = GD.Load<Texture2D>("res://sprites/pixil-frame-0_3.png");
+        // if (tex == null)
+        // {
+        //     tex = GD.Load<Texture2D>("res://sprites/pixil-frame-0_3.png");
+        // }
+        // if (tex == null)
+        // {
+        //     tex = GD.Load<Texture2D>("res://sprites/pixil-frame-0_3.png");
+        // }
+        // if (tex != null)
+        // {
+        //     sprite.Texture = tex;
+        //     // Make sure the sprite's center is at the fish's origin so rotation works as expected
+        //     sprite.Centered = true;
+        //     // Optionally scale down if the sprite is large
+        //     sprite.Scale = new Vector2(0.005f, 0.005f);
+        // }
+
+        // fishNode.AddChild(sprite);
+        // AddChild(fishNode);
 
         //Set random position and velocity
         var screenSize = GetViewportRect().Size;
@@ -67,7 +78,7 @@ public partial class Flock : Node2D
         
         float angle = (float)GD.RandRange(0, 2 * Mathf.Pi);
         fish.Velocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * fish.MaxSpeed * 0.5f;
-        fish.Node = fishNode;
+        fish.Node = fishInstance;
 
         fishList.Add(fish);
     }
