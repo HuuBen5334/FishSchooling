@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cnc13cas6p04r"]
+[gd_scene load_steps=5 format=3 uid="uid://cnc13cas6p04r"]
 
 [ext_resource type="Texture2D" uid="uid://c7a2womj3hdkg" path="res://sprites/background_image.png" id="1_vonw3"]
 [ext_resource type="Script" uid="uid://cdlgecvk112lb" path="res://Flock.cs" id="2_t7iv1"]
+[ext_resource type="FontFile" uid="uid://cw0cibr8qhdcr" path="res://MedodicaRegular.otf" id="3_oi3di"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vonw3"]
 bg_color = Color(1, 1, 0.996078, 0.458824)
@@ -9,7 +10,7 @@ bg_color = Color(1, 1, 0.996078, 0.458824)
 [node name="LevelNode" type="Node2D"]
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(576.17, 324.5)
+position = Vector2(577, 323)
 scale = Vector2(0.120783, 0.119726)
 texture = ExtResource("1_vonw3")
 
@@ -39,6 +40,7 @@ offset_bottom = 190.0
 
 [node name="fish_choice_dropdown" type="OptionButton" parent="Control (HUD)/Panel (Spawner)/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_oi3di")
 item_count = 3
 popup/item_0/text = "Nemo"
 popup/item_0/id = 0
@@ -58,7 +60,8 @@ alignment = 1
 layout_mode = 2
 tooltip_text = "Spawn Fish"
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 12
+theme_override_fonts/font = ExtResource("3_oi3di")
+theme_override_font_sizes/font_size = 20
 text = "Spawn Fish"
 
 [node name="Panel (Census)" type="Panel" parent="Control (HUD)"]
