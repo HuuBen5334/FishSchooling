@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=4 uid="uid://crmdavdq1rdh2"]
+
+[ext_resource type="PackedScene" uid="uid://dkohklnivksp5" path="res://Scenes/test_fish.tscn" id="2_8581e"]
+[ext_resource type="Texture2D" uid="uid://di7esmggiir22" path="res://Tilemaps/seabed_tileset3.png" id="2_kiw4i"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kiw4i"]
+texture = ExtResource("2_kiw4i")
+3:41/size_in_atlas = Vector2i(55, 29)
+3:41/0 = 0
+72:65/size_in_atlas = Vector2i(4, 5)
+72:65/0 = 0
+77:60/size_in_atlas = Vector2i(6, 4)
+77:60/0 = 0
+91:59/size_in_atlas = Vector2i(8, 5)
+91:59/0 = 0
+100:58/size_in_atlas = Vector2i(8, 6)
+100:58/0 = 0
+79:48/size_in_atlas = Vector2i(6, 4)
+79:48/0 = 0
+85:39/size_in_atlas = Vector2i(6, 6)
+85:39/0 = 0
+85:33/size_in_atlas = Vector2i(6, 5)
+85:33/0 = 0
+94:23/size_in_atlas = Vector2i(7, 9)
+94:23/0 = 0
+80:25/size_in_atlas = Vector2i(6, 7)
+80:25/0 = 0
+63:29/size_in_atlas = Vector2i(5, 3)
+63:29/0 = 0
+74:26/size_in_atlas = Vector2i(5, 6)
+74:26/0 = 0
+101:20/size_in_atlas = Vector2i(8, 12)
+101:20/0 = 0
+86:24/size_in_atlas = Vector2i(7, 8)
+86:24/0 = 0
+101:43/size_in_atlas = Vector2i(4, 2)
+101:43/0 = 0
+105:39/size_in_atlas = Vector2i(4, 2)
+105:39/0 = 0
+105:43/size_in_atlas = Vector2i(4, 2)
+105:43/0 = 0
+105:36/size_in_atlas = Vector2i(4, 2)
+105:36/0 = 0
+101:39/size_in_atlas = Vector2i(2, 2)
+101:39/0 = 0
+66:35/size_in_atlas = Vector2i(4, 3)
+66:35/0 = 0
+63:43/size_in_atlas = Vector2i(3, 2)
+63:43/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_fmam7"]
+sources/0 = SubResource("TileSetAtlasSource_kiw4i")
+
+[node name="World" type="Node2D"]
+y_sort_enabled = true
+
+[node name="CoralLayer" type="TileMapLayer" parent="."]
+z_index = 1
+y_sort_enabled = true
+scale = Vector2(0.5, 0.5)
+tile_map_data = PackedByteArray("AABUACAAAABKABoAAABqAEMAAABeABcAAAAPABcAAABVACcAAAA7AB4AAABNADwAAAAqAA4AAABkADoAAABdADIAAABIAEEAAAAfACAAAABWABgAAAAZAAkAAABPADAAAABiABUAAAA/ACsAAABDABEAAABCACMAAABPAEcAAABNADwAAABNAC0AAABVACEAAABZAA0AAABpACcAAABlACoAAABlACsAAAB5ADYAAABpACsAAABwABwAAABlACcAAAByACwAAABQABkAAABoAAoAAABKABoAAACBAB0AAABkADoAAACEAC0AAABVACcAAAB5AA4AAABPADAAAAAeAD8AAAADACkAAABjAB8AAABbADsAAABEAD0AAABPADAAAAA2AC4AAABQABkAAAA=")
+tile_set = SubResource("TileSet_fmam7")
+
+[node name="TestFish" parent="." instance=ExtResource("2_8581e")]

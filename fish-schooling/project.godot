@@ -11,9 +11,18 @@ config_version=5
 [application]
 
 config/name="FishSchooling"
-config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+run/main_scene="uid://crmdavdq1rdh2"
+config/features=PackedStringArray("4.4", "C#", "Forward Plus")
+config/icon="res://Sprites/icon.svg"
+
+[display]
+
+window/stretch/mode="canvas_items"
 
 [dotnet]
 
 project/assembly_name="FishSchooling"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
