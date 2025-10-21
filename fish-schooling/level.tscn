@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnc13cas6p04r"]
+[gd_scene load_steps=6 format=3 uid="uid://cnc13cas6p04r"]
 
 [ext_resource type="Texture2D" uid="uid://c7a2womj3hdkg" path="res://sprites/background_image.png" id="1_vonw3"]
 [ext_resource type="Script" uid="uid://cdlgecvk112lb" path="res://Flock.cs" id="2_t7iv1"]
 [ext_resource type="FontFile" uid="uid://cw0cibr8qhdcr" path="res://MedodicaRegular.otf" id="3_oi3di"]
+[ext_resource type="PackedScene" uid="uid://d2sqvbpbuchql" path="res://gold_fish.tscn" id="4_0b4ue"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vonw3"]
 bg_color = Color(1, 1, 0.996078, 0.458824)
@@ -78,3 +79,7 @@ offset_left = 13.0
 offset_top = 11.0
 offset_right = 99.0
 offset_bottom = 220.0
+
+[node name="gold_fish" parent="." instance=ExtResource("4_0b4ue")]
+position = Vector2(-142, 380)
+rotation = 0.886188
