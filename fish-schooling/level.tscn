@@ -1,21 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://cnc13cas6p04r"]
 
-[ext_resource type="Texture2D" uid="uid://dyml5dmaek3nv" path="res://sea.png" id="1_bexhn"]
+[ext_resource type="Texture2D" uid="uid://c7a2womj3hdkg" path="res://sprites/background_image.png" id="1_vonw3"]
 [ext_resource type="Script" uid="uid://cdlgecvk112lb" path="res://Flock.cs" id="2_t7iv1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vonw3"]
-bg_color = Color(1, 1, 1, 0.890196)
-corner_radius_top_left = 13
-corner_radius_top_right = 13
-corner_radius_bottom_right = 13
-corner_radius_bottom_left = 13
+bg_color = Color(1, 1, 0.996078, 0.458824)
 
 [node name="LevelNode" type="Node2D"]
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(584.75, 330.75)
-scale = Vector2(1.20771, 1.25313)
-texture = ExtResource("1_bexhn")
+position = Vector2(576.17, 324.5)
+scale = Vector2(0.120783, 0.119726)
+texture = ExtResource("1_vonw3")
 
 [node name="Flock" type="Node2D" parent="."]
 script = ExtResource("2_t7iv1")
@@ -28,10 +24,10 @@ offset_bottom = 40.0
 
 [node name="Panel (Spawner)" type="Panel" parent="Control (HUD)"]
 layout_mode = 2
-offset_left = 930.0
-offset_top = 347.0
-offset_right = 1170.0
-offset_bottom = 661.0
+offset_left = 884.0
+offset_top = 301.0
+offset_right = 1124.0
+offset_bottom = 615.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_vonw3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control (HUD)/Panel (Spawner)"]
@@ -66,10 +62,11 @@ theme_override_font_sizes/font_size = 12
 text = "Spawn Fish"
 
 [node name="Panel (Census)" type="Panel" parent="Control (HUD)"]
-offset_left = 17.0
-offset_top = 516.0
-offset_right = 257.0
-offset_bottom = 645.0
+layout_mode = 0
+offset_left = 38.0
+offset_top = 472.0
+offset_right = 278.0
+offset_bottom = 601.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_vonw3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control (HUD)/Panel (Census)"]
