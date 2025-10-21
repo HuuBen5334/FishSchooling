@@ -24,11 +24,22 @@ public partial class Flock : Node2D
     public override void _Ready()
     {
         // Create 15 fish
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < 2; i++)
         {
             CreateFish();
         }
     }
+
+    public void SpawnFish(string type, int count)
+    {
+        // TODO: Use 'type' to determine fish characteristics, have the create fish 
+        // method accept parameters so that specific fish types can be created
+        for (int i = 0; i < count; i++)
+        {
+            CreateFish(); // uses the existing CreateFish implementation
+        }
+    }
+
     //Creates a single fish with random position/velocity and adds it to the scene
     private void CreateFish()
     {

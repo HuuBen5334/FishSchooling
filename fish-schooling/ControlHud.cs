@@ -64,6 +64,17 @@ public partial class ControlHud : Control
 			GD.Print("Please select a fish!");
 			return;
 		}
+		
+		var flock = GetNode<Flock>("../Flock");
+		if (flock != null)
+		{
+			flock.SpawnFish(selectedFish, fishCount);
+		}
+		else
+		{
+			GD.Print("Flock node not found. Adjust the path in Control_hud.cs");
+		}
+	
 		GD.Print($"Spawning {fishCount} {selectedFish}");
 		// Call the spawn method in your main scene
 		// var mainScene = GetNode<Node>("..").GetNode("Main");

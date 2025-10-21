@@ -28,10 +28,10 @@ script = ExtResource("3_f2txt")
 
 [node name="Panel_Spawner" type="Panel" parent="Control_HUD"]
 layout_mode = 2
-offset_left = 884.0
-offset_top = 301.0
-offset_right = 1124.0
-offset_bottom = 615.0
+offset_left = 877.0
+offset_top = 447.0
+offset_right = 1117.0
+offset_bottom = 600.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_vonw3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control_HUD/Panel_Spawner"]
