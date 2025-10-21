@@ -53,7 +53,7 @@ public partial class Flock : Node2D
             // Make sure the sprite's center is at the fish's origin so rotation works as expected
             sprite.Centered = true;
             // Optionally scale down if the sprite is large
-            sprite.Scale = new Vector2(0.5f, 0.5f);
+            sprite.Scale = new Vector2(0.01f, 0.01f);
         }
         fishNode.AddChild(sprite);
         AddChild(fishNode);
