@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cnc13cas6p04r"]
+[gd_scene load_steps=9 format=3 uid="uid://cnc13cas6p04r"]
 
 [ext_resource type="Texture2D" uid="uid://c7a2womj3hdkg" path="res://sprites/background_image.png" id="1_vonw3"]
 [ext_resource type="Script" uid="uid://d03sce5rmqbxu" path="res://FishManager.cs" id="2_f2txt"]
@@ -8,6 +8,22 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vonw3"]
 bg_color = Color(1, 1, 0.996078, 0.458824)
+
+[sub_resource type="FontFile" id="FontFile_f2txt"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/14/0/ascent = 0.0
+cache/0/14/0/descent = 0.0
+cache/0/14/0/underline_position = 0.0
+cache/0/14/0/underline_thickness = 0.0
+cache/0/14/0/scale = 1.0
+
+[sub_resource type="Theme" id="Theme_1ainy"]
+default_font = SubResource("FontFile_f2txt")
+default_font_size = 14
 
 [node name="LevelNode" type="Node2D"]
 
@@ -67,7 +83,7 @@ theme_override_fonts/font = ExtResource("3_oi3di")
 theme_override_font_sizes/font_size = 20
 text = "Spawn Fish"
 
-[node name="Panel (Census)" type="Panel" parent="Control_HUD"]
+[node name="Panel _Census" type="Panel" parent="Control_HUD"]
 layout_mode = 0
 offset_left = 38.0
 offset_top = 472.0
@@ -75,12 +91,18 @@ offset_right = 278.0
 offset_bottom = 601.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_vonw3")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control_HUD/Panel (Census)"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control_HUD/Panel _Census"]
 layout_mode = 0
-offset_left = 13.0
-offset_top = 11.0
-offset_right = 99.0
-offset_bottom = 220.0
+offset_left = 1.0
+offset_top = 4.0
+offset_right = 237.0
+offset_bottom = 123.0
+
+[node name="fish_count_label" type="Label" parent="Control_HUD/Panel _Census/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1ainy")
+horizontal_alignment = 1
+max_lines_visible = 1
 
 [node name="gold_fish" parent="." instance=ExtResource("4_0b4ue")]
 position = Vector2(-142, 380)

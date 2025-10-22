@@ -43,6 +43,12 @@ public partial class ControlHud : Control
 	
 	private void OnSpawnPressed()
 	{
+		if (string.IsNullOrEmpty(selectedFish))
+		{
+			GD.Print("Please select a fish!");
+			return;
+		}
+
 		// Update the path to find FishManager instead of Flock
 		var fishManager = GetNode<FishManager>("../FishManager");
 		if (fishManager != null)
@@ -54,5 +60,12 @@ public partial class ControlHud : Control
 		{
 			GD.PrintErr("FishManager node not found!");
 		}
+	}
+	
+	public void UpdateFishCount(int count)
+	{
+		var fishLabel = GetNode<Label>("Panel_Census/VBoxContainer/fish_count_label");
+		GD.Print("Updating fish count display");
+		fishLabel.Text = $"Active Fish: {count}";
 	}
 }

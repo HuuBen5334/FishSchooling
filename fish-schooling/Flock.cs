@@ -3,22 +3,28 @@ using System.Collections.Generic;
 
 public partial class Flock : Node2D
 {
-	//Fish class
-	//Represents a single fish in the flock with position, velocity, and physical properties
-	public class Fish
-	{
-		public Vector2 Position { get; set; }
-		public Vector2 Velocity { get; set; }
-		public float MaxSpeed { get; set; } = 100.0f;
-		public float SafeRadius { get; set; } = 30.0f;
-		public Node2D Node { get; set; }
-	}
-	//Collection of all fish in the flock
-	private List<Fish> fishList = new List<Fish>();
-	private float flockRadius = 150.0f;
-	private float alignmentStrength = 1.0f;
-	private float cohesionStrength = 1.0f;
-	private float separationStrength = 2.0f;
+    //Fish class
+    //Represents a single fish in the flock with position, velocity, and physical properties
+    public class Fish
+    {
+        public Vector2 Position { get; set; }
+        public Vector2 Velocity { get; set; }
+        public float MaxSpeed { get; set; } = 100.0f;
+        public float SafeRadius { get; set; } = 30.0f;
+        public Node2D Node { get; set; }
+        public string Type { get; set; } = "nemo";
+    }
+    //Collection of all fish in the flock
+    private List<Fish> fishList = new List<Fish>();
+    private float flockRadius = 150.0f;
+    private float alignmentStrength = 1.0f;
+    private float cohesionStrength = 1.0f;
+    private float separationStrength = 2.0f;
+
+    public int GetFishCount()
+    {
+        return fishList.Count;
+    }
 
 	//initializes the fish school
 	public override void _Ready()
