@@ -64,7 +64,7 @@ public partial class ControlHud : Control
 			GD.Print("Please select a fish!");
 			return;
 		}
-		
+
 		var flock = GetNode<Flock>("../Flock");
 		if (flock != null)
 		{
@@ -74,10 +74,20 @@ public partial class ControlHud : Control
 		{
 			GD.Print("Flock node not found. Adjust the path in Control_hud.cs");
 		}
-	
+
 		GD.Print($"Spawning {fishCount} {selectedFish}");
+
+		int currentFishCount = flock != null ? flock.GetFishCount() : 0;
+		UpdateFishCount(currentFishCount);
 		// Call the spawn method in your main scene
 		// var mainScene = GetNode<Node>("..").GetNode("Main");
 		// mainScene.Call("spawn_fish", selectedFish, fishCount);
+	}
+	
+	public void UpdateFishCount(int count)
+	{
+		var fishLabel = GetNode<Label>("Panel_Census/VBoxContainer/fish_count_label");
+		GD.Print("Updating fish count display");
+		fishLabel.Text = $"Active Fish: {count}";
 	}
 }
