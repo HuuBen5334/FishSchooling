@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://cnc13cas6p04r"]
+[gd_scene load_steps=10 format=3 uid="uid://cnc13cas6p04r"]
 
 [ext_resource type="Texture2D" uid="uid://c7a2womj3hdkg" path="res://sprites/background_image.png" id="1_vonw3"]
 [ext_resource type="Script" uid="uid://d03sce5rmqbxu" path="res://FishManager.cs" id="2_f2txt"]
 [ext_resource type="Script" uid="uid://1tkjymkctcto" path="res://ControlHud.cs" id="3_f2txt"]
 [ext_resource type="FontFile" uid="uid://cw0cibr8qhdcr" path="res://MedodicaRegular.otf" id="3_oi3di"]
 [ext_resource type="PackedScene" uid="uid://d2sqvbpbuchql" path="res://gold_fish.tscn" id="4_0b4ue"]
+[ext_resource type="PackedScene" uid="uid://npp7kl3rl4pc" path="res://shark.tscn" id="6_m3clv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vonw3"]
 bg_color = Color(1, 1, 0.996078, 0.458824)
@@ -107,3 +108,6 @@ max_lines_visible = 1
 [node name="gold_fish" parent="." instance=ExtResource("4_0b4ue")]
 position = Vector2(-142, 380)
 rotation = 0.886188
+
+[node name="shark" parent="." instance=ExtResource("6_m3clv")]
+position = Vector2(-66, 122)

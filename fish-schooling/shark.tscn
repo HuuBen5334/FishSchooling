@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://npp7kl3rl4pc"]
+
+[ext_resource type="Texture2D" uid="uid://btbdlm66sr3oo" path="res://sprites/shark_animation/shark_tile1.png" id="1_p1hqx"]
+[ext_resource type="Texture2D" uid="uid://dddgoyso2l52y" path="res://sprites/shark_animation/shark_tile2.png" id="2_ocxqc"]
+[ext_resource type="Texture2D" uid="uid://b7yswo0yhdvtd" path="res://sprites/shark_animation/shark_tile3.png" id="3_sd3ew"]
+[ext_resource type="Texture2D" uid="uid://c0gt3hpjnvho4" path="res://sprites/shark_animation/shark_tile4.png" id="4_lnlia"]
+[ext_resource type="Texture2D" uid="uid://cnjjl7xvee7od" path="res://sprites/shark_animation/shark_tile5.png" id="5_dyvsu"]
+[ext_resource type="Texture2D" uid="uid://bcv5oq5lhrmyw" path="res://sprites/shark_animation/shark_tile6.png" id="6_bjcji"]
+[ext_resource type="Texture2D" uid="uid://cl7eu2vji8aak" path="res://sprites/shark_animation/shark_tile7.png" id="7_8rbtx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sd3ew"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_p1hqx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ocxqc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_sd3ew")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_lnlia")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_dyvsu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_bjcji")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_8rbtx")
+}],
+"loop": true,
+"name": &"shark_swim",
+"speed": 10.0
+}]
+
+[node name="shark" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.7, 1.7)
+sprite_frames = SubResource("SpriteFrames_sd3ew")
+animation = &"shark_swim"
+frame_progress = 0.107425
