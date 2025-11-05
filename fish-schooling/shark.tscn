@@ -40,7 +40,9 @@ animations = [{
 [node name="shark" type="Node2D"]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 1.5708
 scale = Vector2(1.7, 1.7)
 sprite_frames = SubResource("SpriteFrames_sd3ew")
 animation = &"shark_swim"
-frame_progress = 0.107425
+frame = 5
+frame_progress = 0.531605
