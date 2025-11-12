@@ -1,0 +1,49 @@
+[gd_scene load_steps=10 format=3 uid="uid://d2sqvbpbuchql"]
+
+[ext_resource type="Texture2D" uid="uid://bibpxijov7j5a" path="res://sprites/gold_fish_animation/pixil-frame-0.png" id="1_6y3dn"]
+[ext_resource type="Texture2D" uid="uid://bgc1vmk04abcs" path="res://sprites/gold_fish_animation/pixil-frame-1.png" id="2_w1hu5"]
+[ext_resource type="Texture2D" uid="uid://1xtq2dsuvy1o" path="res://sprites/gold_fish_animation/pixil-frame-2.png" id="3_gfvxi"]
+[ext_resource type="Texture2D" uid="uid://lbei36kv6ym7" path="res://sprites/gold_fish_animation/pixil-frame-3.png" id="4_hspvv"]
+[ext_resource type="Texture2D" uid="uid://bcyurdgkkkh22" path="res://sprites/gold_fish_animation/pixil-frame-4.png" id="5_yvtbi"]
+[ext_resource type="Texture2D" uid="uid://dfp3ljcohjxdo" path="res://sprites/gold_fish_animation/pixil-frame-5.png" id="6_i36og"]
+[ext_resource type="Texture2D" uid="uid://beg2kdq7cbms5" path="res://sprites/gold_fish_animation/pixil-frame-6.png" id="7_irn3o"]
+[ext_resource type="Texture2D" uid="uid://co5vc6l4k5k5w" path="res://sprites/gold_fish_animation/pixil-frame-7.png" id="8_pppcq"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qyt37"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_6y3dn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_w1hu5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_gfvxi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_hspvv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_yvtbi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_i36og")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_irn3o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_pppcq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="gold_fish" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 1.47653
+sprite_frames = SubResource("SpriteFrames_qyt37")
+frame_progress = 0.540556
