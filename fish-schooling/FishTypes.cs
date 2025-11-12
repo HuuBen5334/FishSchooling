@@ -38,13 +38,13 @@ public partial class SharkFish : BaseFish
 
 	protected override void SetupVisual()
 	{
-		var fishScene = GD.Load<PackedScene>("res://gold_fish.tscn");
+		var fishScene = GD.Load<PackedScene>("res://shark.tscn");
 		var instance = fishScene.Instantiate();
 		AddChild(instance);
 		sprite = instance.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		sprite.Play("default");
+		sprite.Play("shark_swim");
 		sprite.Modulate = new Color(0.5f, 0.5f, 0.5f); // Darker
-		Scale = new Vector2(1.5f, 1.5f); // Bigger
+		// Scale = new Vector2(1.5f, 1.5f); // Bigger
 	}
 
 	protected override void SetupBehaviors()
