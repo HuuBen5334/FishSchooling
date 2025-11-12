@@ -4,22 +4,25 @@
 [ext_resource type="Script" uid="uid://d03sce5rmqbxu" path="res://FishManager.cs" id="2_f2txt"]
 [ext_resource type="Script" uid="uid://1tkjymkctcto" path="res://ControlHud.cs" id="3_f2txt"]
 [ext_resource type="FontFile" uid="uid://cw0cibr8qhdcr" path="res://MedodicaRegular.otf" id="3_oi3di"]
-[ext_resource type="PackedScene" uid="uid://d2sqvbpbuchql" path="res://gold_fish.tscn" id="4_0b4ue"]
+[ext_resource type="PackedScene" path="res://gold_fish.tscn" id="4_0b4ue"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vonw3"]
 bg_color = Color(1, 1, 0.996078, 0.458824)
 
 [sub_resource type="FontFile" id="FontFile_f2txt"]
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
 cache/0/14/0/ascent = 0.0
 cache/0/14/0/descent = 0.0
 cache/0/14/0/underline_position = 0.0
 cache/0/14/0/underline_thickness = 0.0
 cache/0/14/0/scale = 1.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
 
 [sub_resource type="Theme" id="Theme_1ainy"]
 default_font = SubResource("FontFile_f2txt")
