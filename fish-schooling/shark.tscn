@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://npp7kl3rl4pc"]
+[gd_scene load_steps=10 format=3 uid="uid://npp7kl3rl4pc"]
 
 [ext_resource type="Texture2D" uid="uid://btbdlm66sr3oo" path="res://sprites/shark_animation/shark_tile1.png" id="1_p1hqx"]
 [ext_resource type="Texture2D" uid="uid://dddgoyso2l52y" path="res://sprites/shark_animation/shark_tile2.png" id="2_ocxqc"]
@@ -37,12 +37,22 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="shark" type="Node2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p1hqx"]
+radius = 7.0
+height = 14.0
+
+[node name="shark" type="Area2D"]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-5, -8)
 rotation = 1.5708
 scale = Vector2(1.7, 1.7)
 sprite_frames = SubResource("SpriteFrames_sd3ew")
 animation = &"shark_swim"
 frame = 5
 frame_progress = 0.531605
+
+[node name="SharkArea" type="CollisionShape2D" parent="."]
+position = Vector2(15, -5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_p1hqx")
