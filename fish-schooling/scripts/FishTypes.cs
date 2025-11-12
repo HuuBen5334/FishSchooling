@@ -21,9 +21,10 @@ public partial class NemoFish : BaseFish
 	protected override void SetupBehaviors()
 	{
 		// Use the same weights as original
-		behaviors.Add(new AlignmentBehavior { Weight = 1.0f, PerceptionRadius = 150.0f });
-		behaviors.Add(new CohesionBehavior { Weight = 1.0f, PerceptionRadius = 150.0f });
-		behaviors.Add(new SeparationBehavior { Weight = 2.0f, SafeRadius = 30.0f });
+		behaviors.Add(new AlignmentBehavior { Weight = 0.5f, PerceptionRadius = 150.0f });
+		behaviors.Add(new CohesionBehavior { Weight = 0.8f, PerceptionRadius = 150.0f });
+		behaviors.Add(new SeparationBehavior { Weight = 1.6f, SafeRadius = 30.0f });
+		behaviors.Add(new WanderBehavior { Weight = 0.6f }); // Gentle wandering to make movement less rigid
 		behaviors.Add(new FleeBehavior { Weight = 3.0f, PanicDistance = 200.0f });
 	}
 }
