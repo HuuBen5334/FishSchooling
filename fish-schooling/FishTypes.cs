@@ -65,12 +65,12 @@ public partial class StarfishFish : BaseFish
 
 	protected override void SetupVisual()
 	{
-		var fishScene = GD.Load<PackedScene>("res://gold_fish.tscn");
+		var fishScene = GD.Load<PackedScene>("res://starfish.tscn");
 		var instance = fishScene.Instantiate();
 		AddChild(instance);
 		sprite = instance.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		sprite.Play("default");
-		sprite.Modulate = new Color(1.0f, 0.5f, 0.2f); // Orange
+		sprite.Play("starfish_animation");
+		//sprite.Modulate = new Color(1.0f, 0.5f, 0.2f); // Orange
 		Scale = new Vector2(0.7f, 0.7f); // Smaller
 	}
 
