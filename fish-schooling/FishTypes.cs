@@ -60,7 +60,7 @@ public partial class StarfishFish : BaseFish
 	public StarfishFish()
 	{
 		FishType = "starfish";
-		MaxSpeed = 30.0f; // Very slow
+		MaxSpeed = 15.0f; // Very slow
 	}
 
 	protected override void SetupVisual()
