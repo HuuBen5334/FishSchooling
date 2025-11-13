@@ -1,9 +1,18 @@
 using Godot;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 
 public partial class FishManager : Node2D
 {
 	private List<BaseFish> allFish = new List<BaseFish>();
+	Dictionary<string, int> fishCount = new Dictionary<string, int>();
+	public FishManager()
+	{
+		fishCount["nemo"] = 0;
+		fishCount["shark"] = 0;
+		fishCount["starfish"] = 0;
+	}
+
 
 	public override void _Ready()
 	{
@@ -47,11 +56,27 @@ public partial class FishManager : Node2D
 
 				GD.Print($"Spawned {type} at {newFish.Position}");
 			}
+
+			// Update fish count
+			if (fishCount.ContainsKey(type))
+			{
+				fishCount[type] += 1;
+			}
 		}
 	}
 	//for removing fish from list
 	public void RemoveFish(BaseFish fish)
 	{
+		// can remove loop after testing/ printingit g debgging 
+		foreach (var kvp in fishCount)
+		{
+			// GD.Print($"Key: {kvp.Key}, Value: {kvp.Value}");	
+		}
+		if (fishCount.ContainsKey(fish.FishType))
+			{
+				fishCount[fish.FishType] = Mathf.Max(0, fishCount[fish.FishType] - 1);
+				GD.Print($"Removed one {fish.FishType}, new count: {fishCount[fish.FishType]}");
+			}
 		allFish.Remove(fish);
 	}
 
