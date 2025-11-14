@@ -72,6 +72,9 @@ public partial class SharkFish : BaseFish
 			GD.Print("Shark caught a fish!");
 			EmitSignal(SignalName.SharkCaughtFish);
 			CatchFish(fish);
+			var deathEffect = new DeathEffect();
+			deathEffect.Position = fish.Position;
+			GetParent().AddChild(deathEffect);
 		}
 	}
 	private void CatchFish(BaseFish fish)
@@ -83,6 +86,38 @@ public partial class SharkFish : BaseFish
             fishManager.RemoveFish(fish);
         }
 		fish.QueueFree();
+	}
+}
+
+public partial class DeathEffect : BaseFish
+{
+	private Tween tween;
+	public DeathEffect()
+	{
+		FishType = "death_effect";
+		MaxSpeed = 0.0f; // Static effect
+	}
+
+	protected override void SetupVisual()
+	{
+		var effectScene = GD.Load<PackedScene>("res://death_effect.tscn");
+		var instance = effectScene.Instantiate();
+		AddChild(instance);
+		var sprite = instance.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		sprite.Play("death_animation");
+		sprite.AnimationFinished += () => StartFadeOut(sprite);
+
+	}
+	private void StartFadeOut(AnimatedSprite2D sprite)
+	{
+		var fadeTween = CreateTween();
+		fadeTween.TweenProperty(sprite, "modulate:a", 0.0f, 1.0f);
+        fadeTween.TweenCallback(Callable.From(() => QueueFree()));
+	}
+
+	protected override void SetupBehaviors()
+	{
+		// No behaviors needed for death effect
 	}
 }
 

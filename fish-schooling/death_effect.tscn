@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://b33lb0spoasuc"]
+
+[ext_resource type="Texture2D" uid="uid://yrk45scythb4" path="res://scripts/bubblesheet.png" id="1_p1lmi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oac34"]
+atlas = ExtResource("1_p1lmi")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5l07o"]
+atlas = ExtResource("1_p1lmi")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdh3e"]
+atlas = ExtResource("1_p1lmi")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_744mo"]
+atlas = ExtResource("1_p1lmi")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oux8m"]
+atlas = ExtResource("1_p1lmi")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6jhv"]
+atlas = ExtResource("1_p1lmi")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e3tjp"]
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_oac34")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_5l07o")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_kdh3e")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_744mo")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_oux8m")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_r6jhv")
+}],
+"loop": false,
+"name": &"death_animation",
+"speed": 11.0
+}]
+
+[node name="death_effect" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_e3tjp")
+animation = &"death_animation"
+frame = 5
+frame_progress = 1.0
