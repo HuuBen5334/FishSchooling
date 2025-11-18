@@ -46,6 +46,7 @@ radius = 4.9778
 height = 32.0069
 
 [node name="gold_fish" type="Area2D"]
+visibility_layer = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 rotation = 1.47653
