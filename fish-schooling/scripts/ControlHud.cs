@@ -16,6 +16,10 @@ public partial class ControlHud : Control
 		
 		var spawnButton = GetNode<Button>("Panel_Spawner/VBoxContainer/fish_spawn_button");
 		spawnButton.Pressed += OnSpawnPressed;
+
+        var fishManager = GetNodeOrNull<FishManager>("../FishManager");
+        if (fishManager != null)
+            fishManager.Connect("FishCountChanged", new Callable(this, nameof(UpdateFishCount)));
 	}
 	
 	private void OnFishSelected(int index)
@@ -62,10 +66,20 @@ public partial class ControlHud : Control
 		}
 	}
 	
-	public void UpdateFishCount(int count)
+	public void UpdateFishCount(string type, int count)
 	{
-		var fishLabel = GetNode<Label>("Panel_Census/VBoxContainer/fish_count_label");
+		var nemoLabel = GetNode<Label>("Panel_Census/VBoxContainer/nemo_fish_count_label");
+		var sharkLabel = GetNode<Label>("Panel_Census/VBoxContainer/nemo_fish_count_label");
+		var starfishLabel = GetNode<Label>("Panel_Census/VBoxContainer/nemo_fish_count_label");
+
 		GD.Print("Updating fish count display");
-		fishLabel.Text = $"Active Fish: {count}";
+
+		if (type == "nemo") {
+			nemoLabel.Text = $"Nemo: {count}";
+		} else if (type == "shark") {
+			sharkLabel.Text = $"Shark: {count}";
+		} else if (type == "starfish") {
+			starfishLabel.Text = $"Starfish: {count}";
+		}
 	}
 }

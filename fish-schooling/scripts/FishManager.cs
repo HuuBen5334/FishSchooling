@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 
 public partial class FishManager : Node2D
 {
+	[Signal] public delegate void FishCountChangedEventHandler(string type, int count);
 	private List<BaseFish> allFish = new List<BaseFish>();
 	Dictionary<string, int> fishCount = new Dictionary<string, int>();
 	public FishManager()
@@ -60,7 +61,11 @@ public partial class FishManager : Node2D
 			// Update fish count
 			if (fishCount.ContainsKey(type))
 			{
+				var ControlHud = GetNode<ControlHud>("../ControlHud");
 				fishCount[type] += 1;
+				EmitSignal(nameof(FishCountChangedEventHandler), type, fishCount[type]);
+
+				// ControlHud.UpdateFishCount( type, fishCount[type]);
 			}
 		}
 	}
@@ -68,14 +73,14 @@ public partial class FishManager : Node2D
 	public void RemoveFish(BaseFish fish)
 	{
 		// can remove loop after testing/ printingit g debgging 
-		foreach (var kvp in fishCount)
-		{
-			// GD.Print($"Key: {kvp.Key}, Value: {kvp.Value}");	
-		}
+
 		if (fishCount.ContainsKey(fish.FishType))
 			{
 				fishCount[fish.FishType] = Mathf.Max(0, fishCount[fish.FishType] - 1);
 				GD.Print($"Removed one {fish.FishType}, new count: {fishCount[fish.FishType]}");
+				var ControlHud = GetNode<ControlHud>("../ControlHud");
+				EmitSignal(nameof(FishCountChangedEventHandler), fish.FishType, fishCount[fish.FishType]);
+				// ControlHud.UpdateFishCount( fish.FishType, fishCount[fish.FishType]);
 			}
 		allFish.Remove(fish);
 	}
