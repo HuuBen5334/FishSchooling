@@ -239,20 +239,39 @@ namespace FishBehaviors
 	{
 		public float Weight { get; set; } = 1.0f;
 		public bool IsActive { get; set; } = true;
-		public float BottomY { get; set; } = 600.0f;
+		public float PathLength { get; set; } = 400.0f;
+
+		private static Dictionary<BaseFish, float> fishTargetX = new Dictionary<BaseFish, float>();
+		private static Dictionary<BaseFish, int> fishDirection = new Dictionary<BaseFish, int>();
 
 		public Vector2 Calculate(BaseFish fish, List<BaseFish> allFish)
 		{
 			if (!IsActive) return Vector2.Zero;
 
-			// Stay near bottom, move slowly horizontally
-			float desiredY = BottomY - 50;
-			float yDiff = (desiredY - fish.Position.Y) * 0.1f;
-			
-			// Add slight horizontal movement
-			float horizontalDrift = (float)(Mathf.Cos(Time.GetUnixTimeFromSystem() * 0.001) * 0.5f);
-			
-			return new Vector2(horizontalDrift, yDiff) * Weight;
+			// Initialize if needed
+			if (!fishTargetX.ContainsKey(fish))
+			{
+				// Random starting direction (1 = right, -1 = left)
+				fishDirection[fish] = GD.Randf() > 0.5f ? 1 : -1;
+				fishTargetX[fish] = fish.Position.X + PathLength * fishDirection[fish];
+			}
+
+			// Check if reached target
+			float distanceToTarget = Mathf.Abs(fishTargetX[fish] - fish.Position.X);
+			if (distanceToTarget < 10.0f)
+			{
+				// Reverse direction
+				fishDirection[fish] *= -1;
+				fishTargetX[fish] = fish.Position.X + PathLength * fishDirection[fish];
+			}
+
+			// Simple horizontal movement
+			float xDirection = Mathf.Sign(fishTargetX[fish] - fish.Position.X);
+
+			// Small vertical drift for organic feel
+			float verticalDrift = (float)(Mathf.Sin(Time.GetUnixTimeFromSystem() * 0.001) * 0.2f);
+
+			return new Vector2(xDirection, verticalDrift) * Weight;
 		}
 	}
 }

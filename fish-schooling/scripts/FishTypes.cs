@@ -77,7 +77,7 @@ public partial class StarfishFish : BaseFish
 
 	protected override void SetupBehaviors()
 	{
-		behaviors.Add(new PathFollowBehavior { Weight = 2.0f, BottomY = 600.0f });
+		behaviors.Add(new PathFollowBehavior { Weight = 2.0f, PathLength = 500.0f });
 		behaviors.Add(new WanderBehavior { Weight = 0.3f });
 		behaviors.Add(new SeparationBehavior { Weight = 1.0f, SafeRadius = 20.0f });
 	}
