@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cnc13cas6p04r"]
+[gd_scene load_steps=12 format=3 uid="uid://cnc13cas6p04r"]
 
 [ext_resource type="Texture2D" uid="uid://c7a2womj3hdkg" path="res://sprites/background_image.png" id="1_vonw3"]
 [ext_resource type="Script" uid="uid://d03sce5rmqbxu" path="res://scripts/FishManager.cs" id="2_f2txt"]
@@ -6,6 +6,8 @@
 [ext_resource type="FontFile" uid="uid://cw0cibr8qhdcr" path="res://MedodicaRegular.otf" id="3_oi3di"]
 [ext_resource type="PackedScene" uid="uid://d2sqvbpbuchql" path="res://gold_fish.tscn" id="4_0b4ue"]
 [ext_resource type="PackedScene" uid="uid://npp7kl3rl4pc" path="res://shark.tscn" id="6_m3clv"]
+[ext_resource type="PackedScene" uid="uid://x6j6rmqr1hpd" path="res://starfish.tscn" id="7_mxnmf"]
+[ext_resource type="PackedScene" uid="uid://b33lb0spoasuc" path="res://death_effect.tscn" id="8_4eo0i"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vonw3"]
 bg_color = Color(1, 1, 0.996078, 0.458824)
@@ -105,9 +107,15 @@ theme = SubResource("Theme_1ainy")
 horizontal_alignment = 1
 max_lines_visible = 1
 
+[node name="starfish" parent="." instance=ExtResource("7_mxnmf")]
+position = Vector2(-100, 49)
+
 [node name="gold_fish" parent="." instance=ExtResource("4_0b4ue")]
-position = Vector2(-142, 380)
+position = Vector2(-139, 280)
 rotation = 0.886188
 
 [node name="shark" parent="." instance=ExtResource("6_m3clv")]
-position = Vector2(-66, 122)
+position = Vector2(-96, 154)
+
+[node name="death_effect" parent="." instance=ExtResource("8_4eo0i")]
+position = Vector2(-178, 84)

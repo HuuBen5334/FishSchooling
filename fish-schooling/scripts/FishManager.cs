@@ -49,6 +49,11 @@ public partial class FishManager : Node2D
 			}
 		}
 	}
+	//for removing fish from list
+	public void RemoveFish(BaseFish fish)
+	{
+		allFish.Remove(fish);
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{

@@ -10,6 +10,8 @@ public partial class ControlHud : Control
 	{
 		var dropdown = GetNode<OptionButton>("Panel_Spawner/VBoxContainer/fish_choice_dropdown");
 		dropdown.Connect("item_selected", new Callable(this, nameof(OnFishSelected)));
+
+		dropdown.Selected = 0; // Default selection
 		
 		var spinBox = GetNode<SpinBox>("Panel_Spawner/VBoxContainer/fish_amount_spinbox");
 		spinBox.ValueChanged += OnQuantityChanged;
