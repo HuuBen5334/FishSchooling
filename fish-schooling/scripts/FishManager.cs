@@ -61,11 +61,11 @@ public partial class FishManager : Node2D
 			// Update fish count
 			if (fishCount.ContainsKey(type))
 			{
-				var ControlHud = GetNode<ControlHud>("../ControlHud");
+				var ControlHud = GetNode<ControlHud>("../Control_HUD");
 				fishCount[type] += 1;
-				EmitSignal(nameof(FishCountChangedEventHandler), type, fishCount[type]);
+				//EmitSignal(nameof(FishCountChangedEventHandler), type, fishCount[type]);
 
-				// ControlHud.UpdateFishCount( type, fishCount[type]);
+				ControlHud.UpdateFishCount( type, fishCount[type]);
 			}
 		}
 	}
@@ -78,9 +78,9 @@ public partial class FishManager : Node2D
 			{
 				fishCount[fish.FishType] = Mathf.Max(0, fishCount[fish.FishType] - 1);
 				GD.Print($"Removed one {fish.FishType}, new count: {fishCount[fish.FishType]}");
-				var ControlHud = GetNode<ControlHud>("../ControlHud");
-				EmitSignal(nameof(FishCountChangedEventHandler), fish.FishType, fishCount[fish.FishType]);
-				// ControlHud.UpdateFishCount( fish.FishType, fishCount[fish.FishType]);
+				var ControlHud = GetNode<ControlHud>("../Control_HUD");
+				//EmitSignal(nameof(FishCountChangedEventHandler), fish.FishType, fishCount[fish.FishType]);
+				ControlHud.UpdateFishCount( fish.FishType, fishCount[fish.FishType]);
 			}
 		allFish.Remove(fish);
 	}

@@ -6,8 +6,15 @@ public partial class ControlHud : Control
 	private string selectedFish = "nemo";
 	private int fishCount = 1;
 	
+	
+	// cache unique labels
+	private Label nemoLabel;
+	private Label sharkLabel;
+	private Label starfishLabel;
+	
 	public override void _Ready()
 	{
+	
 		var dropdown = GetNode<OptionButton>("Panel_Spawner/VBoxContainer/fish_choice_dropdown");
 		dropdown.Connect("item_selected", new Callable(this, nameof(OnFishSelected)));
 		
@@ -17,9 +24,18 @@ public partial class ControlHud : Control
 		var spawnButton = GetNode<Button>("Panel_Spawner/VBoxContainer/fish_spawn_button");
 		spawnButton.Pressed += OnSpawnPressed;
 
-        var fishManager = GetNodeOrNull<FishManager>("../FishManager");
-        if (fishManager != null)
-            fishManager.Connect("FishCountChanged", new Callable(this, nameof(UpdateFishCount)));
+		 // cache the unique labels once
+		nemoLabel = GetNodeOrNull<Label>("Panel _Census/VBoxContainer/nemo_fish_count_label");
+		sharkLabel = GetNodeOrNull<Label>("Panel _Census/VBoxContainer/shark_fish_count_label");
+		starfishLabel = GetNodeOrNull<Label>("Panel _Census/VBoxContainer/starfish_fish_count_label");
+
+		if (nemoLabel == null || sharkLabel == null || starfishLabel == null)
+			GD.PrintErr("One or more fish count labels not found at the expected paths.");
+
+		var fishManager = GetNodeOrNull<FishManager>("../FishManager");
+		if (fishManager != null)
+			fishManager.Connect("FishCountChanged", new Callable(this, nameof(UpdateFishCount)));
+	
 	}
 	
 	private void OnFishSelected(int index)
@@ -68,12 +84,15 @@ public partial class ControlHud : Control
 	
 	public void UpdateFishCount(string type, int count)
 	{
-		var nemoLabel = GetNode<Label>("Panel_Census/VBoxContainer/nemo_fish_count_label");
-		var sharkLabel = GetNode<Label>("Panel_Census/VBoxContainer/nemo_fish_count_label");
-		var starfishLabel = GetNode<Label>("Panel_Census/VBoxContainer/nemo_fish_count_label");
-
-		GD.Print("Updating fish count display");
-
+		//var nemoLabel = GetNode<Label>("Panel_Census/VBoxContainer/nemo_fish_count_label");
+		//var sharkLabel = GetNode<Label>("Panel_Census/VBoxContainer/shark_fish_count_label");
+		//var starfishLabel = GetNode<Label>("Panel_Census/VBoxContainer/starfish_fish_count_label");
+		// var nemoLabel = %nemo_fish_count_label;
+		// var sharkLabel = %shark_fish_count_label;
+		// var starfishLabel = %starfish_fish_count_label;
+	
+		GD.Print("Updating fish count display");	
+		GD.Print(type);
 		if (type == "nemo") {
 			nemoLabel.Text = $"Nemo: {count}";
 		} else if (type == "shark") {

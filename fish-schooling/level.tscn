@@ -62,6 +62,7 @@ offset_bottom = 190.0
 [node name="fish_choice_dropdown" type="OptionButton" parent="Control_HUD/Panel_Spawner/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_oi3di")
+selected = 0
 item_count = 3
 popup/item_0/text = "Nemo"
 popup/item_0/id = 0
@@ -100,16 +101,8 @@ offset_top = 4.0
 offset_right = 237.0
 offset_bottom = 123.0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Control_HUD/Panel _Census/VBoxContainer"]
-layout_mode = 2
-bbcode_enabled = true
-text = "0
-fds
-"
-fit_content = true
-scroll_active = false
-
 [node name="nemo_fish_count_label" type="Label" parent="Control_HUD/Panel _Census/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme = SubResource("Theme_1ainy")
 text = "0"
@@ -117,6 +110,7 @@ horizontal_alignment = 1
 max_lines_visible = 1
 
 [node name="shark_fish_count_label" type="Label" parent="Control_HUD/Panel _Census/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme = SubResource("Theme_1ainy")
 text = "0"
@@ -124,6 +118,7 @@ horizontal_alignment = 1
 max_lines_visible = 1
 
 [node name="starfish_fish_count_label" type="Label" parent="Control_HUD/Panel _Census/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme = SubResource("Theme_1ainy")
 text = "0"
@@ -139,5 +134,3 @@ rotation = 0.886188
 
 [node name="shark" parent="." instance=ExtResource("6_m3clv")]
 position = Vector2(-96, 154)
-
-[connection signal="FishCountChanged" from="FishManager" to="Control_HUD" method="UpdateFishCount"]
