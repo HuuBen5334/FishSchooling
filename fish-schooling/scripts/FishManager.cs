@@ -1,10 +1,20 @@
 using Godot;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 
 public partial class FishManager : Node2D
 {
+	[Signal] public delegate void FishCountChangedEventHandler(string type, int count);
 	private List<BaseFish> allFish = new List<BaseFish>();
+	Dictionary<string, int> fishCount = new Dictionary<string, int>();
+	public FishManager()
+	{
+		fishCount["nemo"] = 0;
+		fishCount["shark"] = 0;
+		fishCount["starfish"] = 0;
+	}
+
 
 	private int maxNemoFish = 110;
     private int maxSharkFish = 150;
@@ -12,7 +22,7 @@ public partial class FishManager : Node2D
 	public override void _Ready()
 	{
 		// Spawn some initial fish
-		SpawnFish("nemo", 5);
+		CallDeferred(nameof(SpawnFish), "nemo", 5);
 	}
 
 	public void SpawnFish(string type, int count)
@@ -55,6 +65,7 @@ public partial class FishManager : Node2D
 
 		for (int i = 0; i < actualSpawnCount; i++)
 		{
+			
 			BaseFish newFish = null;
 
 			switch (type.ToLower())
@@ -87,11 +98,34 @@ public partial class FishManager : Node2D
 
 				GD.Print($"Spawned {type} at {newFish.Position}");
 			}
+
+			// Update fish count
+			if (fishCount.ContainsKey(type))
+			{
+				var ControlHud = GetNode<ControlHud>("../Control_HUD");
+				fishCount[type] += 1;
+				//EmitSignal(nameof(FishCountChangedEventHandler), type, fishCount[type]);
+				GD.Print($"type is: {type}");
+
+				ControlHud.UpdateFishCount(type, fishCount[type]);
+			}
+				GD.Print($"loop occuring: {i}");
+			
 		}
 	}
 	//for removing fish from list
 	public void RemoveFish(BaseFish fish)
 	{
+		// can remove loop after testing/ printingit g debgging 
+
+		if (fishCount.ContainsKey(fish.FishType))
+			{
+				fishCount[fish.FishType] = Mathf.Max(0, fishCount[fish.FishType] - 1);
+				GD.Print($"Removed one {fish.FishType}, new count: {fishCount[fish.FishType]}");
+				var ControlHud = GetNode<ControlHud>("../Control_HUD");
+				//EmitSignal(nameof(FishCountChangedEventHandler), fish.FishType, fishCount[fish.FishType]);
+				ControlHud.UpdateFishCount( fish.FishType, fishCount[fish.FishType]);
+			}
 		allFish.Remove(fish);
 	}
 
