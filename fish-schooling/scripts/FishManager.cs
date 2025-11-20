@@ -18,13 +18,14 @@ public partial class FishManager : Node2D
 	public override void _Ready()
 	{
 		// Spawn some initial fish
-		SpawnFish("nemo", 5);
+		CallDeferred(nameof(SpawnFish), "nemo", 5);
 	}
 
 	public void SpawnFish(string type, int count)
 	{
 		for (int i = 0; i < count; i++)
 		{
+			
 			BaseFish newFish = null;
 
 			switch (type.ToLower())
@@ -64,9 +65,12 @@ public partial class FishManager : Node2D
 				var ControlHud = GetNode<ControlHud>("../Control_HUD");
 				fishCount[type] += 1;
 				//EmitSignal(nameof(FishCountChangedEventHandler), type, fishCount[type]);
+				GD.Print($"type is: {type}");
 
-				ControlHud.UpdateFishCount( type, fishCount[type]);
+				ControlHud.UpdateFishCount(type, fishCount[type]);
 			}
+				GD.Print($"loop occuring: {i}");
+			
 		}
 	}
 	//for removing fish from list

@@ -105,7 +105,7 @@ offset_bottom = 123.0
 unique_name_in_owner = true
 layout_mode = 2
 theme = SubResource("Theme_1ainy")
-text = "0"
+text = "Nemo: 0"
 horizontal_alignment = 1
 max_lines_visible = 1
 
@@ -113,7 +113,7 @@ max_lines_visible = 1
 unique_name_in_owner = true
 layout_mode = 2
 theme = SubResource("Theme_1ainy")
-text = "0"
+text = "Shark: 0"
 horizontal_alignment = 1
 max_lines_visible = 1
 
@@ -121,7 +121,7 @@ max_lines_visible = 1
 unique_name_in_owner = true
 layout_mode = 2
 theme = SubResource("Theme_1ainy")
-text = "0"
+text = "Starfish: 0"
 horizontal_alignment = 1
 max_lines_visible = 1
 

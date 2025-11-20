@@ -91,14 +91,16 @@ public partial class ControlHud : Control
 		// var sharkLabel = %shark_fish_count_label;
 		// var starfishLabel = %starfish_fish_count_label;
 	
-		GD.Print("Updating fish count display");	
+		GD.Print($"Updating fish count display to: {count}");	
 		GD.Print(type);
 		if (type == "nemo") {
+			GD.Print("do we get here");
 			nemoLabel.Text = $"Nemo: {count}";
 		} else if (type == "shark") {
 			sharkLabel.Text = $"Shark: {count}";
 		} else if (type == "starfish") {
 			starfishLabel.Text = $"Starfish: {count}";
 		}
+
 	}
 }
