@@ -6,7 +6,7 @@ public partial class NemoFish : BaseFish
 	public NemoFish()
 	{
 		FishType = "nemo";
-		MaxSpeed = 100.0f; // Match original speed
+		MaxSpeed = 100.0f;
 	}
 
 	protected override void SetupVisual()
@@ -20,7 +20,7 @@ public partial class NemoFish : BaseFish
 
 	protected override void SetupBehaviors()
 	{
-		// Use the same weights as original
+		// You can tweak weights and parameters for different schooling effects
 		behaviors.Add(new AlignmentBehavior { Weight = 0.5f, PerceptionRadius = 150.0f });
 		behaviors.Add(new CohesionBehavior { Weight = 0.8f, PerceptionRadius = 150.0f });
 		behaviors.Add(new SeparationBehavior { Weight = 1.6f, SafeRadius = 30.0f });
@@ -144,4 +144,61 @@ public partial class StarfishFish : BaseFish
 		behaviors.Add(new WanderBehavior { Weight = 0.3f });
 		behaviors.Add(new SeparationBehavior { Weight = 1.0f, SafeRadius = 20.0f });
 	}
+}
+
+public partial class EelFish : BaseFish
+{
+    public EelFish()
+    {
+        FishType = "eel";
+        MaxSpeed = 140.0f; // Fast when chasing
+    }
+    
+    protected override void SetupVisual()
+    {
+        var fishScene = GD.Load<PackedScene>("res://gold_fish.tscn");
+        var instance = fishScene.Instantiate();
+        AddChild(instance);
+        sprite = instance.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        sprite.Play("default");
+        
+        // Green elongated appearance
+        sprite.Modulate = new Color(0.3f, 0.8f, 0.4f);
+        Scale = new Vector2(1.8f, 0.8f);
+    }
+    
+    protected override void SetupBehaviors()
+    {
+        // Home guard keeps eel near its spot
+        behaviors.Add(new HomeGuardBehavior { 
+            Weight = 2.0f, 
+            ComfortRadius = 50.0f,
+            MaxRadius = 300.0f 
+        });
+        
+        // Interception for smart pursuit
+        behaviors.Add(new InterceptionBehavior { 
+            Weight = 3.0f, 
+            DetectionRadius = 250.0f,
+            PredictionTime = 0.5f,
+            TargetTypes = new string[] { "nemo", "starfish" }
+        });
+        
+        // Territory defense activates when intruders present
+        behaviors.Add(new TerritoryDefenseBehavior {
+            Weight = 1.0f,
+            TerritoryRadius = 250.0f,
+            IntruderTypes = new string[] { "nemo", "starfish" }
+        });
+        
+        // Lurking for idle animation
+        behaviors.Add(new LurkingBehavior { 
+            Weight = 0.5f,
+            SwaySpeed = 0.05f,
+            SwayAmount = 0.3f
+        });
+        
+        // Basic separation
+        behaviors.Add(new SeparationBehavior { Weight = 1.5f, SafeRadius = 40.0f });
+    }
 }
