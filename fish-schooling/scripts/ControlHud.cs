@@ -86,17 +86,8 @@ public partial class ControlHud : Control
 	
 	public void UpdateFishCount(string type, int count)
 	{
-		//var nemoLabel = GetNode<Label>("Panel_Census/VBoxContainer/nemo_fish_count_label");
-		//var sharkLabel = GetNode<Label>("Panel_Census/VBoxContainer/shark_fish_count_label");
-		//var starfishLabel = GetNode<Label>("Panel_Census/VBoxContainer/starfish_fish_count_label");
-		// var nemoLabel = %nemo_fish_count_label;
-		// var sharkLabel = %shark_fish_count_label;
-		// var starfishLabel = %starfish_fish_count_label;
-	
-		GD.Print($"Updating fish count display to: {count}");	
 		GD.Print(type);
 		if (type == "nemo") {
-			GD.Print("do we get here");
 			nemoLabel.Text = $"Nemo: {count}";
 		} else if (type == "shark") {
 			sharkLabel.Text = $"Shark: {count}";

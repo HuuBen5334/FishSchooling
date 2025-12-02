@@ -1,6 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 
 public partial class FishManager : Node2D
 {
@@ -15,6 +16,9 @@ public partial class FishManager : Node2D
 	}
 
 
+	private int maxNemoFish = 110;
+    private int maxSharkFish = 150;
+    private int maxStarfishFish = 200;
 	public override void _Ready()
 	{
 		// Spawn some initial fish
@@ -23,7 +27,43 @@ public partial class FishManager : Node2D
 
 	public void SpawnFish(string type, int count)
 	{
-		for (int i = 0; i < count; i++)
+
+		int currentNemo = allFish.Count(f => f.FishType == "nemo");
+		int currentSharks = allFish.Count(f => f.FishType == "shark");
+		int currentStarfish = allFish.Count(f => f.FishType == "starfish");
+
+		int maxAllowed = 0;
+		int currentCount = 0;
+
+		switch (type.ToLower())
+		{
+			case "nemo":
+				maxAllowed = maxNemoFish;
+				currentCount = currentNemo;
+				break;
+			case "shark":
+				maxAllowed = maxSharkFish;
+				currentCount = currentSharks;
+				break;
+			case "starfish":
+				maxAllowed = maxStarfishFish;
+				currentCount = currentStarfish;
+				break;
+			default:
+				GD.PrintErr($"Unknown fish type: {type}");
+				return;
+		}
+
+		int availableSlots = maxAllowed - currentCount;
+		int actualSpawnCount = Mathf.Min(count, availableSlots);
+
+		if (actualSpawnCount <= 0)
+		{
+			GD.Print($"Cannot spawn {type}: limit reached ({currentCount}/{maxAllowed})");
+			return;
+		}
+
+		for (int i = 0; i < actualSpawnCount; i++)
 		{
 			
 			BaseFish newFish = null;
@@ -55,8 +95,6 @@ public partial class FishManager : Node2D
 
 				AddChild(newFish);
 				allFish.Add(newFish);
-
-				GD.Print($"Spawned {type} at {newFish.Position}");
 			}
 
 			// Update fish count
@@ -65,11 +103,9 @@ public partial class FishManager : Node2D
 				var ControlHud = GetNode<ControlHud>("../Control_HUD");
 				fishCount[type] += 1;
 				//EmitSignal(nameof(FishCountChangedEventHandler), type, fishCount[type]);
-				GD.Print($"type is: {type}");
 
 				ControlHud.UpdateFishCount(type, fishCount[type]);
 			}
-				GD.Print($"loop occuring: {i}");
 			
 		}
 	}
@@ -113,4 +149,15 @@ public partial class FishManager : Node2D
 
 		fish.Position = pos;
 	}
+
+	private void FishLimit(int nemoLimit, int sharkLimit, int starfishLimit)
+	{
+		maxNemoFish = nemoLimit;
+		maxSharkFish = sharkLimit;
+		maxStarfishFish = starfishLimit;
+		GD.Print($"Fish limits updated - Nemo: {maxNemoFish}, Sharks: {maxSharkFish}, Starfish: {maxStarfishFish}");
+		
+	}
 }
+
+
