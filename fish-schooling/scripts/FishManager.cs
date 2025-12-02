@@ -95,8 +95,6 @@ public partial class FishManager : Node2D
 
 				AddChild(newFish);
 				allFish.Add(newFish);
-
-				GD.Print($"Spawned {type} at {newFish.Position}");
 			}
 
 			// Update fish count
@@ -105,11 +103,9 @@ public partial class FishManager : Node2D
 				var ControlHud = GetNode<ControlHud>("../Control_HUD");
 				fishCount[type] += 1;
 				//EmitSignal(nameof(FishCountChangedEventHandler), type, fishCount[type]);
-				GD.Print($"type is: {type}");
 
 				ControlHud.UpdateFishCount(type, fishCount[type]);
 			}
-				GD.Print($"loop occuring: {i}");
 			
 		}
 	}
