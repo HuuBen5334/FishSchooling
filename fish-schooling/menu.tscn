@@ -1,20 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://c8mf2rkpaoxkm"]
+[gd_scene load_steps=3 format=3 uid="uid://c8mf2rkpaoxkm"]
 
 [ext_resource type="Script" uid="uid://1t27x6h8qdnv" path="res://menu.gd" id="1_lti8b"]
+[ext_resource type="Texture2D" uid="uid://8ogpu2ls1bg4" path="res://sprites/istockphoto-1167903103-612x612.jpg" id="2_ouk20"]
 
 [node name="menu" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_right = 0.838
+anchor_bottom = 1.009
+offset_right = -0.376099
+offset_bottom = 0.167969
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_lti8b")
 
+[node name="Istockphoto-1167903103-612x612" type="Sprite2D" parent="."]
+position = Vector2(576, 384)
+scale = Vector2(1.88291, 1.8)
+texture = ExtResource("2_ouk20")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_right = 167.0
-offset_bottom = 104.0
+offset_left = 464.0
+offset_top = 436.0
+offset_right = 706.0
+offset_bottom = 587.0
 
 [node name="start_button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -30,3 +39,5 @@ layout_mode = 2
 text = "End"
 
 [connection signal="pressed" from="VBoxContainer/start_button" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/tutorial_button" to="." method="_on_TutorialButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/quit_button" to="." method="_on_QuitButton_pressed"]

@@ -17,8 +17,8 @@ public partial class FishManager : Node2D
 
 
 	private int maxNemoFish = 110;
-    private int maxSharkFish = 150;
-    private int maxStarfishFish = 200;
+	private int maxSharkFish = 150;
+	private int maxStarfishFish = 200;
 	public override void _Ready()
 	{
 		// Spawn some initial fish
@@ -159,5 +159,3 @@ public partial class FishManager : Node2D
 		
 	}
 }
-
-
