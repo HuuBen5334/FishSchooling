@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8mf2rkpaoxkm"]
+
+[ext_resource type="Script" uid="uid://1t27x6h8qdnv" path="res://menu.gd" id="1_lti8b"]
+
+[node name="menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lti8b")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 167.0
+offset_bottom = 104.0
+
+[node name="start_button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Start"
+
+[node name="tutorial_button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Tutorial
+"
+
+[node name="quit_button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "End"
+
+[connection signal="pressed" from="VBoxContainer/start_button" to="." method="_on_StartButton_pressed"]
