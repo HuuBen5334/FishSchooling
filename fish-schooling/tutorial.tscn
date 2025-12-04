@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://bus1u8h2ne0ug"]
+
+[ext_resource type="Texture2D" uid="uid://8ogpu2ls1bg4" path="res://sprites/istockphoto-1167903103-612x612.jpg" id="1_7n6eb"]
+[ext_resource type="Script" uid="uid://40rggdyqbp1f" path="res://tutorial.gd" id="1_yb1ct"]
+
+[node name="tutorial" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = -21.0
+offset_right = -2.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yb1ct")
+
+[node name="Istockphoto-1167903103-612x612" type="Sprite2D" parent="."]
+position = Vector2(580.065, 429.125)
+scale = Vector2(1.90175, 1.89828)
+texture = ExtResource("1_7n6eb")
+
+[node name="back" type="Button" parent="Istockphoto-1167903103-612x612"]
+offset_left = -292.0
+offset_top = 89.0
+offset_right = -221.0
+offset_bottom = 117.0
+text = "Back"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Istockphoto-1167903103-612x612"]
+offset_left = -161.991
+offset_top = -192.872
+offset_right = 154.009
+offset_bottom = 115.128
+theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "The tutorial info thingy goes here"
+
+[connection signal="pressed" from="Istockphoto-1167903103-612x612/back" to="." method="_on_Back_pressed"]
