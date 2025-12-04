@@ -86,7 +86,6 @@ public partial class ControlHud : Control
 	
 	public void UpdateFishCount(string type, int count)
 	{
-		GD.Print(type);
 		if (type == "nemo") {
 			nemoLabel.Text = $"Nemo: {count}";
 		} else if (type == "shark") {

@@ -47,7 +47,6 @@ public partial class SharkFish : BaseFish
 		sprite = instance.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		sprite.Play("shark_swim");
 		sprite.Modulate = new Color(0.5f, 0.5f, 0.5f); // Darker
-		// Scale = new Vector2(1.5f, 1.5f); // Bigger
 		SetupCollision(instance);
 	}
 

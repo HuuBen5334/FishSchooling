@@ -60,32 +60,6 @@ public partial class Flock : Node2D
 
 		AddChild(fishInstance);
 
-
-		//Create visual as a Sprite2D using an imported PNG
-		// var fishNode = new Node2D();
-		// var sprite = new Sprite2D();
-		// // Attempt to load a fish texture; fall back to any available sprite
-		// Texture2D tex = GD.Load<Texture2D>("res://sprites/pixil-frame-0_3.png");
-		// if (tex == null)
-		// {
-		//     tex = GD.Load<Texture2D>("res://sprites/pixil-frame-0_3.png");
-		// }
-		// if (tex == null)
-		// {
-		//     tex = GD.Load<Texture2D>("res://sprites/pixil-frame-0_3.png");
-		// }
-		// if (tex != null)
-		// {
-		//     sprite.Texture = tex;
-		//     // Make sure the sprite's center is at the fish's origin so rotation works as expected
-		//     sprite.Centered = true;
-		//     // Optionally scale down if the sprite is large
-		//     sprite.Scale = new Vector2(0.005f, 0.005f);
-		// }
-
-		// fishNode.AddChild(sprite);
-		// AddChild(fishNode);
-
 		//Set random position and velocity
 		var screenSize = GetViewportRect().Size;
 		fish.Position = new Vector2(

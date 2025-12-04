@@ -1,3 +1,0 @@
-[submodule "steering-ai"]
-	path = steering-ai
-	url = https://github.com/wadlo/godot-steering-ai-framework-submodule-csharp.git
