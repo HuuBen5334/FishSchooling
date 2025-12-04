@@ -165,6 +165,7 @@ public partial class EelFish : BaseFish
         // Green elongated appearance
         sprite.Modulate = new Color(0.3f, 0.8f, 0.4f);
         Scale = new Vector2(1.8f, 0.8f);
+		SetupCollision(instance);
     }
     
     protected override void SetupBehaviors()
@@ -181,14 +182,14 @@ public partial class EelFish : BaseFish
             Weight = 3.0f, 
             DetectionRadius = 250.0f,
             PredictionTime = 0.5f,
-            TargetTypes = new string[] { "nemo", "starfish" }
+            TargetTypes = ["nemo", "starfish"]
         });
         
         // Territory defense activates when intruders present
         behaviors.Add(new TerritoryDefenseBehavior {
             Weight = 1.0f,
             TerritoryRadius = 250.0f,
-            IntruderTypes = new string[] { "nemo", "starfish" }
+            IntruderTypes = ["nemo", "starfish"]
         });
         
         // Lurking for idle animation
@@ -201,4 +202,98 @@ public partial class EelFish : BaseFish
         // Basic separation
         behaviors.Add(new SeparationBehavior { Weight = 1.5f, SafeRadius = 40.0f });
     }
+
+	private void SetupCollision(Node eelInstance)
+	{
+		if (eelInstance is Area2D area)
+		{
+			area.AreaEntered += OnAreaEntered;
+		}
+	}
+
+	private void OnAreaEntered(Area2D area)
+	{
+		if (area.GetParent() is NemoFish fish)
+		{
+			GD.Print("Eel caught a fish!");
+			CatchFish(fish);
+			var deathEffect = new DeathEffect();
+			deathEffect.Position = fish.Position;
+			GetParent().AddChild(deathEffect);
+		}
+	}
+	private void CatchFish(BaseFish fish) 
+	{
+		//remove fish from list in FishManager
+		var fishManager = GetParent() as FishManager;
+		if (fishManager != null)
+		{
+			fishManager.RemoveFish(fish);
+		}
+		fish.QueueFree();
+	}
+}
+
+public partial class OrcaFish : BaseFish
+{
+    public OrcaFish()
+    {
+        FishType = "orca";
+        MaxSpeed = 130.0f;
+    }
+    
+    protected override void SetupVisual()
+    {
+        var fishScene = GD.Load<PackedScene>("res://shark.tscn");
+        var instance = fishScene.Instantiate();
+        AddChild(instance);
+        sprite = instance.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        sprite.Play("shark_swim");
+        sprite.Modulate = new Color(0.3f, 0.3f, 0.5f); // Darker blue
+		SetupCollision(instance);
+    }
+    
+    protected override void SetupBehaviors()
+    {
+        // Smart shark uses interception instead of simple pursuit
+        behaviors.Add(new InterceptionBehavior { 
+            Weight = 3.0f,
+            DetectionRadius = 400.0f, // Larger detection range
+            PredictionTime = 0.8f,    // Better prediction
+            TargetTypes = ["nemo", "eel"]
+        });
+        
+        behaviors.Add(new WanderBehavior { Weight = 0.5f });
+        behaviors.Add(new SeparationBehavior { Weight = 1.5f, SafeRadius = 60.0f });
+    }
+
+	private void SetupCollision(Node orcaInstance)
+	{
+		if (orcaInstance is Area2D area)
+		{
+			area.AreaEntered += OnAreaEntered;
+		}
+	}
+
+	private void OnAreaEntered(Area2D area)
+	{
+		if (area.GetParent() is BaseFish fish && (fish.FishType == "nemo" || fish.FishType == "starfish" || fish.FishType == "eel"))
+		{
+			GD.Print("Orca caught a fish!");
+			CatchFish(fish);
+			var deathEffect = new DeathEffect();
+			deathEffect.Position = fish.Position;
+			GetParent().AddChild(deathEffect);
+		}
+	}
+	private void CatchFish(BaseFish fish)
+	{
+		//remove fish from list in FishManager
+		var fishManager = GetParent() as FishManager;
+		if (fishManager != null)
+		{
+			fishManager.RemoveFish(fish);
+		}
+		fish.QueueFree();
+	}
 }

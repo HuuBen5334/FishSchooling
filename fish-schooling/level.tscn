@@ -63,13 +63,17 @@ offset_bottom = 190.0
 [node name="fish_choice_dropdown" type="OptionButton" parent="Control_HUD/Panel_Spawner/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_oi3di")
-item_count = 3
+item_count = 5
 popup/item_0/text = "Nemo"
 popup/item_0/id = 0
 popup/item_1/text = "Shark"
 popup/item_1/id = 1
 popup/item_2/text = "Starfish"
 popup/item_2/id = 2
+popup/item_3/text = "Eel"
+popup/item_3/id = 3
+popup/item_4/text = "Orca"
+popup/item_4/id = 4
 
 [node name="fish_amount_spinbox" type="SpinBox" parent="Control_HUD/Panel_Spawner/VBoxContainer"]
 layout_mode = 2

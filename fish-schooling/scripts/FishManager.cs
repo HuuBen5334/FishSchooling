@@ -28,6 +28,12 @@ public partial class FishManager : Node2D
 				case "starfish":
 					newFish = new StarfishFish();
 					break;
+				case "eel":
+					newFish = new EelFish();
+					break;
+				case "orca":
+					newFish = new OrcaFish();
+					break;
 				default:
 					GD.PrintErr($"Unknown fish type: {type}");
 					return;

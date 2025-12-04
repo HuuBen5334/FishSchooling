@@ -34,6 +34,12 @@ public partial class ControlHud : Control
 			case 2:
 				selectedFish = "starfish";
 				break;
+			case 3:
+				selectedFish = "eel";
+				break;
+			case 4:
+				selectedFish = "orca";
+				break;
 		}
 		GD.Print($"Selected fish: {selectedFish}");
 	}
