@@ -1,23 +1,52 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class ControlHud : Control
 {
 	private string selectedFish = "nemo";
 	private int fishCount = 1;
-	
-	
-	// cache unique labels
+
+	//store parameters for eachfish type
+	private Dictionary<string, float> fishParameters = new Dictionary<string, float>
+	{
+		{"nemo_speed", 100.0f},
+		{"shark_pursuit", 120.0f},
+		{"starfish_speed", 15.0f}
+	};
+
+	//slider config for each fish type
+	private Dictionary<string, SliderConfig> sliderConfigs = new Dictionary<string, SliderConfig>();
 	private Label nemoLabel;
 	private Label sharkLabel;
 	private Label starfishLabel;
+	private HSlider parameterSlider;
+	private Label parameterLabel;
+	private FishManager fishManager;
+	private class SliderConfig
+    {
+        public string LabelText;
+		public float Min;
+		public float Max;
+		public string ParameterKey;
+		public SliderConfig(string label, float min, float max, string key)
+        {
+            LabelText = label;
+            Min = min;
+            Max = max;
+            ParameterKey = key;
+        }
+    }
 	
 	public override void _Ready()
 	{
+		// Setup slider configs for each fish type
+        sliderConfigs["nemo"] = new SliderConfig("Speed", 50, 200, "nemo_speed");
+        sliderConfigs["shark"] = new SliderConfig("Pursuit Radius", 100, 400, "shark_pursuit");
+        sliderConfigs["starfish"] = new SliderConfig("Speed", 5, 50, "starfish_speed");
 	
 		var dropdown = GetNode<OptionButton>("Panel_Spawner/VBoxContainer/fish_choice_dropdown");
 		dropdown.Connect("item_selected", new Callable(this, nameof(OnFishSelected)));
-
 		dropdown.Selected = 0; // Default selection
 		
 		var spinBox = GetNode<SpinBox>("Panel_Spawner/VBoxContainer/fish_amount_spinbox");
@@ -34,15 +63,85 @@ public partial class ControlHud : Control
 		if (nemoLabel == null || sharkLabel == null || starfishLabel == null)
 			GD.PrintErr("One or more fish count labels not found at the expected paths.");
 
-		var fishManager = GetNodeOrNull<FishManager>("../FishManager");
+		fishManager = GetNodeOrNull<FishManager>("../FishManager");
 		if (fishManager != null)
 			fishManager.Connect("FishCountChanged", new Callable(this, nameof(UpdateFishCount)));
-	
+
+		
+		// Setup parameter slider
+        parameterSlider = GetNodeOrNull<HSlider>("Panel_Spawner/VBoxContainer/velocity_slider");
+        parameterLabel = GetNodeOrNull<Label>("Panel_Spawner/VBoxContainer/velocity_label");
+
+		if (parameterSlider != null)
+        {
+			parameterSlider.MinValue = 50;
+			parameterSlider.MaxValue = 200;
+			parameterSlider.Value = 100;
+            parameterSlider.ValueChanged += OnParameterChanged;
+            ConfigureSliderForFish("nemo"); // Default config
+        }
+        
 	}
-	
+
+	private void ConfigureSliderForFish(string fishType)
+    {
+        if (!sliderConfigs.ContainsKey(fishType) || parameterSlider == null)
+            return;
+        
+        var config = sliderConfigs[fishType];
+        parameterSlider.MinValue = config.Min;
+        parameterSlider.MaxValue = config.Max;
+        parameterSlider.Value = fishParameters[config.ParameterKey];
+        
+        if (parameterLabel != null)
+            parameterLabel.Text = $"{config.LabelText}: {fishParameters[config.ParameterKey]:F0}";
+    }
+
+	private void OnParameterChanged(double value)
+    {
+        if (!sliderConfigs.ContainsKey(selectedFish))
+            return;
+        
+        var config = sliderConfigs[selectedFish];
+        fishParameters[config.ParameterKey] = (float)value;
+        
+        if (parameterLabel != null)
+            parameterLabel.Text = $"{config.LabelText}: {value:F0}";
+        
+        // Update existing fish
+        ApplyParameterToExistingFish(selectedFish, (float)value);
+    }
+
+
+	private void ApplyParameterToExistingFish(string fishType, float value)
+    {
+        if (fishManager == null)
+            return;
+        
+        foreach (var child in fishManager.GetChildren())
+        {
+            switch (fishType)
+            {
+                case "nemo":
+                    if (child is NemoFish nemo)
+                        nemo.MaxSpeed = value;
+                    break;
+                case "shark":
+                    if (child is SharkFish shark)
+                        shark.SetPursuitRadius(value); // You'll need to add this method
+                    break;
+                case "starfish":
+                    if (child is StarfishFish starfish)
+                        starfish.MaxSpeed = value;
+                    break;
+            }
+        }
+    }
+
+
+
 	private void OnFishSelected(int index)
 	{
-		var dropdown = GetNode<OptionButton>("Panel_Spawner/VBoxContainer/fish_choice_dropdown");
 		switch (index)
 		{
 			case 0:
@@ -55,7 +154,8 @@ public partial class ControlHud : Control
 				selectedFish = "starfish";
 				break;
 		}
-		GD.Print($"Selected fish: {selectedFish}");
+		ConfigureSliderForFish(selectedFish);
+        GD.Print($"Selected fish: {selectedFish}");
 	}
 	
 	private void OnQuantityChanged(double value)
@@ -72,11 +172,11 @@ public partial class ControlHud : Control
 		}
 
 		// Update the path to find FishManager instead of Flock
-		var fishManager = GetNode<FishManager>("../FishManager");
 		if (fishManager != null)
 		{
-			fishManager.SpawnFish(selectedFish, fishCount);
-			GD.Print($"Spawning {fishCount} {selectedFish}");
+			float param = fishParameters[sliderConfigs[selectedFish].ParameterKey];
+            fishManager.SpawnFish(selectedFish, fishCount, param);
+            GD.Print($"Spawning {fishCount} {selectedFish}");
 		}
 		else
 		{

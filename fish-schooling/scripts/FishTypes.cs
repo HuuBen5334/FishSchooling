@@ -50,6 +50,17 @@ public partial class SharkFish : BaseFish
 		SetupCollision(instance);
 	}
 
+	public void SetPursuitRadius(float radius)
+    {
+        foreach (var behavior in behaviors)
+        {
+            if (behavior is PursuitBehavior pursuit)
+            {
+                pursuit.HuntRadius = radius;
+            }
+        }
+    }
+
 	protected override void SetupBehaviors()
 	{
 		behaviors.Add(new PursuitBehavior { Weight = 2.0f });
