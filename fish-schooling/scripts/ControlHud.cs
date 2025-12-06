@@ -7,7 +7,7 @@ public partial class ControlHud : Control
 	private string selectedFish = "nemo";
 	private int fishCount = 1;
 
-	//store parameters for eachfish type
+	//store parameters for each fish type
 	private Dictionary<string, float> fishParameters = new Dictionary<string, float>
 	{
 		{"nemo_speed", 100.0f},
@@ -17,12 +17,22 @@ public partial class ControlHud : Control
 
 	//slider config for each fish type
 	private Dictionary<string, SliderConfig> sliderConfigs = new Dictionary<string, SliderConfig>();
+
+	//census labels
 	private Label nemoLabel;
 	private Label sharkLabel;
 	private Label starfishLabel;
+
+	//parameter slider
 	private HSlider parameterSlider;
 	private Label parameterLabel;
+	
+	//behavior containers
+	private Control separationContainer;
+	private Control cohesionContainer;
+	private Control alignmentContainer;
 	private FishManager fishManager;
+
 	private class SliderConfig
     {
         public string LabelText;
@@ -40,48 +50,76 @@ public partial class ControlHud : Control
 	
 	public override void _Ready()
 	{
-		// Setup slider configs for each fish type
+		SetupSliderConfigs();
+        SetupSpawnerControls();
+        SetupCensusLabels();
+        SetupFishManager();
+        SetupParameterSlider();
+        SetupBehaviorContainers();   
+	}
+
+	private void SetupSliderConfigs()
+    {
         sliderConfigs["nemo"] = new SliderConfig("Speed", 50, 200, "nemo_speed");
         sliderConfigs["shark"] = new SliderConfig("Pursuit Radius", 100, 400, "shark_pursuit");
         sliderConfigs["starfish"] = new SliderConfig("Speed", 5, 50, "starfish_speed");
-	
-		var dropdown = GetNode<OptionButton>("Panel_Spawner/VBoxContainer/fish_choice_dropdown");
-		dropdown.Connect("item_selected", new Callable(this, nameof(OnFishSelected)));
-		dropdown.Selected = 0; // Default selection
-		
-		var spinBox = GetNode<SpinBox>("Panel_Spawner/VBoxContainer/fish_amount_spinbox");
-		spinBox.ValueChanged += OnQuantityChanged;
-		
-		var spawnButton = GetNode<Button>("Panel_Spawner/VBoxContainer/fish_spawn_button");
-		spawnButton.Pressed += OnSpawnPressed;
+    }
 
-		 // cache the unique labels once
-		nemoLabel = GetNodeOrNull<Label>("Panel _Census/VBoxContainer/nemo_fish_count_label");
-		sharkLabel = GetNodeOrNull<Label>("Panel _Census/VBoxContainer/shark_fish_count_label");
-		starfishLabel = GetNodeOrNull<Label>("Panel _Census/VBoxContainer/starfish_fish_count_label");
+	private void SetupSpawnerControls()
+    {
+        var dropdown = GetNode<OptionButton>("Panel_Spawner/VBoxContainer/fish_choice_dropdown");
+        dropdown.Connect("item_selected", new Callable(this, nameof(OnFishSelected)));
+        dropdown.Selected = 0;
 
-		if (nemoLabel == null || sharkLabel == null || starfishLabel == null)
-			GD.PrintErr("One or more fish count labels not found at the expected paths.");
+        var spinBox = GetNode<SpinBox>("Panel_Spawner/VBoxContainer/fish_amount_spinbox");
+        spinBox.ValueChanged += OnQuantityChanged;
 
-		fishManager = GetNodeOrNull<FishManager>("../FishManager");
-		if (fishManager != null)
-			fishManager.Connect("FishCountChanged", new Callable(this, nameof(UpdateFishCount)));
+        var spawnButton = GetNode<Button>("Panel_Spawner/VBoxContainer/fish_spawn_button");
+        spawnButton.Pressed += OnSpawnPressed;
+    }
 
-		
-		// Setup parameter slider
+	private void SetupCensusLabels()
+    {
+        nemoLabel = GetNodeOrNull<Label>("Panel _Census/VBoxContainer/nemo_fish_count_label");
+        sharkLabel = GetNodeOrNull<Label>("Panel _Census/VBoxContainer/shark_fish_count_label");
+        starfishLabel = GetNodeOrNull<Label>("Panel _Census/VBoxContainer/starfish_fish_count_label");
+
+        if (nemoLabel == null || sharkLabel == null || starfishLabel == null)
+            GD.PrintErr("One or more fish count labels not found.");
+    }
+
+	private void SetupFishManager()
+    {
+        fishManager = GetNodeOrNull<FishManager>("../FishManager");
+        
+        if (fishManager != null)
+            fishManager.Connect("FishCountChanged", new Callable(this, nameof(UpdateFishCount)));
+        else
+            GD.PrintErr("FishManager not found!");
+    }
+
+	private void SetupParameterSlider()
+    {
         parameterSlider = GetNodeOrNull<HSlider>("Panel_Spawner/VBoxContainer/velocity_slider");
         parameterLabel = GetNodeOrNull<Label>("Panel_Spawner/VBoxContainer/velocity_label");
 
-		if (parameterSlider != null)
-        {
-			parameterSlider.MinValue = 50;
-			parameterSlider.MaxValue = 200;
-			parameterSlider.Value = 100;
-            parameterSlider.ValueChanged += OnParameterChanged;
-            ConfigureSliderForFish("nemo"); // Default config
-        }
-        
-	}
+        if (parameterSlider == null)
+            return;
+
+        parameterSlider.MinValue = 50;
+        parameterSlider.MaxValue = 200;
+        parameterSlider.Value = 100;
+        parameterSlider.ValueChanged += OnParameterChanged;
+        ConfigureSliderForFish("nemo");
+    }
+
+	private void SetupBehaviorContainers()
+    {
+        separationContainer = GetNodeOrNull<Control>("Panel_Spawner/SeparationContainer");
+        cohesionContainer = GetNodeOrNull<Control>("Panel_Spawner/CohesionContainer");
+        alignmentContainer = GetNodeOrNull<Control>("Panel_Spawner/AlignmentContainer");
+    }
+
 
 	private void ConfigureSliderForFish(string fishType)
     {
@@ -108,7 +146,7 @@ public partial class ControlHud : Control
         if (parameterLabel != null)
             parameterLabel.Text = $"{config.LabelText}: {value:F0}";
         
-        // Update existing fish
+        //Update existing fish
         ApplyParameterToExistingFish(selectedFish, (float)value);
     }
 
@@ -128,7 +166,7 @@ public partial class ControlHud : Control
                     break;
                 case "shark":
                     if (child is SharkFish shark)
-                        shark.SetPursuitRadius(value); // You'll need to add this method
+                        shark.SetPursuitRadius(value);
                     break;
                 case "starfish":
                     if (child is StarfishFish starfish)
@@ -155,7 +193,17 @@ public partial class ControlHud : Control
 				break;
 		}
 		ConfigureSliderForFish(selectedFish);
-        GD.Print($"Selected fish: {selectedFish}");
+        
+		// Hide behavior sliders for sharks
+        bool showBehaviors = (selectedFish != "shark");
+        
+        if (separationContainer != null)
+            separationContainer.Visible = showBehaviors;
+        if (cohesionContainer != null)
+            cohesionContainer.Visible = showBehaviors;
+        if (alignmentContainer != null)
+            alignmentContainer.Visible = showBehaviors;
+		GD.Print($"Selected fish: {selectedFish}");
 	}
 	
 	private void OnQuantityChanged(double value)

@@ -102,7 +102,14 @@ max_value = 5.0
 step = 0.5
 value = 0.1
 
-[node name="separation_label" type="Label" parent="Control_HUD/Panel_Spawner/VBoxContainer"]
+[node name="SeparationContainer" type="VBoxContainer" parent="Control_HUD/Panel_Spawner"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 176.0
+offset_right = 139.0
+offset_bottom = 216.0
+
+[node name="separation_label" type="Label" parent="Control_HUD/Panel_Spawner/SeparationContainer"]
 layout_mode = 2
 theme = SubResource("Theme_1ainy")
 text = "Separation
@@ -110,14 +117,21 @@ text = "Separation
 horizontal_alignment = 1
 max_lines_visible = 1
 
-[node name="separation_slider" type="HSlider" parent="Control_HUD/Panel_Spawner/VBoxContainer"]
+[node name="separation_slider" type="HSlider" parent="Control_HUD/Panel_Spawner/SeparationContainer"]
 layout_mode = 2
 min_value = 0.1
 max_value = 1.0
 step = 0.1
 value = 0.1
 
-[node name="alignment_label" type="Label" parent="Control_HUD/Panel_Spawner/VBoxContainer"]
+[node name="AlignmentContainer" type="VBoxContainer" parent="Control_HUD/Panel_Spawner"]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 225.0
+offset_right = 135.0
+offset_bottom = 265.0
+
+[node name="alignment_label" type="Label" parent="Control_HUD/Panel_Spawner/AlignmentContainer"]
 layout_mode = 2
 theme = SubResource("Theme_1ainy")
 text = "Alignment
@@ -125,21 +139,28 @@ text = "Alignment
 horizontal_alignment = 1
 max_lines_visible = 1
 
-[node name="alignment_slider" type="HSlider" parent="Control_HUD/Panel_Spawner/VBoxContainer"]
+[node name="alignment_slider" type="HSlider" parent="Control_HUD/Panel_Spawner/AlignmentContainer"]
 layout_mode = 2
 min_value = 0.1
 max_value = 1.0
 step = 0.1
 value = 0.1
 
-[node name="cohesion_label" type="Label" parent="Control_HUD/Panel_Spawner/VBoxContainer"]
+[node name="CohesionContainer" type="VBoxContainer" parent="Control_HUD/Panel_Spawner"]
+layout_mode = 0
+offset_left = 78.0
+offset_top = 281.0
+offset_right = 136.0
+offset_bottom = 321.0
+
+[node name="cohesion_label" type="Label" parent="Control_HUD/Panel_Spawner/CohesionContainer"]
 layout_mode = 2
 theme = SubResource("Theme_1ainy")
 text = "Cohesion"
 horizontal_alignment = 1
 max_lines_visible = 1
 
-[node name="cohesion_slider" type="HSlider" parent="Control_HUD/Panel_Spawner/VBoxContainer"]
+[node name="cohesion_slider" type="HSlider" parent="Control_HUD/Panel_Spawner/CohesionContainer"]
 layout_mode = 2
 min_value = 0.1
 max_value = 1.0
