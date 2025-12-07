@@ -1,13 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://cnc13cas6p04r"]
+[gd_scene load_steps=13 format=3 uid="uid://cnc13cas6p04r"]
 
 [ext_resource type="Texture2D" uid="uid://c7a2womj3hdkg" path="res://sprites/background_image.png" id="1_vonw3"]
 [ext_resource type="Script" uid="uid://d03sce5rmqbxu" path="res://scripts/FishManager.cs" id="2_f2txt"]
 [ext_resource type="Script" uid="uid://1tkjymkctcto" path="res://scripts/ControlHud.cs" id="3_f2txt"]
 [ext_resource type="FontFile" uid="uid://cw0cibr8qhdcr" path="res://MedodicaRegular.otf" id="3_oi3di"]
-[ext_resource type="PackedScene" uid="uid://b448tqm0lyne4" path="res://gold_fish.tscn" id="4_0b4ue"]
+[ext_resource type="PackedScene" uid="uid://d2sqvbpbuchql" path="res://gold_fish.tscn" id="4_0b4ue"]
 [ext_resource type="PackedScene" uid="uid://npp7kl3rl4pc" path="res://shark.tscn" id="6_m3clv"]
 [ext_resource type="PackedScene" uid="uid://x6j6rmqr1hpd" path="res://starfish.tscn" id="7_mxnmf"]
-[ext_resource type="PackedScene" path="res://death_effect.tscn" id="8_4eo0i"]
+[ext_resource type="PackedScene" uid="uid://b33lb0spoasuc" path="res://death_effect.tscn" id="8_4eo0i"]
+[ext_resource type="PackedScene" uid="uid://bgi8cf0g1dwlh" path="res://rock.tscn" id="9_i2t4f"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vonw3"]
 bg_color = Color(1, 1, 0.996078, 0.458824)
@@ -37,17 +38,6 @@ texture = ExtResource("1_vonw3")
 
 [node name="FishManager" type="Node2D" parent="."]
 script = ExtResource("2_f2txt")
-
-[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
-modulate = Color(1, 1, 1, 0.619608)
-offset_left = -62.0
-offset_top = -39.0
-offset_right = 578.0
-offset_bottom = 321.0
-scale = Vector2(2, 2)
-stream = ExtResource("7_n6hdu")
-autoplay = true
-loop = true
 
 [node name="Control_HUD" type="Control" parent="."]
 layout_mode = 3
@@ -208,3 +198,6 @@ position = Vector2(-96, 154)
 
 [node name="death_effect" parent="." instance=ExtResource("8_4eo0i")]
 position = Vector2(-178, 84)
+
+[node name="Rock" parent="." instance=ExtResource("9_i2t4f")]
+position = Vector2(337, 250)
