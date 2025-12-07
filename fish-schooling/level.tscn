@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cnc13cas6p04r"]
+[gd_scene load_steps=14 format=3 uid="uid://cnc13cas6p04r"]
 
 [ext_resource type="Texture2D" uid="uid://c7a2womj3hdkg" path="res://sprites/background_image.png" id="1_vonw3"]
 [ext_resource type="Script" uid="uid://d03sce5rmqbxu" path="res://scripts/FishManager.cs" id="2_f2txt"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://x6j6rmqr1hpd" path="res://starfish.tscn" id="7_mxnmf"]
 [ext_resource type="PackedScene" uid="uid://b33lb0spoasuc" path="res://death_effect.tscn" id="8_4eo0i"]
 [ext_resource type="PackedScene" uid="uid://bgi8cf0g1dwlh" path="res://rock.tscn" id="9_i2t4f"]
+[ext_resource type="PackedScene" uid="uid://copqscdpgd52y" path="res://orca.tscn" id="11_2orkt"]
 
 [sub_resource type="FontFile" id="FontFile_f2txt"]
 cache/0/16/0/ascent = 0.0
@@ -214,3 +215,7 @@ position = Vector2(-178, 84)
 
 [node name="Rock" parent="." instance=ExtResource("9_i2t4f")]
 position = Vector2(337, 250)
+
+[node name="orca" parent="." instance=ExtResource("11_2orkt")]
+position = Vector2(578, 296)
+scale = Vector2(1.5, 1.5)
