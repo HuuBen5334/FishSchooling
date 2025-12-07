@@ -34,10 +34,10 @@ text = "The tutorial info thingy goes here"
 
 [node name="back" type="Button" parent="."]
 layout_mode = 0
-offset_left = 298.99
-offset_top = 440.503
-offset_right = 369.99
-offset_bottom = 468.503
+offset_left = 431.0
+offset_top = 214.0
+offset_right = 502.0
+offset_bottom = 242.0
 text = "Back"
 
 [connection signal="pressed" from="back" to="." method="_on_Back_pressed"]

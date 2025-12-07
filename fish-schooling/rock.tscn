@@ -1,9 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://bgi8cf0g1dwlh"]
+[gd_scene load_steps=3 format=3 uid="uid://bgi8cf0g1dwlh"]
 
 [ext_resource type="Texture2D" uid="uid://bwah3g2as6xcg" path="res://sprites/rock4.0.png" id="1_o0qsl"]
 
-[node name="Rock" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o0qsl"]
+size = Vector2(70, 28.5)
+
+[node name="Rock" type="Area2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_o0qsl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, -5)
+shape = SubResource("RectangleShape2D_o0qsl")
