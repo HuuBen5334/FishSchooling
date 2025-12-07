@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d2sqvbpbuchql"]
+[gd_scene load_steps=10 format=3 uid="uid://b448tqm0lyne4"]
 
 [ext_resource type="Texture2D" uid="uid://bibpxijov7j5a" path="res://sprites/gold_fish_animation/pixil-frame-0.png" id="1_6y3dn"]
 [ext_resource type="Texture2D" uid="uid://bgc1vmk04abcs" path="res://sprites/gold_fish_animation/pixil-frame-1.png" id="2_w1hu5"]
