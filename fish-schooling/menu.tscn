@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c8mf2rkpaoxkm"]
+[gd_scene load_steps=4 format=3 uid="uid://c8mf2rkpaoxkm"]
 
-[ext_resource type="Script" path="res://menu.gd" id="1_lti8b"]
+[ext_resource type="Script" uid="uid://1t27x6h8qdnv" path="res://menu.gd" id="1_lti8b"]
 [ext_resource type="Texture2D" uid="uid://ckdp0tjg3ivdq" path="res://sprites/download.png" id="2_ouk20"]
+[ext_resource type="Texture2D" uid="uid://bbmps05hive2v" path="res://sprites/title.png" id="3_mae5d"]
 
 [node name="menu" type="Control"]
 layout_mode = 3
@@ -39,6 +40,11 @@ text = "Tutorial
 [node name="quit_button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "End"
+
+[node name="Title" type="Sprite2D" parent="."]
+position = Vector2(564, 325)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_mae5d")
 
 [connection signal="pressed" from="VBoxContainer/start_button" to="." method="_on_StartButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/tutorial_button" to="." method="_on_TutorialButton_pressed"]
