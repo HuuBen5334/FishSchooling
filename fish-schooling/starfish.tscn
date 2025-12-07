@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://x6j6rmqr1hpd"]
+
+[ext_resource type="Texture2D" uid="uid://bfxqgssjhibxp" path="res://sprites/Starfishspritesheet.png" id="1_g6mug"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqavx"]
+atlas = ExtResource("1_g6mug")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m28mw"]
+atlas = ExtResource("1_g6mug")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_njdkv"]
+atlas = ExtResource("1_g6mug")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_743bi"]
+atlas = ExtResource("1_g6mug")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pm43n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqavx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m28mw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_njdkv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_743bi")
+}],
+"loop": true,
+"name": &"starfish_animation",
+"speed": 10.0
+}]
+
+[node name="starfish" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_pm43n")
+animation = &"starfish_animation"
+frame_progress = 0.47468

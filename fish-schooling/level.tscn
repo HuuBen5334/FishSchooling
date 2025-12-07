@@ -1,12 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://dlk7lbmphxr"]
+[gd_scene load_steps=12 format=3 uid="uid://cnc13cas6p04r"]
 
 [ext_resource type="Texture2D" uid="uid://c7a2womj3hdkg" path="res://sprites/background_image.png" id="1_vonw3"]
-[ext_resource type="Script" uid="uid://d03sce5rmqbxu" path="res://FishManager.cs" id="2_f2txt"]
-[ext_resource type="Script" uid="uid://1tkjymkctcto" path="res://ControlHud.cs" id="3_f2txt"]
+[ext_resource type="Script" uid="uid://d03sce5rmqbxu" path="res://scripts/FishManager.cs" id="2_f2txt"]
+[ext_resource type="Script" uid="uid://1tkjymkctcto" path="res://scripts/ControlHud.cs" id="3_f2txt"]
 [ext_resource type="FontFile" uid="uid://cw0cibr8qhdcr" path="res://MedodicaRegular.otf" id="3_oi3di"]
 [ext_resource type="PackedScene" uid="uid://b448tqm0lyne4" path="res://gold_fish.tscn" id="4_0b4ue"]
 [ext_resource type="PackedScene" uid="uid://npp7kl3rl4pc" path="res://shark.tscn" id="6_m3clv"]
-[ext_resource type="VideoStream" uid="uid://cia8xysvqv02w" path="res://161880-824623405_tiny.ogv" id="7_n6hdu"]
+[ext_resource type="PackedScene" uid="uid://x6j6rmqr1hpd" path="res://starfish.tscn" id="7_mxnmf"]
+[ext_resource type="PackedScene" path="res://death_effect.tscn" id="8_4eo0i"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vonw3"]
 bg_color = Color(1, 1, 0.996078, 0.458824)
@@ -58,21 +59,22 @@ script = ExtResource("3_f2txt")
 [node name="Panel_Spawner" type="Panel" parent="Control_HUD"]
 layout_mode = 2
 offset_left = 877.0
-offset_top = 447.0
+offset_top = 261.0
 offset_right = 1117.0
 offset_bottom = 600.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_vonw3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control_HUD/Panel_Spawner"]
 layout_mode = 0
-offset_left = 29.0
-offset_top = 16.0
-offset_right = 197.0
-offset_bottom = 190.0
+offset_left = 37.0
+offset_top = 18.0
+offset_right = 205.0
+offset_bottom = 335.0
 
 [node name="fish_choice_dropdown" type="OptionButton" parent="Control_HUD/Panel_Spawner/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_oi3di")
+selected = 0
 item_count = 3
 popup/item_0/text = "Nemo"
 popup/item_0/id = 0
@@ -96,6 +98,65 @@ theme_override_fonts/font = ExtResource("3_oi3di")
 theme_override_font_sizes/font_size = 20
 text = "Spawn Fish"
 
+[node name="velocity_label" type="Label" parent="Control_HUD/Panel_Spawner/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1ainy")
+text = "Velocity
+"
+horizontal_alignment = 1
+max_lines_visible = 1
+
+[node name="velocity_slider" type="HSlider" parent="Control_HUD/Panel_Spawner/VBoxContainer"]
+layout_mode = 2
+min_value = 0.1
+max_value = 5.0
+step = 0.5
+value = 0.1
+
+[node name="separation_label" type="Label" parent="Control_HUD/Panel_Spawner/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1ainy")
+text = "Separation
+"
+horizontal_alignment = 1
+max_lines_visible = 1
+
+[node name="separation_slider" type="HSlider" parent="Control_HUD/Panel_Spawner/VBoxContainer"]
+layout_mode = 2
+min_value = 0.1
+max_value = 1.0
+step = 0.1
+value = 0.1
+
+[node name="alignment_label" type="Label" parent="Control_HUD/Panel_Spawner/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1ainy")
+text = "Alignment
+"
+horizontal_alignment = 1
+max_lines_visible = 1
+
+[node name="alignment_slider" type="HSlider" parent="Control_HUD/Panel_Spawner/VBoxContainer"]
+layout_mode = 2
+min_value = 0.1
+max_value = 1.0
+step = 0.1
+value = 0.1
+
+[node name="cohesion_label" type="Label" parent="Control_HUD/Panel_Spawner/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1ainy")
+text = "Cohesion"
+horizontal_alignment = 1
+max_lines_visible = 1
+
+[node name="cohesion_slider" type="HSlider" parent="Control_HUD/Panel_Spawner/VBoxContainer"]
+layout_mode = 2
+min_value = 0.1
+max_value = 1.0
+step = 0.1
+value = 0.1
+
 [node name="Panel _Census" type="Panel" parent="Control_HUD"]
 layout_mode = 0
 offset_left = 38.0
@@ -111,15 +172,39 @@ offset_top = 4.0
 offset_right = 237.0
 offset_bottom = 123.0
 
-[node name="fish_count_label" type="Label" parent="Control_HUD/Panel _Census/VBoxContainer"]
+[node name="nemo_fish_count_label" type="Label" parent="Control_HUD/Panel _Census/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme = SubResource("Theme_1ainy")
+text = "Nemo: 0"
 horizontal_alignment = 1
 max_lines_visible = 1
 
+[node name="shark_fish_count_label" type="Label" parent="Control_HUD/Panel _Census/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = SubResource("Theme_1ainy")
+text = "Shark: 0"
+horizontal_alignment = 1
+max_lines_visible = 1
+
+[node name="starfish_fish_count_label" type="Label" parent="Control_HUD/Panel _Census/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = SubResource("Theme_1ainy")
+text = "Starfish: 0"
+horizontal_alignment = 1
+max_lines_visible = 1
+
+[node name="starfish" parent="." instance=ExtResource("7_mxnmf")]
+position = Vector2(-100, 49)
+
 [node name="gold_fish" parent="." instance=ExtResource("4_0b4ue")]
-position = Vector2(-142, 380)
+position = Vector2(-139, 280)
 rotation = 0.886188
 
 [node name="shark" parent="." instance=ExtResource("6_m3clv")]
-position = Vector2(-66, 122)
+position = Vector2(-96, 154)
+
+[node name="death_effect" parent="." instance=ExtResource("8_4eo0i")]
+position = Vector2(-178, 84)

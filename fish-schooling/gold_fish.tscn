@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b448tqm0lyne4"]
+[gd_scene load_steps=11 format=3 uid="uid://d2sqvbpbuchql"]
 
 [ext_resource type="Texture2D" uid="uid://bibpxijov7j5a" path="res://sprites/gold_fish_animation/pixil-frame-0.png" id="1_6y3dn"]
 [ext_resource type="Texture2D" uid="uid://bgc1vmk04abcs" path="res://sprites/gold_fish_animation/pixil-frame-1.png" id="2_w1hu5"]
@@ -41,9 +41,19 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="gold_fish" type="Node2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6y3dn"]
+radius = 4.9778
+height = 32.0069
+
+[node name="gold_fish" type="Area2D"]
+visibility_layer = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 rotation = 1.47653
 sprite_frames = SubResource("SpriteFrames_qyt37")
 frame_progress = 0.540556
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(5, -2)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_6y3dn")
