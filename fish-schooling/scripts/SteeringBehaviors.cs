@@ -211,7 +211,7 @@ namespace FishBehaviors
 
 			foreach (var other in allFish)
 			{
-				if (other.FishType == "shark")
+				if (other.FishType == "shark" || other.FishType == "orca" || other.FishType == "eel")
 				{
 					float distance = fish.Position.DistanceTo(other.Position);
 					if (distance < PanicDistance && distance > 0)
@@ -451,6 +451,49 @@ namespace FishBehaviors
 				}
 			}
 			
+			return Vector2.Zero;
+		}
+	}
+
+	public class ObstacleAvoidanceBehavior : ISteeringBehavior
+	{
+		public float Weight { get; set; } = 1.2f;
+		public bool IsActive { get; set; } = true;
+		public float DetectionRadius { get; set; } = 80.0f;
+		public string ObstacleGroup { get; set; } = "obstacles";
+
+		public Vector2 Calculate(BaseFish fish, List<BaseFish> allFish)
+		{
+			if (!IsActive) return Vector2.Zero;
+
+			Vector2 avoidanceForce = Vector2.Zero;
+			int obstacleCount = 0;
+
+			//Get all obstacles in scene by group
+			var obstacles = fish.GetTree().GetNodesInGroup(ObstacleGroup);
+
+			foreach (var obstacle in obstacles)
+			{
+				if (obstacle is Node2D obstacleNode)
+				{
+					float distance = fish.Position.DistanceTo(obstacleNode.GlobalPosition);
+					
+					if (distance < DetectionRadius && distance > 0)
+					{
+						Vector2 awayFromObstacle = (fish.Position - obstacleNode.GlobalPosition).Normalized();
+						float urgency = 1.0f - (distance / DetectionRadius);
+						avoidanceForce += awayFromObstacle * urgency;
+						obstacleCount++;
+					}
+				}
+			}
+
+			if (obstacleCount > 0)
+			{
+				avoidanceForce /= obstacleCount;
+				return avoidanceForce.Normalized() * Weight;
+			}
+
 			return Vector2.Zero;
 		}
 	}

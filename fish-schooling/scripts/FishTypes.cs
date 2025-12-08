@@ -26,6 +26,11 @@ public partial class NemoFish : BaseFish
 		behaviors.Add(new SeparationBehavior { Weight = 1.6f, SafeRadius = 30.0f });
 		behaviors.Add(new WanderBehavior { Weight = 0.6f }); // Gentle wandering to make movement less rigid
 		behaviors.Add(new FleeBehavior { Weight = 3.0f, PanicDistance = 200.0f });
+		behaviors.Add(new ObstacleAvoidanceBehavior {
+			Weight = 5.0f,
+			DetectionRadius = 30.0f,
+			ObstacleGroup = "obstacles"
+		});
 	}
 }
 
@@ -56,6 +61,11 @@ public partial class SharkFish : BaseFish
 		behaviors.Add(new PursuitBehavior { Weight = 2.0f });
 		behaviors.Add(new WanderBehavior { Weight = 0.5f });
 		behaviors.Add(new SeparationBehavior { Weight = 1.5f, SafeRadius = 50.0f });
+		behaviors.Add(new ObstacleAvoidanceBehavior {
+			Weight = 5.0f,
+			DetectionRadius = 30.0f,
+			ObstacleGroup = "obstacles"
+		});
 	}
 	private void SetupCollision(Node sharkInstance)
 	{
@@ -143,6 +153,11 @@ public partial class StarfishFish : BaseFish
 		behaviors.Add(new PathFollowBehavior { Weight = 2.0f, PathLength = 500.0f });
 		behaviors.Add(new WanderBehavior { Weight = 0.3f });
 		behaviors.Add(new SeparationBehavior { Weight = 1.0f, SafeRadius = 20.0f });
+		behaviors.Add(new ObstacleAvoidanceBehavior {
+			Weight = 5.0f,
+			DetectionRadius = 30.0f,
+			ObstacleGroup = "obstacles"
+		});
 	}
 }
 
@@ -199,8 +214,13 @@ public partial class EelFish : BaseFish
 			SwayAmount = 0.3f
 		});
 		
-		// Basic separation
+		// Basic separation and obstacle avoidance
 		behaviors.Add(new SeparationBehavior { Weight = 1.5f, SafeRadius = 40.0f });
+		behaviors.Add(new ObstacleAvoidanceBehavior {
+			Weight = 5.0f,
+			DetectionRadius = 30.0f,
+			ObstacleGroup = "obstacles"
+		});
 	}
 
 	private void SetupCollision(Node eelInstance)
@@ -264,6 +284,11 @@ public partial class OrcaFish : BaseFish
 		
 		behaviors.Add(new WanderBehavior { Weight = 0.5f });
 		behaviors.Add(new SeparationBehavior { Weight = 1.5f, SafeRadius = 60.0f });
+		behaviors.Add(new ObstacleAvoidanceBehavior {
+			Weight = 5.0f,
+			DetectionRadius = 30.0f,
+			ObstacleGroup = "obstacles"
+		});
 	}
 
 	private void SetupCollision(Node orcaInstance)

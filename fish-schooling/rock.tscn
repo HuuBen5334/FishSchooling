@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://bgi8cf0g1dwlh"]
+[gd_scene load_steps=3 format=3 uid="uid://dxitufn83gx03"]
 
 [ext_resource type="Texture2D" uid="uid://cjopdflqldtdo" path="res://sprites/rock4.0.png" id="1_o0qsl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o0qsl"]
 size = Vector2(70, 28.5)
 
-[node name="Rock" type="Area2D"]
+[node name="Rock" type="Area2D" groups=["obstacles"]]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
