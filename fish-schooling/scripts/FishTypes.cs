@@ -82,9 +82,9 @@ public partial class SharkFish : BaseFish
 		//remove fish from list in FishManager
 		var fishManager = GetParent() as FishManager;
 		if (fishManager != null)
-        {
-            fishManager.RemoveFish(fish);
-        }
+		{
+			fishManager.RemoveFish(fish);
+		}
 		fish.QueueFree();
 	}
 }
@@ -112,7 +112,7 @@ public partial class DeathEffect : BaseFish
 	{
 		var fadeTween = CreateTween();
 		fadeTween.TweenProperty(sprite, "modulate:a", 0.0f, 1.0f);
-        fadeTween.TweenCallback(Callable.From(() => QueueFree()));
+		fadeTween.TweenCallback(Callable.From(() => QueueFree()));
 	}
 
 	protected override void SetupBehaviors()
@@ -148,60 +148,60 @@ public partial class StarfishFish : BaseFish
 
 public partial class EelFish : BaseFish
 {
-    public EelFish()
-    {
-        FishType = "eel";
-        MaxSpeed = 140.0f; // Fast when chasing
-    }
-    
-    protected override void SetupVisual()
-    {
-        var fishScene = GD.Load<PackedScene>("res://gold_fish.tscn");
-        var instance = fishScene.Instantiate();
-        AddChild(instance);
-        sprite = instance.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        sprite.Play("default");
-        
-        // Green elongated appearance
-        sprite.Modulate = new Color(0.3f, 0.8f, 0.4f);
-        Scale = new Vector2(1.8f, 0.8f);
+	public EelFish()
+	{
+		FishType = "eel";
+		MaxSpeed = 140.0f; // Fast when chasing
+	}
+	
+	protected override void SetupVisual()
+	{
+		var fishScene = GD.Load<PackedScene>("res://gold_fish.tscn");
+		var instance = fishScene.Instantiate();
+		AddChild(instance);
+		sprite = instance.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		sprite.Play("default");
+		
+		// Green elongated appearance
+		sprite.Modulate = new Color(0.3f, 0.8f, 0.4f);
+		Scale = new Vector2(1.8f, 0.8f);
 		SetupCollision(instance);
-    }
-    
-    protected override void SetupBehaviors()
-    {
-        // Home guard keeps eel near its spot
-        behaviors.Add(new HomeGuardBehavior { 
-            Weight = 2.0f, 
-            ComfortRadius = 50.0f,
-            MaxRadius = 300.0f 
-        });
-        
-        // Interception for smart pursuit
-        behaviors.Add(new InterceptionBehavior { 
-            Weight = 3.0f, 
-            DetectionRadius = 250.0f,
-            PredictionTime = 0.5f,
-            TargetTypes = ["nemo", "starfish"]
-        });
-        
-        // Territory defense activates when intruders present
-        behaviors.Add(new TerritoryDefenseBehavior {
-            Weight = 1.0f,
-            TerritoryRadius = 250.0f,
-            IntruderTypes = ["nemo", "starfish"]
-        });
-        
-        // Lurking for idle animation
-        behaviors.Add(new LurkingBehavior { 
-            Weight = 0.5f,
-            SwaySpeed = 0.05f,
-            SwayAmount = 0.3f
-        });
-        
-        // Basic separation
-        behaviors.Add(new SeparationBehavior { Weight = 1.5f, SafeRadius = 40.0f });
-    }
+	}
+	
+	protected override void SetupBehaviors()
+	{
+		// Home guard keeps eel near its spot
+		behaviors.Add(new HomeGuardBehavior { 
+			Weight = 2.0f, 
+			ComfortRadius = 50.0f,
+			MaxRadius = 300.0f 
+		});
+		
+		// Interception for smart pursuit
+		behaviors.Add(new InterceptionBehavior { 
+			Weight = 3.0f, 
+			DetectionRadius = 250.0f,
+			PredictionTime = 0.5f,
+			TargetTypes = ["nemo", "starfish"]
+		});
+		
+		// Territory defense activates when intruders present
+		behaviors.Add(new TerritoryDefenseBehavior {
+			Weight = 1.0f,
+			TerritoryRadius = 250.0f,
+			IntruderTypes = ["nemo", "starfish"]
+		});
+		
+		// Lurking for idle animation
+		behaviors.Add(new LurkingBehavior { 
+			Weight = 0.5f,
+			SwaySpeed = 0.05f,
+			SwayAmount = 0.3f
+		});
+		
+		// Basic separation
+		behaviors.Add(new SeparationBehavior { Weight = 1.5f, SafeRadius = 40.0f });
+	}
 
 	private void SetupCollision(Node eelInstance)
 	{
@@ -236,36 +236,35 @@ public partial class EelFish : BaseFish
 
 public partial class OrcaFish : BaseFish
 {
-    public OrcaFish()
-    {
-        FishType = "orca";
-        MaxSpeed = 130.0f;
-    }
-    
-    protected override void SetupVisual()
-    {
-        var fishScene = GD.Load<PackedScene>("res://shark.tscn");
-        var instance = fishScene.Instantiate();
-        AddChild(instance);
-        sprite = instance.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        sprite.Play("shark_swim");
-        sprite.Modulate = new Color(0.3f, 0.3f, 0.5f); // Darker blue
+	public OrcaFish()
+	{
+		FishType = "orca";
+		MaxSpeed = 130.0f;
+	}
+	
+	protected override void SetupVisual()
+	{
+		var fishScene = GD.Load<PackedScene>("res://orca.tscn");
+		var instance = fishScene.Instantiate();
+		AddChild(instance);
+		sprite = instance.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		sprite.Play("default");
 		SetupCollision(instance);
-    }
-    
-    protected override void SetupBehaviors()
-    {
-        // Smart shark uses interception instead of simple pursuit
-        behaviors.Add(new InterceptionBehavior { 
-            Weight = 3.0f,
-            DetectionRadius = 400.0f, // Larger detection range
-            PredictionTime = 0.8f,    // Better prediction
-            TargetTypes = ["nemo", "eel"]
-        });
-        
-        behaviors.Add(new WanderBehavior { Weight = 0.5f });
-        behaviors.Add(new SeparationBehavior { Weight = 1.5f, SafeRadius = 60.0f });
-    }
+	}
+	
+	protected override void SetupBehaviors()
+	{
+		// Smart shark uses interception instead of simple pursuit
+		behaviors.Add(new InterceptionBehavior { 
+			Weight = 3.0f,
+			DetectionRadius = 400.0f, // Larger detection range
+			PredictionTime = 0.8f,    // Better prediction
+			TargetTypes = ["nemo", "eel"]
+		});
+		
+		behaviors.Add(new WanderBehavior { Weight = 0.5f });
+		behaviors.Add(new SeparationBehavior { Weight = 1.5f, SafeRadius = 60.0f });
+	}
 
 	private void SetupCollision(Node orcaInstance)
 	{

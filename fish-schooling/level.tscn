@@ -9,11 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://npp7kl3rl4pc" path="res://shark.tscn" id="6_m3clv"]
 [ext_resource type="PackedScene" uid="uid://x6j6rmqr1hpd" path="res://starfish.tscn" id="7_mxnmf"]
 [ext_resource type="PackedScene" uid="uid://b33lb0spoasuc" path="res://death_effect.tscn" id="8_4eo0i"]
-[ext_resource type="PackedScene" uid="uid://bgi8cf0g1dwlh" path="res://rock.tscn" id="9_i2t4f"]
-[ext_resource type="PackedScene" uid="uid://copqscdpgd52y" path="res://orca.tscn" id="11_2orkt"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vonw3"]
-bg_color = Color(1, 1, 0.996078, 0.458824)
+[ext_resource type="PackedScene" uid="uid://dxitufn83gx03" path="res://rock.tscn" id="9_i2t4f"]
+[ext_resource type="PackedScene" uid="uid://cfxj50q31uoot" path="res://orca.tscn" id="11_2orkt"]
 
 [sub_resource type="FontFile" id="FontFile_f2txt"]
 cache/0/16/0/ascent = 0.0
@@ -231,7 +228,7 @@ position = Vector2(-96, 154)
 position = Vector2(-178, 84)
 
 [node name="orca" parent="." instance=ExtResource("11_2orkt")]
-position = Vector2(578, 296)
+position = Vector2(-253, 202)
 scale = Vector2(1.5, 1.5)
 
 [node name="Rock" parent="." instance=ExtResource("9_i2t4f")]
