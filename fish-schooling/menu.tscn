@@ -41,7 +41,7 @@ text = "Tutorial
 layout_mode = 2
 text = "End"
 
-[node name="Title2" type="Sprite2D" parent="."]
+[node name="title_shadow" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 0.290196)
 position = Vector2(574, 333)
 scale = Vector2(0.5, 0.5)
