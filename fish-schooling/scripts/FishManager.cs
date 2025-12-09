@@ -13,6 +13,8 @@ public partial class FishManager : Node2D
 		fishCount["nemo"] = 0;
 		fishCount["shark"] = 0;
 		fishCount["starfish"] = 0;
+		fishCount["orca"] = 0;
+		fishCount["eel"] = 0;
 	}
 
 
