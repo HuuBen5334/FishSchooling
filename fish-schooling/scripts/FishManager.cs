@@ -19,6 +19,8 @@ public partial class FishManager : Node2D
 	private int maxNemoFish = 110;
 	private int maxSharkFish = 150;
 	private int maxStarfishFish = 200;
+	private int maxEelFish = 30;
+	private int maxOrcaFish = 20;
 	public override void _Ready()
 	{
 		// Spawn some initial fish
@@ -31,6 +33,8 @@ public partial class FishManager : Node2D
 		int currentNemo = allFish.Count(f => f.FishType == "nemo");
 		int currentSharks = allFish.Count(f => f.FishType == "shark");
 		int currentStarfish = allFish.Count(f => f.FishType == "starfish");
+		int currentEels = allFish.Count(f => f.FishType == "eel");
+		int currentOrcas = allFish.Count(f => f.FishType == "orca");
 
 		int maxAllowed = 0;
 		int currentCount = 0;
@@ -48,6 +52,14 @@ public partial class FishManager : Node2D
 			case "starfish":
 				maxAllowed = maxStarfishFish;
 				currentCount = currentStarfish;
+				break;
+			case "eel":
+				maxAllowed = maxEelFish;
+				currentCount = currentEels;
+				break;
+			case "orca":
+				maxAllowed = maxOrcaFish;
+				currentCount = currentOrcas;
 				break;
 			default:
 				GD.PrintErr($"Unknown fish type: {type}");
@@ -79,6 +91,12 @@ public partial class FishManager : Node2D
 				case "starfish":
 					newFish = new StarfishFish();
 					break;
+				case "eel":
+					newFish = new EelFish();
+					break;
+				case "orca":
+					newFish = new OrcaFish();
+					break;
 				default:
 					GD.PrintErr($"Unknown fish type: {type}");
 					return;
@@ -102,8 +120,6 @@ public partial class FishManager : Node2D
 			{
 				var ControlHud = GetNode<ControlHud>("../Control_HUD");
 				fishCount[type] += 1;
-				//EmitSignal(nameof(FishCountChangedEventHandler), type, fishCount[type]);
-
 				ControlHud.UpdateFishCount(type, fishCount[type]);
 			}
 			
@@ -112,14 +128,11 @@ public partial class FishManager : Node2D
 	//for removing fish from list
 	public void RemoveFish(BaseFish fish)
 	{
-		// can remove loop after testing/ printingit g debgging 
-
 		if (fishCount.ContainsKey(fish.FishType))
 			{
 				fishCount[fish.FishType] = Mathf.Max(0, fishCount[fish.FishType] - 1);
 				GD.Print($"Removed one {fish.FishType}, new count: {fishCount[fish.FishType]}");
 				var ControlHud = GetNode<ControlHud>("../Control_HUD");
-				//EmitSignal(nameof(FishCountChangedEventHandler), fish.FishType, fishCount[fish.FishType]);
 				ControlHud.UpdateFishCount( fish.FishType, fishCount[fish.FishType]);
 			}
 		allFish.Remove(fish);

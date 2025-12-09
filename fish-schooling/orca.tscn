@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://copqscdpgd52y"]
+[gd_scene load_steps=11 format=3 uid="uid://cfxj50q31uoot"]
 
 [ext_resource type="Texture2D" uid="uid://c7mk3cw25qjh" path="res://sprites/orcaSprites/pixil-frame-0.png" id="1_yn850"]
 [ext_resource type="Texture2D" uid="uid://5kqcs5gc6ts0" path="res://sprites/orcaSprites/pixil-frame-1.png" id="2_kuus7"]
@@ -48,12 +48,15 @@ height = 26.0
 [node name="orca" type="Area2D"]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-92, 115)
+rotation = 1.5708
+scale = Vector2(1.6, 1.6)
 sprite_frames = SubResource("SpriteFrames_602ur")
 autoplay = "default"
 frame = 7
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-93, 101)
+position = Vector2(25, 0)
+rotation = 1.5708
+scale = Vector2(1.6, 1.6)
 shape = SubResource("CapsuleShape2D_yn850")

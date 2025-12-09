@@ -9,8 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://npp7kl3rl4pc" path="res://shark.tscn" id="6_m3clv"]
 [ext_resource type="PackedScene" uid="uid://x6j6rmqr1hpd" path="res://starfish.tscn" id="7_mxnmf"]
 [ext_resource type="PackedScene" uid="uid://b33lb0spoasuc" path="res://death_effect.tscn" id="8_4eo0i"]
-[ext_resource type="PackedScene" uid="uid://bgi8cf0g1dwlh" path="res://rock.tscn" id="9_i2t4f"]
-[ext_resource type="PackedScene" uid="uid://copqscdpgd52y" path="res://orca.tscn" id="11_2orkt"]
+[ext_resource type="PackedScene" uid="uid://dxitufn83gx03" path="res://rock.tscn" id="9_i2t4f"]
+[ext_resource type="PackedScene" uid="uid://cfxj50q31uoot" path="res://orca.tscn" id="11_2orkt"]
 
 [sub_resource type="FontFile" id="FontFile_f2txt"]
 cache/0/16/0/ascent = 0.0
@@ -65,13 +65,17 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("3_oi3di")
 theme_override_font_sizes/font_size = 20
 selected = 0
-item_count = 3
+item_count = 5
 popup/item_0/text = "Nemo"
 popup/item_0/id = 0
 popup/item_1/text = "Shark"
 popup/item_1/id = 1
 popup/item_2/text = "Starfish"
 popup/item_2/id = 2
+popup/item_3/text = "Eel"
+popup/item_3/id = 3
+popup/item_4/text = "Orca"
+popup/item_4/id = 4
 
 [node name="fish_amount_spinbox" type="SpinBox" parent="Control_HUD/Panel_Spawner/VBoxContainer"]
 layout_mode = 2
@@ -224,7 +228,7 @@ position = Vector2(-96, 154)
 position = Vector2(-178, 84)
 
 [node name="orca" parent="." instance=ExtResource("11_2orkt")]
-position = Vector2(578, 296)
+position = Vector2(-253, 202)
 scale = Vector2(1.5, 1.5)
 
 [node name="Rock" parent="." instance=ExtResource("9_i2t4f")]

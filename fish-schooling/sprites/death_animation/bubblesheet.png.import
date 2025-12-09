@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://yrk45scythb4"
-path="res://.godot/imported/bubblesheet.png-1036099eece9573429c5a3a8344d0091.ctex"
+path="res://.godot/imported/bubblesheet.png-2abd2167f3bac0235e648c09d8153e5b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scripts/bubblesheet.png"
-dest_files=["res://.godot/imported/bubblesheet.png-1036099eece9573429c5a3a8344d0091.ctex"]
+source_file="res://sprites/death_animation/bubblesheet.png"
+dest_files=["res://.godot/imported/bubblesheet.png-2abd2167f3bac0235e648c09d8153e5b.ctex"]
 
 [params]
 
