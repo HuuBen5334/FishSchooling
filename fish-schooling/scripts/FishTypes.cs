@@ -27,6 +27,15 @@ public partial class NemoFish : BaseFish
 		behaviors.Add(new WanderBehavior { Weight = 0.6f }); // Gentle wandering to make movement less rigid
 		behaviors.Add(new FleeBehavior { Weight = 3.0f, PanicDistance = 200.0f });
 	}
+
+	public void SetSeparation(float radius)
+	{
+		foreach (var behavior in behaviors)
+		{
+			if (behavior is SeparationBehavior separation)
+				separation.SafeRadius = radius;
+		}
+	}
 }
 
 public partial class SharkFish : BaseFish
@@ -153,5 +162,14 @@ public partial class StarfishFish : BaseFish
 		behaviors.Add(new PathFollowBehavior { Weight = 2.0f, BottomY = 600.0f });
 		behaviors.Add(new WanderBehavior { Weight = 0.3f });
 		behaviors.Add(new SeparationBehavior { Weight = 1.0f, SafeRadius = 20.0f });
+	}
+
+	public void SetSeparation(float radius)
+	{
+		foreach (var behavior in behaviors)
+		{
+			if (behavior is SeparationBehavior separation)
+				separation.SafeRadius = radius;
+		}
 	}
 }
