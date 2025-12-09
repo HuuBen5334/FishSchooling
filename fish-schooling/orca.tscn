@@ -46,6 +46,7 @@ radius = 6.0
 height = 26.0
 
 [node name="orca" type="Area2D"]
+z_index = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 rotation = 1.5708
