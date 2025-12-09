@@ -211,7 +211,7 @@ namespace FishBehaviors
 
 			foreach (var other in allFish)
 			{
-				if (other.FishType == "shark")
+				if (other.FishType == "shark" || other.FishType == "orca" || other.FishType == "eel")
 				{
 					float distance = fish.Position.DistanceTo(other.Position);
 					if (distance < PanicDistance && distance > 0)
@@ -239,20 +239,262 @@ namespace FishBehaviors
 	{
 		public float Weight { get; set; } = 1.0f;
 		public bool IsActive { get; set; } = true;
-		public float BottomY { get; set; } = 600.0f;
+		public float PathLength { get; set; } = 400.0f;
+
+		private static Dictionary<BaseFish, float> fishTargetX = new Dictionary<BaseFish, float>();
+		private static Dictionary<BaseFish, int> fishDirection = new Dictionary<BaseFish, int>();
 
 		public Vector2 Calculate(BaseFish fish, List<BaseFish> allFish)
 		{
 			if (!IsActive) return Vector2.Zero;
 
-			// Stay near bottom, move slowly horizontally
-			float desiredY = BottomY - 50;
-			float yDiff = (desiredY - fish.Position.Y) * 0.1f;
+			// Initialize if needed
+			if (!fishTargetX.ContainsKey(fish))
+			{
+				// Random starting direction (1 = right, -1 = left)
+				fishDirection[fish] = GD.Randf() > 0.5f ? 1 : -1;
+				fishTargetX[fish] = fish.Position.X + PathLength * fishDirection[fish];
+			}
+
+			// Check if reached target
+			float distanceToTarget = Mathf.Abs(fishTargetX[fish] - fish.Position.X);
+			if (distanceToTarget < 10.0f)
+			{
+				// Reverse direction
+				fishDirection[fish] *= -1;
+				fishTargetX[fish] = fish.Position.X + PathLength * fishDirection[fish];
+			}
+
+			// Simple horizontal movement
+			float xDirection = Mathf.Sign(fishTargetX[fish] - fish.Position.X);
+
+			// Small vertical drift for organic feel
+			float verticalDrift = (float)(Mathf.Sin(Time.GetUnixTimeFromSystem() * 0.001) * 0.2f);
+
+			return new Vector2(xDirection, verticalDrift) * Weight;
+		}
+	}
+
+	// Interception: Predict and intercept moving targets
+	public class InterceptionBehavior : ISteeringBehavior
+	{
+		public float Weight { get; set; } = 3.0f;
+		public bool IsActive { get; set; } = true;
+		public float DetectionRadius { get; set; } = 300.0f;
+		public float PredictionTime { get; set; } = 0.5f;
+		public string[] TargetTypes { get; set; } = new string[] { "nemo", "starfish" }; // Which fish types to intercept
+
+		public Vector2 Calculate(BaseFish fish, List<BaseFish> allFish)
+		{
+			if (!IsActive) return Vector2.Zero;
+
+			// Find closest target to intercept
+			BaseFish closestTarget = null;
+			float closestDistance = DetectionRadius;
+
+			foreach (var other in allFish)
+			{
+				// Check if this fish type is a target
+				if (TargetTypes.Contains(other.FishType))
+				{
+					float distance = fish.Position.DistanceTo(other.Position);
+					if (distance < closestDistance)
+					{
+						closestDistance = distance;
+						closestTarget = other;
+					}
+				}
+			}
+
+			if (closestTarget == null) return Vector2.Zero;
+
+			// Calculate interception point based on target's velocity
+			Vector2 targetPosition = closestTarget.Position;
+			Vector2 targetVelocity = closestTarget.Velocity;
+
+			// Estimate time to intercept
+			float timeToReach = closestDistance / fish.MaxSpeed;
+			float lookAhead = Mathf.Min(timeToReach, PredictionTime);
+
+			// Predict where target will be
+			Vector2 predictedPosition = targetPosition + targetVelocity * lookAhead;
+
+			// Seek the predicted position
+			Vector2 toInterception = predictedPosition - fish.Position;
+
+			if (toInterception.Length() > 0)
+			{
+				// More aggressive when closer to target
+				float urgency = 1.0f - (closestDistance / DetectionRadius);
+				return toInterception.Normalized() * Weight * (1.0f + urgency * 0.5f);
+			}
+
+			return Vector2.Zero;
+		}
+	}
+
+	// Guard: Stay near home, return when straying
+	public class HomeGuardBehavior : ISteeringBehavior
+	{
+		public float Weight { get; set; } = 2.0f;
+		public bool IsActive { get; set; } = true;
+		public float ComfortRadius { get; set; } = 50.0f;  // Comfortable distance from home
+		public float MaxRadius { get; set; } = 300.0f;      // Maximum distance before forced return
+
+		private static Dictionary<BaseFish, Vector2> fishHomes = new Dictionary<BaseFish, Vector2>();
+
+		public Vector2 Calculate(BaseFish fish, List<BaseFish> allFish)
+		{
+			if (!IsActive) return Vector2.Zero;
+
+			// Set home position on first call
+			if (!fishHomes.ContainsKey(fish))
+			{
+				fishHomes[fish] = fish.Position;
+				GD.Print($"{fish.FishType} home established at: {fish.Position}");
+			}
+
+			Vector2 home = fishHomes[fish];
+			float distanceFromHome = fish.Position.DistanceTo(home);
+
+			// If beyond max radius, strong pull home
+			if (distanceFromHome > MaxRadius)
+			{
+				Vector2 toHome = home - fish.Position;
+				return toHome.Normalized() * Weight * 2.0f; // Double weight for urgent return
+			}
+
+			// If beyond comfort zone but within max, gentle pull home
+			if (distanceFromHome > ComfortRadius)
+			{
+				Vector2 toHome = home - fish.Position;
+				float pullStrength = (distanceFromHome - ComfortRadius) / (MaxRadius - ComfortRadius);
+				return toHome.Normalized() * Weight * pullStrength;
+			}
+
+			// Within comfort zone - no correction needed
+			return Vector2.Zero;
+		}
+
+		public static Vector2 GetHome(BaseFish fish)
+		{
+			return fishHomes.ContainsKey(fish) ? fishHomes[fish] : fish.Position;
+		}
+
+		public static void SetHome(BaseFish fish, Vector2 position)
+		{
+			fishHomes[fish] = position;
+		}
+	}
+
+	// Lurking: Idle animation when waiting/hiding
+	public class LurkingBehavior : ISteeringBehavior
+	{
+		public float Weight { get; set; } = 0.5f;
+		public bool IsActive { get; set; } = true;
+		public float SwaySpeed { get; set; } = 0.05f;
+		public float SwayAmount { get; set; } = 0.3f;
+
+		private static Dictionary<BaseFish, float> fishSwayAngles = new Dictionary<BaseFish, float>();
+
+		public Vector2 Calculate(BaseFish fish, List<BaseFish> allFish)
+		{
+			if (!IsActive) return Vector2.Zero;
+
+			// Initialize or update sway angle for this fish
+			if (!fishSwayAngles.ContainsKey(fish))
+			{
+				fishSwayAngles[fish] = GD.Randf() * Mathf.Pi * 2; // Random starting angle
+			}
+
+			fishSwayAngles[fish] += SwaySpeed;
+			float angle = fishSwayAngles[fish];
+
+			// Create swaying motion
+			float swayX = Mathf.Sin(angle) * SwayAmount;
+			float swayY = Mathf.Cos(angle * 0.7f) * SwayAmount * 0.5f; // Different frequency for Y
+
+			return new Vector2(swayX, swayY) * Weight;
+		}
+	}
+	
+	// Territory Defense: Only active when intruders in territory
+	public class TerritoryDefenseBehavior : ISteeringBehavior
+	{
+		public float Weight { get; set; } = 1.0f;
+		public bool IsActive { get; set; } = true;
+		public float TerritoryRadius { get; set; } = 250.0f;
+		public string[] IntruderTypes { get; set; } = new string[] { "nemo", "starfish" };
+		
+		public Vector2 Calculate(BaseFish fish, List<BaseFish> allFish)
+		{
+			if (!IsActive) return Vector2.Zero;
 			
-			// Add slight horizontal movement
-			float horizontalDrift = (float)(Mathf.Cos(Time.GetUnixTimeFromSystem() * 0.001) * 0.5f);
+			// Get home position from HomeGuardBehavior
+			Vector2 home = HomeGuardBehavior.GetHome(fish);
 			
-			return new Vector2(horizontalDrift, yDiff) * Weight;
+			// Check for intruders in territory
+			foreach (var other in allFish)
+			{
+				if (IntruderTypes.Contains(other.FishType))
+				{
+					float distanceFromHome = other.Position.DistanceTo(home);
+					
+					// If intruder is in territory, this behavior activates
+					// (actual chasing is handled by InterceptionBehavior)
+					if (distanceFromHome < TerritoryRadius)
+					{
+						// Just return a small force toward the intruder to "wake up" the eel
+						Vector2 toIntruder = other.Position - fish.Position;
+						return toIntruder.Normalized() * Weight * 0.1f; // Small activation force
+					}
+				}
+			}
+			
+			return Vector2.Zero;
+		}
+	}
+
+	public class ObstacleAvoidanceBehavior : ISteeringBehavior
+	{
+		public float Weight { get; set; } = 1.2f;
+		public bool IsActive { get; set; } = true;
+		public float DetectionRadius { get; set; } = 80.0f;
+		public string ObstacleGroup { get; set; } = "obstacles";
+
+		public Vector2 Calculate(BaseFish fish, List<BaseFish> allFish)
+		{
+			if (!IsActive) return Vector2.Zero;
+
+			Vector2 avoidanceForce = Vector2.Zero;
+			int obstacleCount = 0;
+
+			//Get all obstacles in scene by group
+			var obstacles = fish.GetTree().GetNodesInGroup(ObstacleGroup);
+
+			foreach (var obstacle in obstacles)
+			{
+				if (obstacle is Node2D obstacleNode)
+				{
+					float distance = fish.Position.DistanceTo(obstacleNode.GlobalPosition);
+					
+					if (distance < DetectionRadius && distance > 0)
+					{
+						Vector2 awayFromObstacle = (fish.Position - obstacleNode.GlobalPosition).Normalized();
+						float urgency = 1.0f - (distance / DetectionRadius);
+						avoidanceForce += awayFromObstacle * urgency;
+						obstacleCount++;
+					}
+				}
+			}
+
+			if (obstacleCount > 0)
+			{
+				avoidanceForce /= obstacleCount;
+				return avoidanceForce.Normalized() * Weight;
+			}
+
+			return Vector2.Zero;
 		}
 	}
 }

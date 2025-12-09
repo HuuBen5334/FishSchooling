@@ -120,9 +120,35 @@ public partial class ControlHud : Control
             alignmentSlider: new SliderConfig("Alignment", 30, 200, 100),
             showBehaviors: true,
             applyMain: (fish, val) => fish.MaxSpeed = val,
-            applySeparation: (fish, val) => { if (fish is StarfishFish star) star.SetSeparation(val); },
-            applyCohesion: (fish, val) => { if (fish is StarfishFish star) star.SetCohesion(val); },
-            applyAlignment: (fish, val) => { if (fish is StarfishFish star) star.SetAlignment(val); }
+            applySeparation: null,
+            applyCohesion: null,
+            applyAlignment: null
+        );
+
+        //Eel configuration
+        fishConfigs["eel"] = new FishConfig(
+            mainSlider: new SliderConfig("Speed", 40, 150, 80),
+            separationSlider: new SliderConfig("Separation", 10, 70, 25),
+            cohesionSlider: new SliderConfig("Cohesion", 40, 180, 120),
+            alignmentSlider: new SliderConfig("Alignment", 40, 180, 120),
+            showBehaviors: true,
+            applyMain: (fish, val) => fish.MaxSpeed = val,
+            applySeparation: null,
+            applyCohesion: null,
+            applyAlignment: null
+        );
+
+        //Orca configuration
+        fishConfigs["orca"] = new FishConfig(
+            mainSlider: new SliderConfig("Speed", 100, 300, 150),
+            separationSlider: null,
+            cohesionSlider: null,
+            alignmentSlider: null,
+            showBehaviors: false,
+            applyMain: (fish, val) => fish.MaxSpeed = val,
+            applySeparation: null,
+            applyCohesion: null,
+            applyAlignment: null
         );
     }
 
@@ -300,6 +326,8 @@ public partial class ControlHud : Control
             0 => "nemo",
             1 => "shark",
             2 => "starfish",
+			3 => "eel",
+			4 => "orca",
             _ => selectedFish
         };
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yrk45scythb4"
-path="res://.godot/imported/bubblesheet.png-1036099eece9573429c5a3a8344d0091.ctex"
+uid="uid://c7mk3cw25qjh"
+path="res://.godot/imported/pixil-frame-0.png-b0e3fb42752de873d6529906660b3ae5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scripts/bubblesheet.png"
-dest_files=["res://.godot/imported/bubblesheet.png-1036099eece9573429c5a3a8344d0091.ctex"]
+source_file="res://sprites/orcaSprites/pixil-frame-0.png"
+dest_files=["res://.godot/imported/pixil-frame-0.png-b0e3fb42752de873d6529906660b3ae5.ctex"]
 
 [params]
 

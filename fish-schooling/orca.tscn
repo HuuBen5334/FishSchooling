@@ -1,0 +1,62 @@
+[gd_scene load_steps=11 format=3 uid="uid://cfxj50q31uoot"]
+
+[ext_resource type="Texture2D" uid="uid://c7mk3cw25qjh" path="res://sprites/orcaSprites/pixil-frame-0.png" id="1_yn850"]
+[ext_resource type="Texture2D" uid="uid://5kqcs5gc6ts0" path="res://sprites/orcaSprites/pixil-frame-1.png" id="2_kuus7"]
+[ext_resource type="Texture2D" uid="uid://cpx6ubxwiv30q" path="res://sprites/orcaSprites/pixil-frame-2.png" id="3_n87ja"]
+[ext_resource type="Texture2D" uid="uid://dcmwici1asifq" path="res://sprites/orcaSprites/pixil-frame-3.png" id="4_uh45w"]
+[ext_resource type="Texture2D" uid="uid://b6qepv1goc32p" path="res://sprites/orcaSprites/pixil-frame-4.png" id="5_k57dg"]
+[ext_resource type="Texture2D" uid="uid://conkcqw8o3oux" path="res://sprites/orcaSprites/pixil-frame-5.png" id="6_omc7r"]
+[ext_resource type="Texture2D" uid="uid://fhhi02s2yeb2" path="res://sprites/orcaSprites/pixil-frame-6.png" id="7_hsah8"]
+[ext_resource type="Texture2D" uid="uid://bicacctn1mkt0" path="res://sprites/orcaSprites/pixil-frame-7.png" id="8_nhbjr"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_602ur"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_yn850")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_kuus7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_n87ja")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_uh45w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_k57dg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_omc7r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_hsah8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_nhbjr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yn850"]
+radius = 6.0
+height = 26.0
+
+[node name="orca" type="Area2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(1.6, 1.6)
+sprite_frames = SubResource("SpriteFrames_602ur")
+autoplay = "default"
+frame = 7
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(25, 0)
+rotation = 1.5708
+scale = Vector2(1.6, 1.6)
+shape = SubResource("CapsuleShape2D_yn850")
