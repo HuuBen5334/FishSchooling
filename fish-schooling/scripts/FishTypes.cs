@@ -36,6 +36,24 @@ public partial class NemoFish : BaseFish
 				separation.SafeRadius = radius;
 		}
 	}
+
+	public void SetCohesion(float radius)
+	{
+		foreach (var behavior in behaviors)
+		{
+			if (behavior is CohesionBehavior cohesion)
+				cohesion.PerceptionRadius = radius;
+		}
+	}
+
+	public void SetAlignment(float radius)
+	{
+		foreach (var behavior in behaviors)
+		{
+			if (behavior is AlignmentBehavior alignment)
+				alignment.PerceptionRadius = radius;
+		}
+	}
 }
 
 public partial class SharkFish : BaseFish
@@ -170,6 +188,24 @@ public partial class StarfishFish : BaseFish
 		{
 			if (behavior is SeparationBehavior separation)
 				separation.SafeRadius = radius;
+		}
+	}
+
+	public void SetCohesion(float radius)
+	{
+		foreach (var behavior in behaviors)
+		{
+			if (behavior is CohesionBehavior cohesion)
+				cohesion.PerceptionRadius = radius;
+		}
+	}
+
+	public void SetAlignment(float radius)
+	{
+		foreach (var behavior in behaviors)
+		{
+			if (behavior is AlignmentBehavior alignment)
+				alignment.PerceptionRadius = radius;
 		}
 	}
 }

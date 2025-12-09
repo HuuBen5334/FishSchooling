@@ -16,6 +16,10 @@ public partial class ControlHud : Control
     private Label parameterLabel;
     private HSlider separationSlider;
     private Label separationLabel;
+    private HSlider cohesionSlider;
+    private Label cohesionLabel;
+    private HSlider alignmentSlider;
+    private Label alignmentLabel;
     private Control separationContainer;
     private Control cohesionContainer;
     private Control alignmentContainer;
@@ -25,23 +29,37 @@ public partial class ControlHud : Control
     private class FishConfig
     {
         public SliderConfig MainSlider;
-        public SliderConfig SecondSlider;
+        public SliderConfig SeparationSlider;
+        public SliderConfig CohesionSlider;
+        public SliderConfig AlignmentSlider;
         public bool ShowBehaviorContainers;
+
         public Action<BaseFish, float> ApplyMainParam;
-        public Action<BaseFish, float> ApplySecondParam;
+        public Action<BaseFish, float> ApplySeparation;
+        public Action<BaseFish, float> ApplyCohesion;
+        public Action<BaseFish, float> ApplyAlignment;
+
 
         public FishConfig(
             SliderConfig mainSlider,
-            SliderConfig secondSlider,
+            SliderConfig separationSlider,
+            SliderConfig cohesionSlider,
+            SliderConfig alignmentSlider,
             bool showBehaviors,
             Action<BaseFish, float> applyMain,
-            Action<BaseFish, float> applySecond)
+            Action<BaseFish, float> applySeparation,
+            Action<BaseFish, float> applyCohesion,
+            Action<BaseFish, float> applyAlignment)
         {
             MainSlider = mainSlider;
-            SecondSlider = secondSlider;
+            SeparationSlider = separationSlider;
+            CohesionSlider = cohesionSlider;
+            AlignmentSlider = alignmentSlider;
             ShowBehaviorContainers = showBehaviors;
             ApplyMainParam = applyMain;
-            ApplySecondParam = applySecond;
+            ApplySeparation = applySeparation;
+            ApplyCohesion = applyCohesion;
+            ApplyAlignment = applyAlignment;
         }
     }
 
@@ -73,28 +91,40 @@ public partial class ControlHud : Control
         //Nemo configuration
         fishConfigs["nemo"] = new FishConfig(
             mainSlider: new SliderConfig("Speed", 50, 200, 100),
-            secondSlider: new SliderConfig("Separation", 10, 100, 30),
+            separationSlider: new SliderConfig("Separation", 10, 100, 30),
+            cohesionSlider: new SliderConfig("Cohesion", 50, 300, 150),
+            alignmentSlider: new SliderConfig("Alignment", 50, 300, 150),
             showBehaviors: true,
             applyMain: (fish, val) => fish.MaxSpeed = val,
-            applySecond: (fish, val) => { if (fish is NemoFish nemo) nemo.SetSeparation(val); }
+            applySeparation: (fish, val) => { if (fish is NemoFish nemo) nemo.SetSeparation(val); },
+            applyCohesion: (fish, val) => { if (fish is NemoFish nemo) nemo.SetCohesion(val); },
+            applyAlignment: (fish, val) => { if (fish is NemoFish nemo) nemo.SetAlignment(val); }
         );
 
         //Shark configuration
         fishConfigs["shark"] = new FishConfig(
             mainSlider: new SliderConfig("Speed", 80, 250, 120),
-            secondSlider: new SliderConfig("Pursuit Radius", 100, 400, 200),
+            separationSlider: new SliderConfig("Pursuit Radius", 100, 400, 200),
+            cohesionSlider: null,
+            alignmentSlider: null,
             showBehaviors: false,
             applyMain: (fish, val) => fish.MaxSpeed = val,
-            applySecond: (fish, val) => { if (fish is SharkFish shark) shark.SetPursuitRadius(val); }
+            applySeparation: (fish, val) => { if (fish is SharkFish shark) shark.SetPursuitRadius(val); },
+            applyCohesion: null,
+            applyAlignment: null
         );
 
         //Starfish configuration
         fishConfigs["starfish"] = new FishConfig(
             mainSlider: new SliderConfig("Speed", 5, 50, 15),
-            secondSlider: new SliderConfig("Separation", 10, 80, 20),
+            separationSlider: new SliderConfig("Separation", 10, 80, 20),
+            cohesionSlider: new SliderConfig("Cohesion", 30, 200, 100),
+            alignmentSlider: new SliderConfig("Alignment", 30, 200, 100),
             showBehaviors: true,
             applyMain: (fish, val) => fish.MaxSpeed = val,
-            applySecond: (fish, val) => { if (fish is StarfishFish star) star.SetSeparation(val); }
+            applySeparation: (fish, val) => { if (fish is StarfishFish star) star.SetSeparation(val); },
+            applyCohesion: (fish, val) => { if (fish is StarfishFish star) star.SetCohesion(val); },
+            applyAlignment: (fish, val) => { if (fish is StarfishFish star) star.SetAlignment(val); }
         );
     }
 
@@ -115,22 +145,39 @@ public partial class ControlHud : Control
 
         var spinBox = GetNode<SpinBox>("Panel_Spawner/VBoxContainer/fish_amount_spinbox");
         spinBox.ValueChanged += OnQuantityChanged;
-
+        
         var spawnButton = GetNode<Button>("Panel_Spawner/VBoxContainer/fish_spawn_button");
         spawnButton.Pressed += OnSpawnPressed;
+
+        //for delete button
+        var deleteButton = GetNode<Button>("Panel_Census/delete_button");
+        deleteButton.Pressed += OnDeletePressed;
     }
 
     private void SetupSliders()
     {
+        //main speed/parameter slider
         parameterSlider = GetNodeOrNull<HSlider>("Panel_Spawner/VBoxContainer/velocity_slider");
         parameterLabel = GetNodeOrNull<Label>("Panel_Spawner/VBoxContainer/velocity_label");
+        //separation/pursuit slider
         separationSlider = GetNodeOrNull<HSlider>("Panel_Spawner/SeparationContainer/separation_slider");
         separationLabel = GetNodeOrNull<Label>("Panel_Spawner/SeparationContainer/separation_label");
+        //cohesion slider
+        cohesionSlider = GetNodeOrNull<HSlider>("Panel_Spawner/CohesionContainer/cohesion_slider");
+        cohesionLabel = GetNodeOrNull<Label>("Panel_Spawner/CohesionContainer/cohesion_label");
+        //allignment slider
+        alignmentSlider = GetNodeOrNull<HSlider>("Panel_Spawner/AlignmentContainer/alignment_slider");
+        alignmentLabel = GetNodeOrNull<Label>("Panel_Spawner/AlignmentContainer/alignment_label");
 
+        // Connect signals
         if (parameterSlider != null)
             parameterSlider.ValueChanged += OnMainSliderChanged;
         if (separationSlider != null)
-            separationSlider.ValueChanged += OnSecondSliderChanged;
+            separationSlider.ValueChanged += OnSeparationSliderChanged;
+        if (cohesionSlider != null)
+            cohesionSlider.ValueChanged += OnCohesionSliderChanged;
+        if (alignmentSlider != null)
+            alignmentSlider.ValueChanged += OnAlignmentSliderChanged;
     }
 
     private void SetupBehaviorContainers()
@@ -142,7 +189,7 @@ public partial class ControlHud : Control
 
     private void SetupCensusLabels()
     {
-        string basePath = "Panel _Census/VBoxContainer/";
+        string basePath = "Panel_Census/VBoxContainer/";
         censusLabels["nemo"] = GetNodeOrNull<Label>($"{basePath}nemo_fish_count_label");
         censusLabels["shark"] = GetNodeOrNull<Label>($"{basePath}shark_fish_count_label");
         censusLabels["starfish"] = GetNodeOrNull<Label>($"{basePath}starfish_fish_count_label");
@@ -160,25 +207,17 @@ public partial class ControlHud : Control
         if (!fishConfigs.TryGetValue(fishType, out var config))
             return;
 
-        //Configure main slider
-        if (parameterSlider != null)
-        {
-            parameterSlider.MinValue = config.MainSlider.Min;
-            parameterSlider.MaxValue = config.MainSlider.Max;
-            parameterSlider.Value = config.MainSlider.DefaultValue;
-        }
-        if (parameterLabel != null)
-            parameterLabel.Text = $"{config.MainSlider.LabelText}: {config.MainSlider.DefaultValue:F0}";
+        // Configure main slider
+        ConfigureSlider(parameterSlider, parameterLabel, config.MainSlider);
 
-        //Configure second slider
-        if (separationSlider != null)
-        {
-            separationSlider.MinValue = config.SecondSlider.Min;
-            separationSlider.MaxValue = config.SecondSlider.Max;
-            separationSlider.Value = config.SecondSlider.DefaultValue;
-        }
-        if (separationLabel != null)
-            separationLabel.Text = $"{config.SecondSlider.LabelText}: {config.SecondSlider.DefaultValue:F0}";
+        // Configure separation slider
+        ConfigureSlider(separationSlider, separationLabel, config.SeparationSlider);
+
+        // Configure cohesion slider
+        ConfigureSlider(cohesionSlider, cohesionLabel, config.CohesionSlider);
+
+        // Configure alignment slider
+        ConfigureSlider(alignmentSlider, alignmentLabel, config.AlignmentSlider);
 
         //Update container visibility
         if (cohesionContainer != null)
@@ -186,6 +225,19 @@ public partial class ControlHud : Control
         if (alignmentContainer != null)
             alignmentContainer.Visible = config.ShowBehaviorContainers;
         //Separation container always visible (reused for pursuit radius)
+    }
+
+    private void ConfigureSlider(HSlider slider, Label label, SliderConfig config)
+    {
+        if (config == null || slider == null)
+            return;
+
+        slider.MinValue = config.Min;
+        slider.MaxValue = config.Max;
+        slider.Value = config.DefaultValue;
+
+        if (label != null)
+            label.Text = $"{config.LabelText}: {config.DefaultValue:F0}";
     }
 
     private void OnMainSliderChanged(double value)
@@ -199,15 +251,37 @@ public partial class ControlHud : Control
         ApplyToExistingFish(config.ApplyMainParam, (float)value);
     }
 
-    private void OnSecondSliderChanged(double value)
+    private void OnSeparationSliderChanged(double value)
     {
         if (!fishConfigs.TryGetValue(selectedFish, out var config))
             return;
 
         if (separationLabel != null)
-            separationLabel.Text = $"{config.SecondSlider.LabelText}: {value:F0}";
+            separationLabel.Text = $"{config.SeparationSlider.LabelText}: {value:F0}";
 
-        ApplyToExistingFish(config.ApplySecondParam, (float)value);
+        ApplyToExistingFish(config.ApplySeparation, (float)value);
+    }
+
+    private void OnCohesionSliderChanged(double value)
+    {
+        if (!fishConfigs.TryGetValue(selectedFish, out var config) || config.CohesionSlider == null)
+            return;
+
+        if (cohesionLabel != null)
+            cohesionLabel.Text = $"{config.CohesionSlider.LabelText}: {value:F0}";
+
+        ApplyToExistingFish(config.ApplyCohesion, (float)value);
+    }
+
+    private void OnAlignmentSliderChanged(double value)
+    {
+        if (!fishConfigs.TryGetValue(selectedFish, out var config) || config.AlignmentSlider == null)
+            return;
+
+        if (alignmentLabel != null)
+            alignmentLabel.Text = $"{config.AlignmentSlider.LabelText}: {value:F0}";
+
+        ApplyToExistingFish(config.ApplyAlignment, (float)value);
     }
 
     private void ApplyToExistingFish(Action<BaseFish, float> action, float value)
@@ -246,6 +320,26 @@ public partial class ControlHud : Control
         float speed = (float)(parameterSlider?.Value ?? config.MainSlider.DefaultValue);
         fishManager.SpawnFish(selectedFish, fishCount, speed);
         GD.Print($"Spawning {fishCount} {selectedFish}");
+    }
+
+    private void OnDeletePressed()
+    {
+        if (fishManager == null)
+            return;
+        int deleted = 0;
+        var children = fishManager.GetChildren();
+        foreach (var child in children)
+        {
+            if (deleted >= fishCount)
+                break;
+            if (child is BaseFish fish && fish.FishType == selectedFish)
+            {
+                fishManager.RemoveFish(fish);
+                fish.QueueFree();
+                deleted++;
+            }
+        }
+        GD.Print($"Deleted {deleted} {selectedFish}");
     }
 
     public void UpdateFishCount(string type, int count)

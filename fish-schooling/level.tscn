@@ -167,7 +167,7 @@ max_value = 1.0
 step = 0.1
 value = 0.1
 
-[node name="Panel _Census" type="Panel" parent="Control_HUD"]
+[node name="Panel_Census" type="Panel" parent="Control_HUD"]
 layout_mode = 0
 offset_left = 38.0
 offset_top = 472.0
@@ -175,14 +175,14 @@ offset_right = 278.0
 offset_bottom = 601.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_vonw3")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control_HUD/Panel _Census"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control_HUD/Panel_Census"]
 layout_mode = 0
 offset_left = 1.0
 offset_top = 4.0
 offset_right = 237.0
 offset_bottom = 123.0
 
-[node name="nemo_fish_count_label" type="Label" parent="Control_HUD/Panel _Census/VBoxContainer"]
+[node name="nemo_fish_count_label" type="Label" parent="Control_HUD/Panel_Census/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = SubResource("Theme_1ainy")
@@ -190,7 +190,7 @@ text = "Nemo: 0"
 horizontal_alignment = 1
 max_lines_visible = 1
 
-[node name="shark_fish_count_label" type="Label" parent="Control_HUD/Panel _Census/VBoxContainer"]
+[node name="shark_fish_count_label" type="Label" parent="Control_HUD/Panel_Census/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = SubResource("Theme_1ainy")
@@ -198,13 +198,21 @@ text = "Shark: 0"
 horizontal_alignment = 1
 max_lines_visible = 1
 
-[node name="starfish_fish_count_label" type="Label" parent="Control_HUD/Panel _Census/VBoxContainer"]
+[node name="starfish_fish_count_label" type="Label" parent="Control_HUD/Panel_Census/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = SubResource("Theme_1ainy")
 text = "Starfish: 0"
 horizontal_alignment = 1
 max_lines_visible = 1
+
+[node name="delete_button" type="Button" parent="Control_HUD/Panel_Census"]
+layout_mode = 0
+offset_left = 878.0
+offset_top = 91.0
+offset_right = 1046.0
+offset_bottom = 111.0
+text = "Delete Fish"
 
 [node name="starfish" parent="." instance=ExtResource("7_mxnmf")]
 position = Vector2(-100, 49)
