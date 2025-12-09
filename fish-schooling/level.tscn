@@ -186,18 +186,19 @@ value = 0.1
 
 [node name="pause_button" type="Button" parent="Control_HUD/Panel_Spawner"]
 layout_mode = 0
-offset_left = -843.0
-offset_top = 170.0
-offset_right = -733.0
-offset_bottom = 213.0
+offset_left = -790.0
+offset_top = -255.0
+offset_right = -680.0
+offset_bottom = -212.0
 toggle_mode = true
 text = "Pause/Play"
 
 [node name="home_button" type="Button" parent="Control_HUD/Panel_Spawner"]
-offset_left = -843.0
-offset_top = -245.0
-offset_right = -733.0
-offset_bottom = -202.0
+layout_mode = 0
+offset_left = -851.0
+offset_top = -255.0
+offset_right = -805.0
+offset_bottom = -212.0
 toggle_mode = true
 text = "Home"
 
@@ -292,8 +293,7 @@ position = Vector2(-253, 202)
 scale = Vector2(1.5, 1.5)
 
 [node name="Rock" parent="." instance=ExtResource("9_i2t4f")]
-position = Vector2(376, 272)
+position = Vector2(389, 286)
 
 [connection signal="pressed" from="Control_HUD/Panel_Spawner/pause_button" to="Control_HUD" method="OnPausePressed"]
-[connection signal="pressed" from="Control_HUD/Panel_Spawner/home_button" to="Control_HUD" method="OnPausePressed"]
 [connection signal="pressed" from="Control_HUD/Panel_Spawner/home_button" to="Control_HUD" method="GoHome"]

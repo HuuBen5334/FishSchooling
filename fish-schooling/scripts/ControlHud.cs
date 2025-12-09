@@ -351,12 +351,12 @@ public partial class ControlHud : Control
 
 	private void OnPausePressed()
 	{
-		GD.Print("does this work");
 		GetTree().Paused = !GetTree().Paused;
 	}
 
 	private void GoHome()
 	{
+		GetTree().Paused = false;
 		GetTree().ChangeSceneToFile("res://menu.tscn");
 	}
 
@@ -377,12 +377,11 @@ public partial class ControlHud : Control
 				deleted++;
 			}
 		}
-		GD.Print($"Deleted {deleted} {selectedFish}");
+		// GD.Print($"Deleted {deleted} {selectedFish}");
 	}
 
 	public void UpdateFishCount(string type, int count)
 	{
-		GD.Print(type, count);
 		if (censusLabels.TryGetValue(type, out var label) && label != null)
 			label.Text = $"{char.ToUpper(type[0]) + type.Substring(1)}: {count}";
 	}
