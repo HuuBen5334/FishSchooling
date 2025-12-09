@@ -459,7 +459,7 @@ namespace FishBehaviors
 	{
 		public float Weight { get; set; } = 1.2f;
 		public bool IsActive { get; set; } = true;
-		public float DetectionRadius { get; set; } = 80.0f;
+		public float DetectionRadius { get; set; } = 520.0f;
 		public string ObstacleGroup { get; set; } = "obstacles";
 
 		public Vector2 Calculate(BaseFish fish, List<BaseFish> allFish)

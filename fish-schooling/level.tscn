@@ -34,6 +34,7 @@ default_font_size = 14
 [node name="LevelNode" type="Node2D"]
 
 [node name="Background" type="Sprite2D" parent="."]
+z_index = -2
 position = Vector2(577, 323)
 scale = Vector2(0.120783, 0.119726)
 texture = ExtResource("1_vonw3")
@@ -273,7 +274,47 @@ offset_left = 878.0
 offset_top = 91.0
 offset_right = 1046.0
 offset_bottom = 111.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_oi3di")
+theme_override_font_sizes/font_size = 20
 text = "Delete Fish"
+
+[node name="debug_checkbox" type="CheckBox" parent="Control_HUD/Panel_Census"]
+layout_mode = 0
+offset_left = 470.0
+offset_top = -488.0
+offset_right = 596.0
+offset_bottom = -457.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_oi3di")
+theme_override_font_sizes/font_size = 20
+text = "Debug Mode"
+
+[node name="show_behaviors_checkbox" type="CheckBox" parent="Control_HUD/Panel_Census"]
+visible = false
+layout_mode = 0
+offset_left = 416.0
+offset_top = -460.0
+offset_right = 644.0
+offset_bottom = -432.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_oi3di")
+theme_override_font_sizes/font_size = 20
+text = "Show Individual Behaviors"
+
+[node name="Control_HUD_Panel _Census_VBoxContainer#orca_fish_count_label" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_left = 93.0
+offset_top = 589.0
+offset_right = 145.0
+offset_bottom = 609.0
+theme = SubResource("Theme_1ainy")
+theme_override_fonts/font = ExtResource("3_oi3di")
+theme_override_font_sizes/font_size = 20
+text = "Orca: 0"
+horizontal_alignment = 1
+max_lines_visible = 1
 
 [node name="starfish" parent="." instance=ExtResource("7_mxnmf")]
 position = Vector2(-100, 49)
@@ -293,7 +334,11 @@ position = Vector2(-253, 202)
 scale = Vector2(1.5, 1.5)
 
 [node name="Rock" parent="." instance=ExtResource("9_i2t4f")]
-position = Vector2(389, 286)
+position = Vector2(366, 256)
+
+[node name="Rock" parent="Rock" instance=ExtResource("9_i2t4f")]
+position = Vector2(369, 209)
+scale = Vector2(-1, 1)
 
 [connection signal="pressed" from="Control_HUD/Panel_Spawner/pause_button" to="Control_HUD" method="OnPausePressed"]
 [connection signal="pressed" from="Control_HUD/Panel_Spawner/home_button" to="Control_HUD" method="GoHome"]
