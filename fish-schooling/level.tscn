@@ -34,6 +34,7 @@ default_font_size = 14
 [node name="LevelNode" type="Node2D"]
 
 [node name="Background" type="Sprite2D" parent="."]
+z_index = -2
 position = Vector2(577, 323)
 scale = Vector2(0.120783, 0.119726)
 texture = ExtResource("1_vonw3")
