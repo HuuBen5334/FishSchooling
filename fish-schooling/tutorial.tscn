@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://bus1u8h2ne0ug"]
+[gd_scene load_steps=5 format=3 uid="uid://bus1u8h2ne0ug"]
 
 [ext_resource type="Script" uid="uid://40rggdyqbp1f" path="res://tutorial.gd" id="1_yb1ct"]
 [ext_resource type="Texture2D" uid="uid://ckdp0tjg3ivdq" path="res://sprites/download.png" id="2_yb1ct"]
+[ext_resource type="StyleBox" uid="uid://cocnpif7ft4kh" path="res://uiBox.tres" id="3_ehuit"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ehuit"]
+bg_color = Color(1, 1, 1, 0.343)
 
 [node name="tutorial" type="Control"]
 layout_mode = 3
@@ -18,26 +22,67 @@ script = ExtResource("1_yb1ct")
 
 [node name="Istockphoto-1167903103-612x613" type="Sprite2D" parent="."]
 modulate = Color(0.63, 0.63, 0.63, 1)
-position = Vector2(575.109, 323.325)
+position = Vector2(584, 340)
 scale = Vector2(0.971484, 0.888912)
 texture = ExtResource("2_yb1ct")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="Panel_Spawner" type="Panel" parent="."]
 layout_mode = 0
-offset_left = 424.774
-offset_top = 174.828
-offset_right = 740.774
-offset_bottom = 482.828
+offset_left = 41.0
+offset_top = 62.0
+offset_right = 821.0
+offset_bottom = 583.0
+theme_override_styles/panel = ExtResource("3_ehuit")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+offset_left = 61.0
+offset_top = 83.0
+offset_right = 810.0
+offset_bottom = 511.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-text = "The tutorial info thingy goes here"
+theme_override_font_sizes/normal_font_size = 20
+text = "Overview
+Fish Schooling Simulator is an educational game that takes place in the open ocean! Our
+educational game teaches you how different complex steering behaviors work, simplifying these
+complex ideas down to a simple ocean ecosystem with predators and prey.
+Prey:
+● Nemo: Flocking; Multiple fish school together in a group in order to feel safe from
+predators
+● Starfish: Simple path following; creature goes from point A to B predetermined upon
+spawn
+Predators:
+● Shark: Chase; Attempts to chase/attack Nemos
+● Orcas: Pursue + Flocking; Similar to the sharks, but multiple Orcas work together to
+pursue Nemos
+● Eel: Elusive; Combination of lurking and pursue behaviors
+Controls
+Within the game, there are two main GUIs you will see on the screen:
+Bottom Left:
+Displays the type and number of fish spawned within the map
+Bottom Right:
+This is the main GUI you’ll be interacting with. This allows you to spawn/despawn different types
+of fish, along with change different modifiers before spawning the fish
+● Velocity: Speed of the fish
+● Separation: Determines spacing of flocking/avoiding crowd behaviors
+● Alignment: Determines accuracy of steering towards average heading of neighbors
+● Cohesion: Determines accuracy of steering towards the average position of neighbors
+Debug Mode:
+Debug mode allows you to see the respective weights of each fish. This allows you to look more
+in depth to how exactly the steering behaviors work, and how changing different modifiers
+impact how these behaviors work."
 
 [node name="back" type="Button" parent="."]
 layout_mode = 0
-offset_left = 431.0
-offset_top = 214.0
-offset_right = 502.0
-offset_bottom = 242.0
+offset_left = 57.0
+offset_top = 531.0
+offset_right = 175.0
+offset_bottom = 565.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_ehuit")
 text = "Back"
 
 [connection signal="pressed" from="back" to="." method="_on_Back_pressed"]
