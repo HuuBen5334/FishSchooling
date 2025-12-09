@@ -1,14 +1,57 @@
-Project Title: Fish Schooling
+# Project Title: Fish Schooling
 
-Project Members:
+## Project Members:
 - Alex Garcia-Marin
 - Ben Nguyen
 - Yonash Petit
 - Giovana Mitsunaga
+- Michael Craig
 
-Description: 
+## Description: 
 This project is a sandbox in which the user simulates an ocean ecosystem. This simulation is meant to educate and engage the user by displaying steering behaviors in a fun and playful manner. Key behaviors are pursuit, obstacle avoidance, and flocking. Unique features include real-time editing of AI behaviors and dynamic ecosystem challenges.
 
 Link to REPO: https://github.com/HuuBen5334/FishSchooling
 
-*TO RUN PROJECT: run the executable in this directory*
+## Prerequisites
+1. Download Godot Engine 4.4.1 with .NET support from https://godotengine.org/download
+   - **IMPORTANT**: Choose "Godot Engine - .NET" version (not the standard version)
+   - Version 4.4.1 is required
+   - Extract to a folder and note the path (e.g., `C:\Godot\Godot_v4.2-stable_mono_win64.exe`)
+
+2. Install .NET SDK 6.0 or later from https://dotnet.microsoft.com/download
+   - Required for C# script compilation
+
+## Building from Source
+
+### Method 1: From ZIP File (Recommended for Testers)
+1. Extract the provided ZIP file
+2. Open a command prompt/terminal
+3. Navigate to the project folder:
+```bash
+   cd FishSchooling-main/fish-schooling
+```
+4. Build and run using Godot command line:
+```bash
+   # Replace the path with your actual Godot executable location
+   "C:\Godot\Godot_v4.4.1-stable_mono_win64.exe" --export-release "Windows Desktop" ./FishSchooling.exe
+```
+   
+   **Note**: If you haven't set up export templates yet, first run the project in editor:
+```bash
+   "C:\Godot\Godot_v4.2-stable_mono_win64.exe" --editor
+```
+   Then go to Project → Export → Add → Windows Desktop
+
+   Ensure that the Export Path is set to `./FishSchooling.exe`
+
+5. The executable will be created in the `fish-schooling` folder as `FishSchooling.exe`
+
+### Method 2: From Git Repository
+1. Clone the repository:
+```bash
+   git clone https://github.com/HuuBen5334/FishSchooling.git
+   cd FishSchooling/fish-schooling
+```
+2. Follow steps 4-5 from Method 1 above
+OR
+Find the pre-built executable in the `fish-schooling` folder as `FishSchooling.exe`
