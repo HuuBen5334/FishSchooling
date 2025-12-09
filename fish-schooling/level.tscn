@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cnc13cas6p04r"]
+[gd_scene load_steps=14 format=3 uid="uid://xunancnbjiql"]
 
 [ext_resource type="Texture2D" uid="uid://c7a2womj3hdkg" path="res://sprites/background_image.png" id="1_vonw3"]
 [ext_resource type="Script" uid="uid://d03sce5rmqbxu" path="res://scripts/FishManager.cs" id="2_f2txt"]
@@ -76,10 +76,10 @@ popup/item_1/text = "Shark"
 popup/item_1/id = 1
 popup/item_2/text = "Starfish"
 popup/item_2/id = 2
-popup/item_3/text = "Eel"
-popup/item_3/id = 3
-popup/item_4/text = "Orca"
-popup/item_4/id = 4
+popup/item_3/text = "Orca"
+popup/item_3/id = 4
+popup/item_4/text = "Eel"
+popup/item_4/id = 3
 
 [node name="fish_amount_spinbox" type="SpinBox" parent="Control_HUD/Panel_Spawner/VBoxContainer"]
 layout_mode = 2
