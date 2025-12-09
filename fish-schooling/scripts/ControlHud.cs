@@ -33,12 +33,10 @@ public partial class ControlHud : Control
         public SliderConfig CohesionSlider;
         public SliderConfig AlignmentSlider;
         public bool ShowBehaviorContainers;
-
         public Action<BaseFish, float> ApplyMainParam;
         public Action<BaseFish, float> ApplySeparation;
         public Action<BaseFish, float> ApplyCohesion;
         public Action<BaseFish, float> ApplyAlignment;
-
 
         public FishConfig(
             SliderConfig mainSlider,
@@ -224,7 +222,6 @@ public partial class ControlHud : Control
             cohesionContainer.Visible = config.ShowBehaviorContainers;
         if (alignmentContainer != null)
             alignmentContainer.Visible = config.ShowBehaviorContainers;
-        //Separation container always visible (reused for pursuit radius)
     }
 
     private void ConfigureSlider(HSlider slider, Label label, SliderConfig config)
@@ -253,7 +250,7 @@ public partial class ControlHud : Control
 
     private void OnSeparationSliderChanged(double value)
     {
-        if (!fishConfigs.TryGetValue(selectedFish, out var config))
+        if (!fishConfigs.TryGetValue(selectedFish, out var config) || config.SeparationSlider == null)
             return;
 
         if (separationLabel != null)
@@ -286,7 +283,7 @@ public partial class ControlHud : Control
 
     private void ApplyToExistingFish(Action<BaseFish, float> action, float value)
     {
-        if (fishManager == null)
+        if (fishManager == null || action == null)
             return;
 
         foreach (var child in fishManager.GetChildren())
