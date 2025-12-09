@@ -13,12 +13,15 @@ public partial class FishManager : Node2D
 		fishCount["nemo"] = 0;
 		fishCount["shark"] = 0;
 		fishCount["starfish"] = 0;
+		fishCount["eel"] = 0;
+		fishCount["orca"] = 0;
 	}
 
+	private DebugVisualizer debugVisualizer;
 
 	private int maxNemoFish = 110;
-	private int maxSharkFish = 150;
-	private int maxStarfishFish = 200;
+	private int maxSharkFish = 20;
+	private int maxStarfishFish = 50;
 	private int maxEelFish = 30;
 	private int maxOrcaFish = 20;
 	public override void _Ready()
@@ -128,23 +131,40 @@ public partial class FishManager : Node2D
 	public void RemoveFish(BaseFish fish)
 	{
 		if (fishCount.ContainsKey(fish.FishType))
-			{
-				fishCount[fish.FishType] = Mathf.Max(0, fishCount[fish.FishType] - 1);
-				GD.Print($"Removed one {fish.FishType}, new count: {fishCount[fish.FishType]}");
-				var ControlHud = GetNode<ControlHud>("../Control_HUD");
-				ControlHud.UpdateFishCount( fish.FishType, fishCount[fish.FishType]);
-			}
+		{
+			fishCount[fish.FishType] = Mathf.Max(0, fishCount[fish.FishType] - 1);
+			GD.Print($"Removed one {fish.FishType}, new count: {fishCount[fish.FishType]}");
+			var ControlHud = GetNode<ControlHud>("../Control_HUD");
+			ControlHud.UpdateFishCount( fish.FishType, fishCount[fish.FishType]);
+		}
+
+		if (debugVisualizer != null)
+		{
+			debugVisualizer.RemoveFishDebugVisuals(fish);
+		}
+
 		allFish.Remove(fish);
+	}
+
+	public void SetDebugVisualizer(DebugVisualizer visualizer)
+	{
+		debugVisualizer = visualizer;
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		float dt = (float)delta;
-
+		
 		foreach (var fish in allFish)
 		{
 			fish.UpdateFish(allFish, dt);
 			WrapPosition(fish);
+		}
+		
+		//Update debug visualization after all fish have moved
+		if (debugVisualizer != null)
+		{
+			debugVisualizer.UpdateDebugVisualization(allFish, (float)delta);
 		}
 	}
 

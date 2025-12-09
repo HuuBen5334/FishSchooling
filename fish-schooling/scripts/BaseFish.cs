@@ -12,6 +12,9 @@ public abstract partial class BaseFish : Node2D
 	protected AnimatedSprite2D sprite;
 	protected List<ISteeringBehavior> behaviors = new List<ISteeringBehavior>();
 
+	private Vector2 lastSteeringForce = Vector2.Zero;
+    private Dictionary<string, Vector2> lastBehaviorForces = new Dictionary<string, Vector2>();
+
 	public override void _Ready()
 	{
 		SetupVisual();
@@ -32,33 +35,37 @@ public abstract partial class BaseFish : Node2D
 	public void UpdateFish(List<BaseFish> allFish, float delta)
 	{
 		Vector2 accel = Vector2.Zero;
-		
-		// Accumulate all active behaviors (matching original acceleration pattern)
-		foreach (var behavior in behaviors)
-		{
-			if (behavior.IsActive)
-			{
-				accel += behavior.Calculate(this, allFish);
-			}
-		}
-
-		// Apply acceleration (matching original physics)
-		Velocity += accel * MaxSpeed * delta;
-		
-		// Limit speed
-		if (Velocity.Length() > MaxSpeed)
-		{
-			Velocity = Velocity.Normalized() * MaxSpeed;
-		}
-		
-		// Update position
-		Position += Velocity * delta;
-		
-		// Update rotation
-		if (Velocity.Length() > 0)
-		{
-			Rotation = Velocity.Angle();
-		}
+        lastBehaviorForces.Clear();
+        
+        // Calculate and store individual behavior forces for debug
+        foreach (var behavior in behaviors)
+        {
+            if (behavior.IsActive)
+            {
+                Vector2 behaviorForce = behavior.Calculate(this, allFish);
+                string behaviorName = behavior.GetType().Name;
+                lastBehaviorForces[behaviorName] = behaviorForce;
+                accel += behaviorForce;
+            }
+        }
+        
+        // Store combined force for debug visualization
+        lastSteeringForce = accel;
+        
+        // Apply acceleration
+        Velocity += accel * MaxSpeed * delta;
+        
+        if (Velocity.Length() > MaxSpeed)
+        {
+            Velocity = Velocity.Normalized() * MaxSpeed;
+        }
+        
+        Position += Velocity * delta;
+        
+        if (Velocity.Length() > 0)
+        {
+            Rotation = Velocity.Angle();
+        }
 	}
 
 	public List<BaseFish> GetNeighbors(List<BaseFish> allFish, float radius)
@@ -69,4 +76,14 @@ public abstract partial class BaseFish : Node2D
 			Position.DistanceTo(f.Position) < radius
 		).ToList();
 	}
+
+	public Vector2 GetLastSteeringForce()
+    {
+        return lastSteeringForce;
+    }
+    
+    public Dictionary<string, Vector2> GetBehaviorForces()
+    {
+        return lastBehaviorForces;
+    }
 }

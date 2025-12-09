@@ -25,6 +25,10 @@ public partial class ControlHud : Control
     private Control alignmentContainer;
     private Dictionary<string, Label> censusLabels = new Dictionary<string, Label>();
 
+    private CheckBox debugCheckBox;
+    private DebugVisualizer debugVisualizer;
+    private CheckBox showBehaviorsCheckBox;
+
     //Fish configuration class - holds all settings for one fish type
     private class FishConfig
     {
@@ -159,6 +163,7 @@ public partial class ControlHud : Control
         SetupBehaviorContainers();
         SetupCensusLabels();
         SetupFishManager();
+        SetupDebugControls();
     }
 
     private void SetupSpawnerControls()
@@ -371,5 +376,59 @@ public partial class ControlHud : Control
     {
         if (censusLabels.TryGetValue(type, out var label) && label != null)
             label.Text = $"{char.ToUpper(type[0]) + type.Substring(1)}: {count}";
+    }
+
+    private void SetupDebugControls()
+    {
+        // Create debug checkbox if it doesn't exist in the scene
+        debugCheckBox = GetNodeOrNull<CheckBox>("Panel_Census/debug_checkbox");
+        if (debugCheckBox == null)
+        {
+            // Create it programmatically if not in scene
+            debugCheckBox = new CheckBox();
+            debugCheckBox.Text = "Debug Mode";
+            debugCheckBox.Position = new Vector2(10, 200); // Adjust position as needed
+            var censusPanel = GetNode<Control>("Panel_Census");
+            censusPanel.AddChild(debugCheckBox);
+        }
+        debugCheckBox.Toggled += OnDebugToggled;
+        
+        // Create show behaviors checkbox
+        showBehaviorsCheckBox = GetNodeOrNull<CheckBox>("Panel_Census/show_behaviors_checkbox");
+        if (showBehaviorsCheckBox == null)
+        {
+            showBehaviorsCheckBox = new CheckBox();
+            showBehaviorsCheckBox.Text = "Show Individual Behaviors";
+            showBehaviorsCheckBox.Position = new Vector2(10, 230);
+            showBehaviorsCheckBox.Visible = false; // Hidden until debug is on
+            var censusPanel = GetNode<Control>("Panel_Census");
+            censusPanel.AddChild(showBehaviorsCheckBox);
+        }
+        showBehaviorsCheckBox.Toggled += OnShowBehaviorsToggled;
+        
+        // Create debug visualizer
+        debugVisualizer = new DebugVisualizer();
+        GetParent().AddChild(debugVisualizer);
+    }
+    
+    private void OnDebugToggled(bool pressed)
+    {
+        debugVisualizer.ToggleDebug();
+        showBehaviorsCheckBox.Visible = pressed;
+        
+        // Notify FishManager to update debug visualization
+        if (fishManager != null)
+        {
+            fishManager.SetDebugVisualizer(pressed ? debugVisualizer : null);
+        }
+    }
+    
+    private void OnShowBehaviorsToggled(bool pressed)
+    {
+        if (debugVisualizer != null)
+        {
+            debugVisualizer.ShowIndividualBehaviors = pressed;
+            debugVisualizer.ShowCombinedVector = !pressed; // Toggle between modes
+        }
     }
 }
