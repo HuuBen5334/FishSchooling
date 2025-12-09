@@ -8,7 +8,7 @@
 [ext_resource type="StyleBox" uid="uid://cocnpif7ft4kh" path="res://uiBox.tres" id="4_8cye3"]
 [ext_resource type="PackedScene" uid="uid://npp7kl3rl4pc" path="res://shark.tscn" id="6_m3clv"]
 [ext_resource type="PackedScene" uid="uid://x6j6rmqr1hpd" path="res://starfish.tscn" id="7_mxnmf"]
-[ext_resource type="PackedScene" uid="uid://b33lb0spoasuc" path="res://death_effect.tscn" id="8_4eo0i"]
+[ext_resource type="PackedScene" path="res://death_effect.tscn" id="8_4eo0i"]
 [ext_resource type="PackedScene" uid="uid://dxitufn83gx03" path="res://rock.tscn" id="9_i2t4f"]
 [ext_resource type="PackedScene" uid="uid://cfxj50q31uoot" path="res://orca.tscn" id="11_2orkt"]
 
@@ -185,7 +185,7 @@ layout_mode = 0
 offset_left = 30.0
 offset_top = 513.0
 offset_right = 220.0
-offset_bottom = 620.0
+offset_bottom = 637.0
 theme_override_styles/panel = ExtResource("4_8cye3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control_HUD/Panel_Census"]
@@ -225,6 +225,26 @@ text = "Starfish: 0"
 horizontal_alignment = 1
 max_lines_visible = 1
 
+[node name="orca_fish_count_label" type="Label" parent="Control_HUD/Panel_Census/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = SubResource("Theme_1ainy")
+theme_override_fonts/font = ExtResource("3_oi3di")
+theme_override_font_sizes/font_size = 20
+text = "Orca: 0"
+horizontal_alignment = 1
+max_lines_visible = 1
+
+[node name="eel_fish_count_label" type="Label" parent="Control_HUD/Panel_Census/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = SubResource("Theme_1ainy")
+theme_override_fonts/font = ExtResource("3_oi3di")
+theme_override_font_sizes/font_size = 20
+text = "Eel: 0"
+horizontal_alignment = 1
+max_lines_visible = 1
+
 [node name="delete_button" type="Button" parent="Control_HUD/Panel_Census"]
 layout_mode = 0
 offset_left = 878.0
@@ -232,19 +252,6 @@ offset_top = 91.0
 offset_right = 1046.0
 offset_bottom = 111.0
 text = "Delete Fish"
-
-[node name="Control_HUD_Panel _Census_VBoxContainer#orca_fish_count_label" type="Label" parent="."]
-unique_name_in_owner = true
-offset_left = 93.0
-offset_top = 589.0
-offset_right = 145.0
-offset_bottom = 609.0
-theme = SubResource("Theme_1ainy")
-theme_override_fonts/font = ExtResource("3_oi3di")
-theme_override_font_sizes/font_size = 20
-text = "Orca: 0"
-horizontal_alignment = 1
-max_lines_visible = 1
 
 [node name="starfish" parent="." instance=ExtResource("7_mxnmf")]
 position = Vector2(-100, 49)
