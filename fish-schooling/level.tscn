@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cnc13cas6p04r"]
+[gd_scene load_steps=14 format=3 uid="uid://xunancnbjiql"]
 
 [ext_resource type="Texture2D" uid="uid://c7a2womj3hdkg" path="res://sprites/background_image.png" id="1_vonw3"]
 [ext_resource type="Script" uid="uid://d03sce5rmqbxu" path="res://scripts/FishManager.cs" id="2_f2txt"]
@@ -9,10 +9,13 @@
 [ext_resource type="PackedScene" uid="uid://npp7kl3rl4pc" path="res://shark.tscn" id="6_m3clv"]
 [ext_resource type="PackedScene" uid="uid://x6j6rmqr1hpd" path="res://starfish.tscn" id="7_mxnmf"]
 [ext_resource type="PackedScene" uid="uid://b33lb0spoasuc" path="res://death_effect.tscn" id="8_4eo0i"]
-[ext_resource type="PackedScene" uid="uid://dxitufn83gx03" path="res://rock.tscn" id="9_i2t4f"]
+[ext_resource type="PackedScene" uid="uid://bgi8cf0g1dwlh" path="res://rock.tscn" id="9_i2t4f"]
 [ext_resource type="PackedScene" uid="uid://cfxj50q31uoot" path="res://orca.tscn" id="11_2orkt"]
 
-[sub_resource type="FontFile" id="FontFile_f2txt"]
+[sub_resource type="FontFile" id="FontFile_2orkt"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
 cache/0/16/0/ascent = 0.0
 cache/0/16/0/descent = 0.0
 cache/0/16/0/underline_position = 0.0
@@ -25,7 +28,7 @@ cache/0/14/0/underline_thickness = 0.0
 cache/0/14/0/scale = 1.0
 
 [sub_resource type="Theme" id="Theme_1ainy"]
-default_font = SubResource("FontFile_f2txt")
+default_font = SubResource("FontFile_2orkt")
 default_font_size = 14
 
 [node name="LevelNode" type="Node2D"]
@@ -39,6 +42,7 @@ texture = ExtResource("1_vonw3")
 script = ExtResource("2_f2txt")
 
 [node name="Control_HUD" type="Control" parent="."]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -72,10 +76,10 @@ popup/item_1/text = "Shark"
 popup/item_1/id = 1
 popup/item_2/text = "Starfish"
 popup/item_2/id = 2
-popup/item_3/text = "Eel"
-popup/item_3/id = 3
-popup/item_4/text = "Orca"
-popup/item_4/id = 4
+popup/item_3/text = "Orca"
+popup/item_3/id = 4
+popup/item_4/text = "Eel"
+popup/item_4/id = 3
 
 [node name="fish_amount_spinbox" type="SpinBox" parent="Control_HUD/Panel_Spawner/VBoxContainer"]
 layout_mode = 2
@@ -180,12 +184,30 @@ max_value = 1.0
 step = 0.1
 value = 0.1
 
+[node name="pause_button" type="Button" parent="Control_HUD/Panel_Spawner"]
+layout_mode = 0
+offset_left = -790.0
+offset_top = -255.0
+offset_right = -680.0
+offset_bottom = -212.0
+toggle_mode = true
+text = "Pause/Play"
+
+[node name="home_button" type="Button" parent="Control_HUD/Panel_Spawner"]
+layout_mode = 0
+offset_left = -851.0
+offset_top = -255.0
+offset_right = -805.0
+offset_bottom = -212.0
+toggle_mode = true
+text = "Home"
+
 [node name="Panel_Census" type="Panel" parent="Control_HUD"]
 layout_mode = 0
 offset_left = 30.0
 offset_top = 513.0
 offset_right = 220.0
-offset_bottom = 620.0
+offset_bottom = 637.0
 theme_override_styles/panel = ExtResource("4_8cye3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control_HUD/Panel_Census"]
@@ -225,6 +247,26 @@ text = "Starfish: 0"
 horizontal_alignment = 1
 max_lines_visible = 1
 
+[node name="orca_fish_count_label" type="Label" parent="Control_HUD/Panel_Census/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = SubResource("Theme_1ainy")
+theme_override_fonts/font = ExtResource("3_oi3di")
+theme_override_font_sizes/font_size = 20
+text = "Orca: 0"
+horizontal_alignment = 1
+max_lines_visible = 1
+
+[node name="eel_fish_count_label" type="Label" parent="Control_HUD/Panel_Census/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = SubResource("Theme_1ainy")
+theme_override_fonts/font = ExtResource("3_oi3di")
+theme_override_font_sizes/font_size = 20
+text = "Eel: 0"
+horizontal_alignment = 1
+max_lines_visible = 1
+
 [node name="delete_button" type="Button" parent="Control_HUD/Panel_Census"]
 layout_mode = 0
 offset_left = 878.0
@@ -261,6 +303,7 @@ text = "Show Individual Behaviors"
 
 [node name="Control_HUD_Panel _Census_VBoxContainer#orca_fish_count_label" type="Label" parent="."]
 unique_name_in_owner = true
+visible = false
 offset_left = 93.0
 offset_top = 589.0
 offset_right = 145.0
@@ -290,4 +333,11 @@ position = Vector2(-253, 202)
 scale = Vector2(1.5, 1.5)
 
 [node name="Rock" parent="." instance=ExtResource("9_i2t4f")]
-position = Vector2(376, 272)
+position = Vector2(366, 256)
+
+[node name="Rock" parent="Rock" instance=ExtResource("9_i2t4f")]
+position = Vector2(369, 209)
+scale = Vector2(-1, 1)
+
+[connection signal="pressed" from="Control_HUD/Panel_Spawner/pause_button" to="Control_HUD" method="OnPausePressed"]
+[connection signal="pressed" from="Control_HUD/Panel_Spawner/home_button" to="Control_HUD" method="GoHome"]
