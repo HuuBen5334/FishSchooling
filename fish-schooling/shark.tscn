@@ -42,7 +42,6 @@ radius = 7.0
 height = 14.0
 
 [node name="shark" type="Area2D"]
-z_index = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-5, -8)
