@@ -9,10 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://npp7kl3rl4pc" path="res://shark.tscn" id="6_m3clv"]
 [ext_resource type="PackedScene" uid="uid://x6j6rmqr1hpd" path="res://starfish.tscn" id="7_mxnmf"]
 [ext_resource type="PackedScene" uid="uid://b33lb0spoasuc" path="res://death_effect.tscn" id="8_4eo0i"]
-[ext_resource type="PackedScene" uid="uid://dxitufn83gx03" path="res://rock.tscn" id="9_i2t4f"]
+[ext_resource type="PackedScene" uid="uid://bgi8cf0g1dwlh" path="res://rock.tscn" id="9_i2t4f"]
 [ext_resource type="PackedScene" uid="uid://cfxj50q31uoot" path="res://orca.tscn" id="11_2orkt"]
 
-[sub_resource type="FontFile" id="FontFile_f2txt"]
+[sub_resource type="FontFile" id="FontFile_2orkt"]
 subpixel_positioning = 0
 msdf_pixel_range = 14
 msdf_size = 128
@@ -28,7 +28,7 @@ cache/0/14/0/underline_thickness = 0.0
 cache/0/14/0/scale = 1.0
 
 [sub_resource type="Theme" id="Theme_1ainy"]
-default_font = SubResource("FontFile_f2txt")
+default_font = SubResource("FontFile_2orkt")
 default_font_size = 14
 
 [node name="LevelNode" type="Node2D"]
