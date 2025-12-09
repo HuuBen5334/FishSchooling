@@ -8,7 +8,7 @@
 [ext_resource type="StyleBox" uid="uid://cocnpif7ft4kh" path="res://uiBox.tres" id="4_8cye3"]
 [ext_resource type="PackedScene" uid="uid://npp7kl3rl4pc" path="res://shark.tscn" id="6_m3clv"]
 [ext_resource type="PackedScene" uid="uid://x6j6rmqr1hpd" path="res://starfish.tscn" id="7_mxnmf"]
-[ext_resource type="PackedScene" path="res://death_effect.tscn" id="8_4eo0i"]
+[ext_resource type="PackedScene" uid="uid://b33lb0spoasuc" path="res://death_effect.tscn" id="8_4eo0i"]
 [ext_resource type="PackedScene" uid="uid://dxitufn83gx03" path="res://rock.tscn" id="9_i2t4f"]
 [ext_resource type="PackedScene" uid="uid://cfxj50q31uoot" path="res://orca.tscn" id="11_2orkt"]
 
@@ -76,10 +76,10 @@ popup/item_1/text = "Shark"
 popup/item_1/id = 1
 popup/item_2/text = "Starfish"
 popup/item_2/id = 2
-popup/item_3/text = "Eel"
-popup/item_3/id = 3
-popup/item_4/text = "Orca"
-popup/item_4/id = 4
+popup/item_3/text = "Orca"
+popup/item_3/id = 4
+popup/item_4/text = "Eel"
+popup/item_4/id = 3
 
 [node name="fish_amount_spinbox" type="SpinBox" parent="Control_HUD/Panel_Spawner/VBoxContainer"]
 layout_mode = 2

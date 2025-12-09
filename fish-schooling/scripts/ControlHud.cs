@@ -351,8 +351,8 @@ public partial class ControlHud : Control
 			0 => "nemo",
 			1 => "shark",
 			2 => "starfish",
-			3 => "eel",
-			4 => "orca",
+			3 => "orca",
+			4 => "eel",
 			_ => selectedFish
 		};
 
