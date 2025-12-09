@@ -349,6 +349,17 @@ public partial class ControlHud : Control
 		GD.Print($"Spawning {fishCount} {selectedFish}");
 	}
 
+	private void OnPausePressed()
+	{
+		GD.Print("does this work");
+		GetTree().Paused = !GetTree().Paused;
+	}
+
+	private void GoHome()
+	{
+		GetTree().ChangeSceneToFile("res://menu.tscn");
+	}
+
 	private void OnDeletePressed()
 	{
 		if (fishManager == null)

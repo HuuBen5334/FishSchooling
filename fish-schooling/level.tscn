@@ -13,6 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://cfxj50q31uoot" path="res://orca.tscn" id="11_2orkt"]
 
 [sub_resource type="FontFile" id="FontFile_f2txt"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
 cache/0/16/0/ascent = 0.0
 cache/0/16/0/descent = 0.0
 cache/0/16/0/underline_position = 0.0
@@ -39,6 +42,7 @@ texture = ExtResource("1_vonw3")
 script = ExtResource("2_f2txt")
 
 [node name="Control_HUD" type="Control" parent="."]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -180,6 +184,23 @@ max_value = 1.0
 step = 0.1
 value = 0.1
 
+[node name="pause_button" type="Button" parent="Control_HUD/Panel_Spawner"]
+layout_mode = 0
+offset_left = -843.0
+offset_top = 170.0
+offset_right = -733.0
+offset_bottom = 213.0
+toggle_mode = true
+text = "Pause/Play"
+
+[node name="home_button" type="Button" parent="Control_HUD/Panel_Spawner"]
+offset_left = -843.0
+offset_top = -245.0
+offset_right = -733.0
+offset_bottom = -202.0
+toggle_mode = true
+text = "Home"
+
 [node name="Panel_Census" type="Panel" parent="Control_HUD"]
 layout_mode = 0
 offset_left = 30.0
@@ -272,3 +293,7 @@ scale = Vector2(1.5, 1.5)
 
 [node name="Rock" parent="." instance=ExtResource("9_i2t4f")]
 position = Vector2(376, 272)
+
+[connection signal="pressed" from="Control_HUD/Panel_Spawner/pause_button" to="Control_HUD" method="OnPausePressed"]
+[connection signal="pressed" from="Control_HUD/Panel_Spawner/home_button" to="Control_HUD" method="OnPausePressed"]
+[connection signal="pressed" from="Control_HUD/Panel_Spawner/home_button" to="Control_HUD" method="GoHome"]
