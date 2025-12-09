@@ -283,7 +283,9 @@ public partial class OrcaFish : BaseFish
 		});
 		
 		behaviors.Add(new WanderBehavior { Weight = 0.5f });
-		behaviors.Add(new SeparationBehavior { Weight = 1.5f, SafeRadius = 60.0f });
+		behaviors.Add(new AlignmentBehavior { Weight = 0.5f, PerceptionRadius = 150.0f });
+		behaviors.Add(new CohesionBehavior { Weight = 0.8f, PerceptionRadius = 150.0f });
+		behaviors.Add(new SeparationBehavior { Weight = 1.6f, SafeRadius = 30.0f });
 		behaviors.Add(new ObstacleAvoidanceBehavior {
 			Weight = 5.0f,
 			DetectionRadius = 30.0f,
