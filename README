@@ -16,7 +16,7 @@ Link to REPO: https://github.com/HuuBen5334/FishSchooling
 1. Download Godot Engine 4.4.1 with .NET support from https://godotengine.org/download
    - **IMPORTANT**: Choose "Godot Engine - .NET" version (not the standard version)
    - Version 4.4.1 is required
-   - Extract to a folder and note the path (e.g., `C:\Godot\Godot_v4.2-stable_mono_win64.exe`)
+   - Extract to a folder and note the path (e.g., `C:\Godot\Godot_v4.4.1-stable_mono_win64.exe`)
 
 2. Install .NET SDK 6.0 or later from https://dotnet.microsoft.com/download
    - Required for C# script compilation
@@ -38,7 +38,7 @@ Link to REPO: https://github.com/HuuBen5334/FishSchooling
    
    **Note**: If you haven't set up export templates yet, first run the project in editor:
 ```bash
-   "C:\Godot\Godot_v4.2-stable_mono_win64.exe" --editor
+   "C:\Godot\Godot_v4.4.1-stable_mono_win64.exe" --editor
 ```
    Then go to Project → Export → Add → Windows Desktop
 
