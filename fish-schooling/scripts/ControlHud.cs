@@ -24,6 +24,8 @@ public partial class ControlHud : Control
     private Control cohesionContainer;
     private Control alignmentContainer;
     private Dictionary<string, Label> censusLabels = new Dictionary<string, Label>();
+	//to store slider values when switching fish types
+	private Dictionary<string, Dictionary<string, float>> savedSliderValues = new Dictionary<string, Dictionary<string, float>>();
 
     //Fish configuration class - holds all settings for one fish type
     private class FishConfig
@@ -150,6 +152,17 @@ public partial class ControlHud : Control
             applyCohesion: null,
             applyAlignment: null
         );
+
+		foreach (var kvp in fishConfigs)
+        {
+            savedSliderValues[kvp.Key] = new Dictionary<string, float>
+            {
+                { "main", kvp.Value.MainSlider.DefaultValue },
+                { "separation", kvp.Value.SeparationSlider?.DefaultValue ?? 0 },
+                { "cohesion", kvp.Value.CohesionSlider?.DefaultValue ?? 0 },
+                { "alignment", kvp.Value.AlignmentSlider?.DefaultValue ?? 0 }
+            };
+        }
     }
 
     private void SetupUI()
@@ -231,17 +244,19 @@ public partial class ControlHud : Control
         if (!fishConfigs.TryGetValue(fishType, out var config))
             return;
 
+		var saved = savedSliderValues[fishType];
+
         // Configure main slider
-        ConfigureSlider(parameterSlider, parameterLabel, config.MainSlider);
+        ConfigureSlider(parameterSlider, parameterLabel, config.MainSlider, saved["main"]);
 
         // Configure separation slider
-        ConfigureSlider(separationSlider, separationLabel, config.SeparationSlider);
+        ConfigureSlider(separationSlider, separationLabel, config.SeparationSlider, saved["separation"]);
 
         // Configure cohesion slider
-        ConfigureSlider(cohesionSlider, cohesionLabel, config.CohesionSlider);
+        ConfigureSlider(cohesionSlider, cohesionLabel, config.CohesionSlider, saved["cohesion"]);
 
         // Configure alignment slider
-        ConfigureSlider(alignmentSlider, alignmentLabel, config.AlignmentSlider);
+        ConfigureSlider(alignmentSlider, alignmentLabel, config.AlignmentSlider, saved["alignment"]);
 
         //Update container visibility
         if (cohesionContainer != null)
@@ -250,23 +265,25 @@ public partial class ControlHud : Control
             alignmentContainer.Visible = config.ShowBehaviorContainers;
     }
 
-    private void ConfigureSlider(HSlider slider, Label label, SliderConfig config)
+    private void ConfigureSlider(HSlider slider, Label label, SliderConfig config, float savedValue)
     {
         if (config == null || slider == null)
             return;
 
         slider.MinValue = config.Min;
         slider.MaxValue = config.Max;
-        slider.Value = config.DefaultValue;
+        slider.Value = savedValue;
 
         if (label != null)
-            label.Text = $"{config.LabelText}: {config.DefaultValue:F0}";
+            label.Text = $"{config.LabelText}: {savedValue:F0}";
     }
 
     private void OnMainSliderChanged(double value)
     {
         if (!fishConfigs.TryGetValue(selectedFish, out var config))
             return;
+
+        savedSliderValues[selectedFish]["main"] = (float)value;  //Save the value
 
         if (parameterLabel != null)
             parameterLabel.Text = $"{config.MainSlider.LabelText}: {value:F0}";
@@ -279,6 +296,8 @@ public partial class ControlHud : Control
         if (!fishConfigs.TryGetValue(selectedFish, out var config) || config.SeparationSlider == null)
             return;
 
+        savedSliderValues[selectedFish]["separation"] = (float)value;  //Save the value
+
         if (separationLabel != null)
             separationLabel.Text = $"{config.SeparationSlider.LabelText}: {value:F0}";
 
@@ -290,6 +309,8 @@ public partial class ControlHud : Control
         if (!fishConfigs.TryGetValue(selectedFish, out var config) || config.CohesionSlider == null)
             return;
 
+        savedSliderValues[selectedFish]["cohesion"] = (float)value;  //Save the value
+
         if (cohesionLabel != null)
             cohesionLabel.Text = $"{config.CohesionSlider.LabelText}: {value:F0}";
 
@@ -300,6 +321,8 @@ public partial class ControlHud : Control
     {
         if (!fishConfigs.TryGetValue(selectedFish, out var config) || config.AlignmentSlider == null)
             return;
+
+        savedSliderValues[selectedFish]["alignment"] = (float)value;  //Save the value
 
         if (alignmentLabel != null)
             alignmentLabel.Text = $"{config.AlignmentSlider.LabelText}: {value:F0}";
