@@ -24,10 +24,10 @@ public partial class FishManager : Node2D
 	public override void _Ready()
 	{
 		// Spawn some initial fish
-		CallDeferred(nameof(SpawnFish), "nemo", 5);
+		CallDeferred(nameof(SpawnFish), "nemo", 5, 100.0f);
 	}
 
-	public void SpawnFish(string type, int count)
+	public void SpawnFish(string type, int count, float nemoSpeed = 100.0f)
 	{
 
 		int currentNemo = allFish.Count(f => f.FishType == "nemo");
@@ -77,13 +77,12 @@ public partial class FishManager : Node2D
 
 		for (int i = 0; i < actualSpawnCount; i++)
 		{
-			
 			BaseFish newFish = null;
-
 			switch (type.ToLower())
 			{
 				case "nemo":
 					newFish = new NemoFish();
+					newFish.MaxSpeed = nemoSpeed;
 					break;
 				case "shark":
 					newFish = new SharkFish();

@@ -95,7 +95,7 @@ namespace FishBehaviors
 		}
 	}
 
-	// Separation: Avoid crowding neighbors (FIXED to match original)
+	// Separation: Avoid crowding neighbors
 	public class SeparationBehavior : ISteeringBehavior
 	{
 		public float Weight { get; set; } = 2.0f;

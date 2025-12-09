@@ -32,6 +32,33 @@ public partial class NemoFish : BaseFish
 			ObstacleGroup = "obstacles"
 		});
 	}
+
+	public void SetSeparation(float radius)
+	{
+		foreach (var behavior in behaviors)
+		{
+			if (behavior is SeparationBehavior separation)
+				separation.SafeRadius = radius;
+		}
+	}
+
+	public void SetCohesion(float radius)
+	{
+		foreach (var behavior in behaviors)
+		{
+			if (behavior is CohesionBehavior cohesion)
+				cohesion.PerceptionRadius = radius;
+		}
+	}
+
+	public void SetAlignment(float radius)
+	{
+		foreach (var behavior in behaviors)
+		{
+			if (behavior is AlignmentBehavior alignment)
+				alignment.PerceptionRadius = radius;
+		}
+	}
 }
 
 public partial class SharkFish : BaseFish
@@ -52,9 +79,19 @@ public partial class SharkFish : BaseFish
 		sprite = instance.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		sprite.Play("shark_swim");
 		sprite.Modulate = new Color(0.5f, 0.5f, 0.5f); // Darker
-		// Scale = new Vector2(1.5f, 1.5f); // Bigger
 		SetupCollision(instance);
 	}
+
+	public void SetPursuitRadius(float radius)
+    {
+        foreach (var behavior in behaviors)
+        {
+            if (behavior is PursuitBehavior pursuit)
+            {
+                pursuit.HuntRadius = radius;
+            }
+        }
+    }
 
 	protected override void SetupBehaviors()
 	{
@@ -283,7 +320,9 @@ public partial class OrcaFish : BaseFish
 		});
 		
 		behaviors.Add(new WanderBehavior { Weight = 0.5f });
-		behaviors.Add(new SeparationBehavior { Weight = 1.5f, SafeRadius = 60.0f });
+		behaviors.Add(new AlignmentBehavior { Weight = 0.5f, PerceptionRadius = 150.0f });
+		behaviors.Add(new CohesionBehavior { Weight = 0.8f, PerceptionRadius = 150.0f });
+		behaviors.Add(new SeparationBehavior { Weight = 1.6f, SafeRadius = 30.0f });
 		behaviors.Add(new ObstacleAvoidanceBehavior {
 			Weight = 5.0f,
 			DetectionRadius = 30.0f,
@@ -319,5 +358,32 @@ public partial class OrcaFish : BaseFish
 			fishManager.RemoveFish(fish);
 		}
 		fish.QueueFree();
+	}
+
+	public void SetSeparation(float radius)
+	{
+		foreach (var behavior in behaviors)
+		{
+			if (behavior is SeparationBehavior separation)
+				separation.SafeRadius = radius;
+		}
+	}
+
+	public void SetCohesion(float radius)
+	{
+		foreach (var behavior in behaviors)
+		{
+			if (behavior is CohesionBehavior cohesion)
+				cohesion.PerceptionRadius = radius;
+		}
+	}
+
+	public void SetAlignment(float radius)
+	{
+		foreach (var behavior in behaviors)
+		{
+			if (behavior is AlignmentBehavior alignment)
+				alignment.PerceptionRadius = radius;
+		}
 	}
 }
