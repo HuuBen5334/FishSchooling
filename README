@@ -30,13 +30,7 @@ Link to REPO: https://github.com/HuuBen5334/FishSchooling
 ```bash
    cd FishSchooling-main/fish-schooling
 ```
-4. Build and run using Godot command line:
-```bash
-   # Replace the path with your actual Godot executable location
-   "C:\Godot\Godot_v4.4.1-stable_mono_win64.exe" --export-release "Windows Desktop" ./FishSchooling.exe
-```
-   
-   **Note**: If you haven't set up export templates yet, first run the project in editor:
+ **Note**: If you haven't set up export templates yet, first run the project in editor:
 ```bash
    "C:\Godot\Godot_v4.4.1-stable_mono_win64.exe" --editor
 ```
@@ -45,7 +39,12 @@ Link to REPO: https://github.com/HuuBen5334/FishSchooling
    Then go to Project → Export → Add → Windows Desktop
 
    Ensure that the Export Path is set to `./FishSchooling.exe`
-
+```
+4. Build and run using Godot command line:
+```bash
+   # Replace the path with your actual Godot executable location
+   "C:\Godot\Godot_v4.4.1-stable_mono_win64.exe" --export-release "Windows Desktop" ./FishSchooling.exe
+```
 5. The executable will be created in the `fish-schooling` folder as `FishSchooling.exe`
 
 ### Method 2: From Git Repository
