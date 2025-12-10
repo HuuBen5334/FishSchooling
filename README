@@ -40,6 +40,8 @@ Link to REPO: https://github.com/HuuBen5334/FishSchooling
 ```bash
    "C:\Godot\Godot_v4.4.1-stable_mono_win64.exe" --editor
 ```
+   In Godot:
+   Go to go to Editor → Manage Export Templates → Click Download and Install
    Then go to Project → Export → Add → Windows Desktop
 
    Ensure that the Export Path is set to `./FishSchooling.exe`
